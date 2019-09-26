@@ -1,0 +1,57 @@
+		/*  
+		* 		jCombox 1.0b | 2008.08.25
+		*		jQuery: HTML Select Tag Replacement Plugin 1.0b
+		*		Licensed under a Creative Commons Attribution 3.0 License
+		*
+		*		Tested to work on Firefox2/3, IE6/7, Safari3.1(Win) and Opera9.5 versions
+		*		Limitations: no keyboard usage + no multiple selections > checkout next version
+		*		_______________________________________________
+		* 		http://jquerylab.com | Sponsored by http://12tb.com
+		*		ruvanepa@gmail.com
+		*
+		*		How-to use: $('.select').jcombox();
+		*			or replce all <select> tags: $('select').jcombox();
+		*/
+		
+		/*******************jCombox CSS : DO NOT EDIT THIS******************************/
+		
+		.jcombox *, .jcombox-m * { line-height: 1.7;}
+		.jcombox, .jcombox-m {  margin:0 3px; float: left; clear:left; white-space: nowrap;  }
+		.jcombox {  position: relative !important; left:0; background-repeat: no-repeat; background-position: right 51%; background-image	: url('/bbs/img/arrow.gif'); vertical-align:middle; cursor:default; padding-right:2px;}
+		.jcombox-m { overflow: auto;  overflow-x: hidden;} 
+		.jcombox a, .jcombox-m a { outline: 0px; display: block;  font-weight: normal; padding: 0 3px; text-decoration: none !important;}
+		.jcombox a:hover, .jcombox-m a:hover{ background-color: #efefef; text-decoration: none !important; }
+		
+		.jcombox a.disabled, .jcombox-m a.disabled { color:#c0c0c0 !important;}
+		
+		.actext { padding: 1px 0px 0px 3px; }
+		
+		.jcombox span, .jcombox-m div { background: #fff;}
+		.jcombox span{ display: block; overflow: hidden; margin-right: 20px; padding:0 0px 0px 5px; }
+		
+		.jcombox-m div { overflow: hidden;}
+		.jcombox div { background: #fff; display: none; position: absolute !important; left:-1px !important;top:20px !important; z-index: 300 !important; background-color: #fff; overflow: auto; overflow-x: hidden; /*border-top: 0px;*/ }
+		.jcombox-m .current { font-weight: bold; }
+		
+		/**********************End******************************/
+		
+		
+		
+		
+		/*******jCombox Themes: 'default' *******/
+		.default { 
+			border				: 1px solid #cccccc;
+			color					: #565960;
+			font-size			: 13px;
+			font-weight			: normal;
+			background-color	: #fff;
+
+			
+		}
+		.default .menu { border: 1px solid #cccccc; }
+		.default-hover { border-color: #cccccc;}
+		.default .current { background-color: #efefef !important; color: #565960  !important;}
+		
+		
+		
+		

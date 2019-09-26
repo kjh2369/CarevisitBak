@@ -1,0 +1,30 @@
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<title>2014평가자료</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='imagetoolbar' content='no'>
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<script type="text/javascript">
+	function Request_pop(){
+		//var Top = (window.screen.height-320) /2;
+		//var Left = (window.screen.width-635) /2;
+		var Top = '100px';
+		var Left = '50px';
+
+		window.open('request.php','REPORT_2014','resizable=no scrollbars=no width=635 height=350 Top='+Top+' left='+Left+'');
+		
+	}
+</script>
+</head>
+<body  style="margin:0; padding:0;">
+<div style="position:relative; background:#f2f2f2 url(./img/pop.jpg) left top no-repeat; width:600px; height:347px">
+<div style="position:absolute;  top:12px; right:25px; width:210px; height:43px;"><a href="#" onclick="Request_pop();" /><img src="./img/btn.png" alt="신청하기" style="border:0"/></a></div>
+<div style="position:absolute;  top:263px; left:242px; width:134px; height:34px;"><a href="#" onclick="opener.location.href='../../report2014/index.php?report_menu=10&menuTopId=M';"/><img src="./img/btn2.png" alt="바로가기" style="border:0"/></a></div>
+</body>
+</html>
+<script type="text/javascript">
+	self.focus();
+</script>

@@ -1,0 +1,180 @@
+<?
+	include_once('../../inc/_db_open.php');
+	include_once('../../inc/_login.php');
+	include_once('../../inc/_myFun.php');
+
+	$orgNo	= $_SESSION['userCenterCode'];
+
+	$sql = 'SELECT	stop_gbn, close_dt, def_txt, def_amt, other
+			FROM	stop_set
+			WHERE	org_no	= \''.$orgNo.'\'
+			AND		cls_yn	= \'N\'
+			AND		stop_yn	= \'N\'
+			AND		DATE_FORMAT(NOW(),\'%Y%m%d\') BETWEEN stop_dt AND close_dt';
+
+	$row = $conn->get_array($sql);
+
+	include_once('../../inc/_db_close.php');
+
+	if ($row['stop_gbn'] == '1'){
+		$guide_str = '중지 안내';
+	}else {
+		$guide_str = '미납 안내';
+	}
+?>
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<title>케어비지트 <?=$guide_str;?></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='imagetoolbar' content='no'>
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+
+<style type="text/css">
+body,a, abbr, acronym, address, applet, article, aside, audio,b, blockquote, big,center, canvas, caption, cite, code, command,datalist,del, details, dfn, div,
+em, embed,fieldset, figcaption, figure, font, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html,i, iframe, img, ins,kbd, keygen,label, legend, li,meter,nav, menu,
+object, ol, output,p, pre, progress,q,s, samp, section, small, span, source, strike, strong, sub, sup,table, tbody, tfoot, thead, th, tr, tdvideo, tt,u, ul, var
+{margin:0; padding:0; border:0; font-size:9pt;}
+
+dl,dt,dd {margin:0; padding:0; border:0;}
+table { border-collapse:collapse; border-spacing:0; table-layout:fixed; }
+button { margin:0; padding:0; border:0; font:inherit; color:inherit; background:transparent; overflow:visible; cursor:pointer; line-height:0; vertical-align:middle; }
+legend, caption ,hr { position:absolute; top:0; left:0; width:1px; height:1px; visibility:hidden; font-size:0; line-height:0; }
+input { font:inherit; line-height:1em; font-size:9pt;}
+select { height:20px; font:inherit; color:inherit; vertical-align:middle; font-size:9pt;}
+textarea { font:inherit; color:inherit;}
+img { vertical-align:top; border:none;}
+
+legend, hr { overflow:hidden; position:absolute; top:0; left:0}
+legend, hr, caption { visibility:hidden; font-size:0; width:0; height:0; line-height:0}
+
+/* hidden */
+.hidden, #contents .hidden { visibility:hidden; position:absolute; font-size:0; width:0; height:0; line-height:0; margin:0; padding:0; background:none;}
+
+body { font-family: Dotum,Gulim,AppleGothic,Sans-serif; color:#2a2a2a;line-height:1.5em; font-size:9pt;}
+
+/*write
+============================================================*/
+#WirteForm{margin-top:10px;}
+#WirteForm p.check{ margin:0; padding-right:5px; text-align:right;}
+#WirteForm p.check img{vertical-align:middle;}
+.write_type,.write_type th,.write_type td{border:0;}
+.write_type{width:400px;border-top:2px solid #156424; font-size:12px;table-layout:fixed;}
+.write_type caption{display:none}
+.write_type th{padding:10px 0 10px 20px; border-bottom:1px solid #dcdcdc; border-right:1px solid #dcdcdc; background-color:#f2f2f2; font-weight:bold;text-align:left;}
+.write_type th label	{display:block;}
+.write_type th img{vertical-align:middle;}
+.write_type td{padding:10px 0 10px 20px; border-bottom:1px solid #e0e4e7; text-align:left;  line-height:1.5em; }
+.write_type td select{border:1px solid #cccccc; vertical-align:middle; height:20px; line-height:18px; padding:2px;}
+.write_type td input{border:1px solid #cccccc; vertical-align:middle; height:26px; line-height:22px; padding-left:5px;}
+.write_type td textarea{ border:1px solid #cccccc; width:90%; height:100px; padding:5px; color:#565960;}
+
+p a{font-size:9pt; color:#777;}
+p strong{font-size:9pt; color:#c21b06;}
+p a.path_home{position:relative; top:4px;}
+p a:hover, #right #location p a:focus, #right #loaction p a:active {text-decoration:none; }
+h2{font-size:30px;}
+h3{ letter-spacing:-1px; word-spacing:-1px; font-size:17px; margin-top:20px; background:transparent url( ./icon_black.png) left 40% no-repeat; padding-left:10px;}
+strong{color:#333;}
+ h4{margin-top:5px; color:#2a589f; font-size:14px;}
+p { display:block;  font-size:12px;}
+
+.mg_top5{margin-top:5px;}
+.mg_top10{margin-top:10px;}
+.mg_top15{margin-top:15px;}
+.mg_top26{margin-top:26px;}
+.mg_top35{margin-top:35px;}
+
+.mg_left0{margin-left:0;}
+.mg_left8{margin-left:8px;}
+.mg_left16{margin-left:16px;}
+.mg_left20{margin-left:20px;}
+.mg_left22{margin-left:22px;}
+.mg_btm15{margin-bottom:15px;}
+</style>
+
+</head>
+<script language='javascript'>
+	function setCookie(name, value, expiredays ){
+		var todayDate = new Date();
+			todayDate.setDate( todayDate.getDate() + expiredays );
+
+		document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+	}
+	function end(){
+		var f = document.f;
+
+		if (f.check.checked){
+			setCookie('STOPPOP','DONE',1);
+		}
+
+		self.close();
+	}
+</script>
+<body  style="margin-bottom:30px;">
+<p style="color:WHITE; font-weight:bold; font-size:17pt; font-family:바탕체; height:66px; padding-top:25px; padding-left:10px; background:url('./title_place_bg.png') no-repeat;">
+	<span style="color:#FFE400; font-size:17pt; letter-spacing:-1px;"><?=$_SESSION['userCenterName'];?></span>
+	<?=$guide_str;?>
+</p>
+	<!-- 대구,경북,경남 지역-->
+	<h3 class="mg_left22">사용요금이 미납되었습니다.</h3><?
+
+	if ($row['stop_gbn'] == '1'){?>
+		<p class="mg_left22 mg_top15" style="font-size:17px; font-weight:bold; background:transparent url( ./icon_black.png) left 40% no-repeat; padding-left:10px;"><?=$myF->dateStyle($row['close_dt'],'KOR');?> 부로 사용을 일시 중지합니다.</p>
+		<p class="mg_top15 mg_left22" style="font-size:15px; font-weight:bold; color:#9f0202; font-weight:bold;">( 입금 확인 완료시 정상 사용 가능합니다.)</p><?
+	}?>
+	<p class="mg_top15 mg_left22" style="font-size:16px; font-weight:bold; color:#9f0202; font-weight:bold; ">문의전화 : 02-6952-9253</p>
+		<table  class="write_type mg_top15 mg_left22" border="1" cellspacing="0" summary="세미나 장소,시간,주소,전화">
+			<caption>대구,경북,경남 세미나장소</caption>
+			<colgroup>
+				<col width="100" />
+				<col width="*"/>
+			</colgroup>
+			<tbody>
+				<tr>
+					<th scope="row"><label for="BoardRank">미납 내역</label></th>
+					<td style="font-size:13px; font-weight:bold;"><?=$row['def_txt'];?></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="BoardName">미납 금액</label></th>
+					<td style="font-size:18px; font-weight:bold; color:#9f0202;"><?=number_format($row['def_amt']);?>원</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="BoardName">비고</label></th>
+					<td style="font-size:13px; font-weight:bold;"><?=nl2br($row['other']);?></td>
+				</tr>
+			</tbody>
+		</table>
+   <h3 class="mg_left22">입금계좌</h3>
+		<table  class="write_type mg_top10 mg_left22" style="border-top:2px solid #474747;" border="1" cellspacing="0" summary="세미나 장소,시간,주소,전화">
+			<caption>대구,경북,경남 세미나장소</caption>
+			<colgroup>
+				<col width="100" />
+				<col width="*"/>
+			</colgroup>
+			<tbody>
+				<tr>
+					<th scope="row"><label for="BoardRank">계좌번호</label></th>
+					<td style="font-size:17px; font-weight:bold;">농협&nbsp;&nbsp; 301-0164-4623-31</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="BoardName" >예금주</label></th>
+					<td style=" font-weight:bold;" >(주)케어비지트</td>
+				</tr>
+			</tbody>
+		</table>
+
+<table style="width:100%;">
+	<tr>
+		<td style="padding-top:10px; padding-left:20px;">
+			<form name="f" method="post" action="">
+			<label><input type="checkbox" name="check" value="checkbox"  style="border:0;" onClick="end();"/>오늘 하루동안 열지않기</label>
+			<a href="#" onclick="end();">닫기</a>
+			</form>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

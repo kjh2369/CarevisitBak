@@ -1,0 +1,2136 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>급여계약내용등록(재가)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<link rel="stylesheet" type="text/css" href="/portal/ny/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/portal/ny/css/new.css" />
+<style>
+    .sjBlackBtn {
+        background-attachment: scroll;
+        background-color: transparent;
+        background-image: url("/portal/ny/img/D/common/bg/bgButton02.gif");
+        background-position-x: 100%;
+        background-position-y: 0px;
+        background-repeat: no-repeat;
+        color: #ffffff;
+        display: inline-block;
+    }
+</style>
+<script language="javascript" src="/portal/ny/js/p/a/nypa_Calendar.js"></script>
+<script language="javascript" src="/portal/ny/js/CommonScript.js"></script>
+<script type="text/javascript" src="/portal/ny/js/common.js"></script>
+<script type="text/javascript" src="/portal/ny/js/p/a/nypa_nctrpay.js"></script>
+<script type="text/javascript" src="/portal/ny/js/netfunnel.js" charset=utf-8></script>
+<!--//+sj --><script type="text/javascript" src="/portal/ny/js/jquery-latest.js"></script>
+<script type="text/javascript" src="/portal/ny/js/p/a/nypa_sj.js"></script>
+<script language="javascript">
+
+function fn_temp(arg){
+	fn_JUsubmit(arg);
+}
+
+var p100ResultString = "";
+var p100ResultMsg = "";
+
+var togatherExtString = "";
+function init(){
+	document.form1.longTermAdminSym.value = "31135000074";
+	document.form1.longTermAdminNm.value = "";
+	document.form1.adminKindCd.value = "";
+	document.form1.adminPttnCd.value = "";
+	document.form1.serviceKind.value = "001";
+	document.form1.payMm.value = "201304";
+	document.form1.size.value = 30;
+	document.form1.payCtrNo.value = "100005132115";
+	document.form1.longTermMgmtNo.value = "L0010412333";
+	document.form1.longTermMgmtSeq.value = "105";
+	document.form1.tgtJuminNo.value = "3105262042511";
+
+	document.form1.admtGradeCd.value = "2";
+
+	document.form1.careValue.value = "";
+	document.form1.scriptValue.value = "";
+
+	document.form1.firstDn20Yn.value = "N";
+	document.form1.addDn20Yn.value = "";
+
+	document.form1.firstDn20.value = "0";
+	document.form1.addDn20.value = "";
+
+
+	document.form1.longTermMgmtNoFirstTotAmt.value = "686400";
+    document.form1.longTermMgmtNoFirstAddAmt.value = "";
+    document.form1.longTermMgmtNoFirstTotCnt.value = "30";
+    document.form1.longTermMgmtNoFirstAddCnt.value = "";
+    document.form1.longTermMgmtNoFirstTotLimit.value = "1003700";
+    document.form1.longTermMgmtNoFirstAddLimit.value = "";
+
+
+		    if("201304" == "201503")
+		    {
+		    	if("" == "7")
+		    	{
+		    		document.getElementById("infoSpan").innerText = "2015.03.15"
+		    		                                                + "  " + "24"
+		    		                                                       + ":" + "00"
+		    		                                                + " 해지 처리 하셨습니다.";
+		   		}
+		   		else if("" == "6")
+		   		{
+		   			document.getElementById("infoSpan").innerText = "2015.03.15"
+		    		                                                + "  " + "24"
+		    		                                                       + ":" + "00"
+		   			                                                + " 사망 처리 하셨습니다.";
+		   		}
+		   		else
+		   			document.getElementById("infoSpan").innerText = "";
+			}
+			else
+				document.getElementById("infoSpan").innerText = "";
+
+
+	calTotCnt();
+	opener.fn_refresh();
+
+	document.form1.entryMsg.value = "";
+	alertEntryMsg();
+
+	// NetFUNNEL setComplete
+	// Test 58.181.39.178 , Service 210.178.135.226
+	NetFunnel_init(null,{host:"58.181.39.178"});
+	NetFunnel_setComplete();
+
+	addOption_familyRelCd();
+
+	// IF-G-100 result message 처리
+
+	var g100ResultString = "";
+	var g100ResultMsg = "";
+	if ( g100ResultString == "Y" ) {
+		alert(g100ResultMsg);
+	}
+
+	p100ResultString = "";
+	p100ResultMsg = "";
+//	if ( p100ResultString == "Y" ) {
+//		alert(p100ResultMsg);
+//	}
+
+
+    // 20121017 이승진
+    // 가족관계가 체크되어 있으면....
+    $("#careRow tr").each(function (row) {
+        // 헤더 제외.
+        if ( row > 0 ) {
+            // 19번째 칼럼 가족여부.
+            var col = $(this).find("th").eq(19);
+            var colHtml = col.html();
+
+            //alert("html(): " + colHtml );
+
+            var pos = colHtml.indexOf("CHECKED");
+            //alert(pos);
+
+            // checked
+            if ( pos > -1 ) {
+                if ( p100ResultString == "Y" ) {
+                    if (p100ResultMsg != "")
+                    {
+                        alert(p100ResultMsg);                                       // 치매관련하여 90분 이상 비용을 산정할 수 있는 수급자입니다.
+                    }
+                }
+            }
+        }
+    });
+}
+
+var familyRelCd_options = [];
+
+		var facd = {};
+		facd.baseCd = "S031";
+		facd.baseCdNm = "처";
+
+		familyRelCd_options.push(facd);
+
+		var facd = {};
+		facd.baseCd = "S032";
+		facd.baseCdNm = "남편";
+
+		familyRelCd_options.push(facd);
+
+		var facd = {};
+		facd.baseCd = "S033";
+		facd.baseCdNm = "자";
+
+		familyRelCd_options.push(facd);
+
+		var facd = {};
+		facd.baseCd = "S034";
+		facd.baseCdNm = "자부";
+
+		familyRelCd_options.push(facd);
+
+		var facd = {};
+		facd.baseCd = "S035";
+		facd.baseCdNm = "사위";
+
+		familyRelCd_options.push(facd);
+
+		var facd = {};
+		facd.baseCd = "S036";
+		facd.baseCdNm = "형제자매";
+
+		familyRelCd_options.push(facd);
+
+		var facd = {};
+		facd.baseCd = "S037";
+		facd.baseCdNm = "손";
+
+		familyRelCd_options.push(facd);
+
+		var facd = {};
+		facd.baseCd = "S038";
+		facd.baseCdNm = "배우자의형제자매";
+
+		familyRelCd_options.push(facd);
+
+		var facd = {};
+		facd.baseCd = "S039";
+		facd.baseCdNm = "외손";
+
+		familyRelCd_options.push(facd);
+
+		var facd = {};
+		facd.baseCd = "S040";
+		facd.baseCdNm = "부모";
+
+		familyRelCd_options.push(facd);
+
+		var facd = {};
+		facd.baseCd = "S041";
+		facd.baseCdNm = "기타";
+
+		familyRelCd_options.push(facd);
+
+
+// 소숫점이하 버림
+function floor(val) {
+	var s = "" + val;
+	if ( s.indexOf(".") == -1)
+		return s;
+
+	return s.substring(0,s.indexOf("."));
+}
+
+function addOption_familyRelCd() {
+
+	$("select.familyRelCd").each(function(row) {
+
+		// 저장된 가족관계 코드 확인
+		var saved = $("#_familyRel1" + row).val();
+		//alert(saved);
+
+		this.add(new Option('선택', '00', false, '00' == saved ));
+
+		for( var i=0; i<familyRelCd_options.length; i++) {
+			this.add(new Option(familyRelCd_options[i].baseCdNm, familyRelCd_options[i].baseCd, false, familyRelCd_options[i].baseCd == saved ));
+		}
+	});
+
+}
+
+function enableOptions(checkEl, optionId) {
+	if ( checkEl.checked == true) {
+		//alert("가족관계를 선택하세요.");
+		$("#" + optionId).each(function() {
+			this.disabled = false;
+		});
+	} else {
+		$("#" + optionId).each(function() {
+			this.selectedIndex = 0;
+			this.disabled = true;
+		});
+	}
+	if ( p100ResultString == "Y" && checkEl.checked == true) {
+		if (p100ResultMsg != "")
+		{
+			alert(p100ResultMsg);                                       // 치매관련하여 90분 이상 비용을 산정할 수 있는 수급자입니다.
+		}
+	}
+    calTotCnt();
+}
+</script>
+</head>
+
+
+<body onload="init();">
+
+<form name="form1" method="post">
+<input type="hidden" name="longTermAdminSym">
+<input type="hidden" name="longTermAdminNm">
+<input type="hidden" name="adminKindCd">
+<input type="hidden" name="adminPttnCd">
+<input type="hidden" name="serviceKind">
+<input type="hidden" name="sugaCd">
+<input type="hidden" name="sugaNm">
+<input type="hidden" name="payMm">
+<input type="hidden" name="size">
+<input type="hidden" name="payCtrNo">
+<input type="hidden" name="longTermMgmtNo">
+<input type="hidden" name="longTermMgmtSeq">
+<input type="hidden" name="tgtJuminNo">
+<input type="hidden" name="careValue">
+<input type="hidden" name="scriptValue">
+<input type="hidden" name="cnclValue">
+<input type="hidden" name="entryMsg">
+<input type="hidden" name="fnc">
+<input type="hidden" name="firstDn20Yn">
+<input type="hidden" name="firstDn20">
+<input type="hidden" name="addDn20Yn">
+<input type="hidden" name="addDn20">
+
+<input type="hidden" name="longTermMgmtNoFirstTotAmt">
+<input type="hidden" name="longTermMgmtNoFirstAddAmt">
+<input type="hidden" name="longTermMgmtNoFirstTotCnt">
+<input type="hidden" name="longTermMgmtNoFirstAddCnt">
+<input type="hidden" name="longTermMgmtNoFirstTotLimit">
+<input type="hidden" name="longTermMgmtNoFirstAddLimit">
+<input type="hidden" name="prtMessgeYn" value="N">
+<input type="hidden" name="exceedprtMsgYn" value="Y">
+<input type="hidden" name="messageYn" value="Y">
+<input type="hidden" name="admtGradeCd" value="">
+
+
+
+<h3><img src="/portal/ny/img/A/03/h3_title.gif" alt="계약자" />급여계약 내용일정 등록,변경,해지 (재가)</h3>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+                   * 급여계약서를  등록한 <font color="blue">의료급여수급자(기초수급자 포함)</font>중 수급자의 주소지 관할 지자체에서 발급한<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+                    <font color="red"><b>입소이용의뢰서(재가서비스 이용내역서)</b></font> 없이 급여를 제공한 경우에는 급여비용 지급이 되지 않습니다.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img src="/portal/ny/img/A/button/print.gif" alt="인쇄" onclick="fn_prChgPrt();" style="cursor:hand;">
+                    <br><br><br>
+<div id="TableData1" style="position:relative; width:1000px; height:100%; z-index:1; overflow-y: auto; visibility: visible">
+	<table border="0" width="1000px">
+		<tr>
+			<td width="100%">
+				<table align="center" class="default">
+					<colgroup>
+						<col width="10%"/>
+						<col width="20%"/>
+						<col width="10%"/>
+						<col width="25%"/>
+						<col width="10%"/>
+						<col width="25%"/>
+					</colgroup>
+					<tr>
+						<th>수급자</th>
+						<td>이원섭</td>
+						<th>인정기간</th>
+						<td>2013.03.16 ~ 2015.03.15</td>
+						<th>계약기간</th>
+						<td>2013.03.16 ~ 2015.03.15</td>
+					</tr>
+					<tr>
+						<th>년월</th>
+						<td colspan="5">
+
+							<a href="#" onclick="selectPayMm('3','201303')"><font color="blue" >2013.03</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201304')"><font color="red"  size="3" style="font-weight:bold">2013.04</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201305')"><font color="blue" >2013.05</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201306')"><font color="red" >2013.06</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201307')"><font color="blue" >2013.07</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201308')"><font color="red" >2013.08</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201309')"><font color="blue" >2013.09</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201310')"><font color="red" >2013.10</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201311')"><font color="blue" >2013.11</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201312')"><font color="red" >2013.12</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201401')"><font color="blue" >2014.01</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201402')"><font color="red" >2014.02</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201403')"><font color="blue" >2014.03</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201404')"><font color="red" >2014.04</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201405')"><font color="blue" >2014.05</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201406')"><font color="red" >2014.06</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201407')"><font color="blue" >2014.07</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201408')"><font color="red" >2014.08</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201409')"><font color="blue" >2014.09</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201410')"><font color="red" >2014.10</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201411')"><font color="blue" >2014.11</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201412')"><font color="red" >2014.12</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201501')"><font color="blue" >2015.01</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201502')"><font color="red" >2015.02</font></a>
+
+
+							<a href="#" onclick="selectPayMm('3','201503')"><font color="blue" >2015.03</font></a>
+
+
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+<div class="nheight"></div><hr><!-- 높이 조절 -->
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1. 요양요원(간호사)을 추가하시고 방문일정을 선택하시고 나서, 다시 요양요원을 추가하면 기존 선택된 방문일정 내용이 사라지므로, 저장후 요양요원을 추가하시기 바랍니다.
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2. 방문일정 출력은 장기요양요원관리에서 가능합니다.
+<br>
+
+<img src= "/portal/ny/img/A/02/tab02_08_on.gif" style="margin-left:4px;" alt="급여일정등록변경">
+
+<div id="TableData3" style="position:relative; width:1330px; height:100%; z-index:1; overflow-y: auto; visibility: visible">
+	<table class="default" style="width:100%" id="careRow">
+		<colgroup>
+			<col width="5%"/>
+			<col width="7%"/>
+			<col width="8%"/>
+			<col width="4%"/> <!-- 동거여부-->
+			<col width="4%"/> <!-- 가족여부-->
+			<col width="8%"/> <!-- 가족관계-->
+			<col width="8%"/>
+			<col width="4%"/>
+			<col width="4%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+			<col width="2%"/>
+
+		</colgroup>
+		<tr>
+			<th>삭제</th>
+			<th style="display:none;">VISIT_SEQ</th>
+			<th style="display:none;">요양요원자격증번호</th>
+			<th style="display:none;">요양요원자격종별</th>
+			<th style="display:none;">요양요원주민번호</th>
+			<th style="display:none;">요양요원성명</th>
+
+
+
+			<th style="display:none;">수가코드</th>
+			<th style="display:none;">수가금액</th>
+
+
+			<th>요양요원<br><img src="/portal/ny/img/A/button/btn_c_search.gif" style="margin-left:4px;cursor:hand;" alt="장기요양요원추가" onclick="addCare();"></th>
+
+			<th>수가명</th>
+			<th>동거<br>여부</th>
+			<!-- //+sj -->
+			<th>가족<br>여부</th>
+			<th>가족관계<br>코드</th>
+
+			<th>시간</th>
+			<th>총횟수</th>
+			<th>전체<br>선택</th>
+
+
+			<th id="dt0"  style="color:'';">1 (월)</th>
+
+			<th id="dt1"  style="color:'';">2 (화)</th>
+
+			<th id="dt2"  style="color:'';">3 (수)</th>
+
+			<th id="dt3"  style="color:'';">4 (목)</th>
+
+			<th id="dt4"  style="color:'';">5 (금)</th>
+
+			<th id="dt5"  style="color:blue;" >6 (토)</th>
+
+			<th id="dt6"  style="color:red;" >7 (일)</th>
+
+			<th id="dt7"  style="color:'';">8 (월)</th>
+
+			<th id="dt8"  style="color:'';">9 (화)</th>
+
+			<th id="dt9"  style="color:'';">10 (수)</th>
+
+			<th id="dt10"  style="color:'';">11 (목)</th>
+
+			<th id="dt11"  style="color:'';">12 (금)</th>
+
+			<th id="dt12"  style="color:blue;" >13 (토)</th>
+
+			<th id="dt13"  style="color:red;" >14 (일)</th>
+
+			<th id="dt14"  style="color:'';">15 (월)</th>
+
+			<th id="dt15"  style="color:'';">16 (화)</th>
+
+			<th id="dt16"  style="color:'';">17 (수)</th>
+
+			<th id="dt17"  style="color:'';">18 (목)</th>
+
+			<th id="dt18"  style="color:'';">19 (금)</th>
+
+			<th id="dt19"  style="color:blue;" >20 (토)</th>
+
+			<th id="dt20"  style="color:red;" >21 (일)</th>
+
+			<th id="dt21"  style="color:'';">22 (월)</th>
+
+			<th id="dt22"  style="color:'';">23 (화)</th>
+
+			<th id="dt23"  style="color:'';">24 (수)</th>
+
+			<th id="dt24"  style="color:'';">25 (목)</th>
+
+			<th id="dt25"  style="color:'';">26 (금)</th>
+
+			<th id="dt26"  style="color:blue;" >27 (토)</th>
+
+			<th id="dt27"  style="color:red;" >28 (일)</th>
+
+			<th id="dt28"  style="color:'';">29 (월)</th>
+
+			<th id="dt29"  style="color:'';">30 (화)</th>
+
+
+		</tr>
+
+
+		<tr>
+			<th><img src= "/portal/ny/img/A/button/btn_c_delete.gif" style="cursor:hand;" alt="삭제" onclick="trCareDelete('6002202042525 - ','0500-0630');"></th>
+			<th id="visitSeq0" style="display:none;"></th>
+
+			<th id="qlfNo0" style="display:none;">제2009-1005028</th>
+			<th id="qlfKind0" style="display:none;">12</th>
+			<th id="careJuminNo0" style="display:none;">6002202042525</th>
+			<th id="careNm0" style="display:none;">김유현</th>
+
+
+
+			<th id="sugaCd0" style="display:none;">B1009000</th>
+			<th id="sugaAmt0" style="display:none;">27460</th>
+			<th id="holsugaCd0" style="display:none;">B1009100</th>
+			<th id="holsugaAmt0" style="display:none;">29740</th>
+			<th id="togsugaCd0" style="display:none;">B1209010</th>
+			<th id="togsugaAmt0" style="display:none;">22880</th>
+			<th id="fmlysugaCd0" style="display:none;">B1206000</th>
+			<th id="fmlysugaAmt0" style="display:none;">17060</th>
+			<th id="sugaServiceTm0" style="display:none;">90</th>
+			<th id="togatherExtYn0" style="display:none;"></th>
+
+
+			<th id="careName0">김유현</th>
+
+			<th id="sugaNm0">90분이상(방문당)</th>
+
+
+			<th>
+				<input type="checkbox" name="togatherYn0" value="N"   disabled style='background-color:#eaf3f4;border:0;' onclick='calTotCnt();'>
+			</th>
+
+
+
+			<!-- //+sj -->
+			<!-- 가족여부--><th><input type="checkbox" id="familyYn10" name="familyYn10" value="Y" checked onclick="enableOptions(this, 'familyRel10');"></th>
+			<!-- 가족관계--><th><select id="familyRel10" name="familyRel10" class="familyRelCd"  >
+			                    </select>
+								<input type="hidden" id="_familyRel10" name="_familyRel10" value="S033" >
+			                </th>
+
+			<th id="serviceTmFr0"  style="display:none;">0500</th>
+			<th id="serviceTmTo0"  style="display:none;">0630</th>
+			<th id="serviceTm0">0500 - 0630</th>
+			<th id="totCnt0"></th>
+			<th><input type="checkbox" name="allSelect0" onclick="allSelected('0');"></th>
+
+			<th id="totAmt0" style="display:none;"></th>
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 0); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 1); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 2); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 3); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 4); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" value="" onclick="colTimeTwoHourBefChecked(0, 5); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 6); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 7); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 8); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 9); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 10); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 11); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" value="" onclick="colTimeTwoHourBefChecked(0, 12); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 13); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 14); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 15); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 16); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 17); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 18); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" value="" onclick="colTimeTwoHourBefChecked(0, 19); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 20); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 21); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 22); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 23); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 24); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 25); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" value="" onclick="colTimeTwoHourBefChecked(0, 26); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 27); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 28); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt0" checked value="" onclick="colTimeTwoHourBefChecked(0, 29); calTotCnt();"></td>
+
+
+		</tr>
+
+		<tr>
+			<th><img src= "/portal/ny/img/A/button/btn_c_delete.gif" style="cursor:hand;" alt="삭제" onclick="trCareDelete('6002202042525 - ','0700-0830');"></th>
+			<th id="visitSeq1" style="display:none;"></th>
+
+			<th id="qlfNo1" style="display:none;">제2009-1005028</th>
+			<th id="qlfKind1" style="display:none;">12</th>
+			<th id="careJuminNo1" style="display:none;">6002202042525</th>
+			<th id="careNm1" style="display:none;">김유현</th>
+
+
+
+			<th id="sugaCd1" style="display:none;">B1009000</th>
+			<th id="sugaAmt1" style="display:none;">22880</th>
+			<th id="holsugaCd1" style="display:none;">B1009100</th>
+			<th id="holsugaAmt1" style="display:none;">29740</th>
+			<th id="togsugaCd1" style="display:none;">B1209010</th>
+			<th id="togsugaAmt1" style="display:none;">22880</th>
+			<th id="fmlysugaCd1" style="display:none;">B1206000</th>
+			<th id="fmlysugaAmt1" style="display:none;">17060</th>
+			<th id="sugaServiceTm1" style="display:none;">90</th>
+			<th id="togatherExtYn1" style="display:none;"></th>
+
+
+			<th id="careName1">김유현</th>
+
+			<th id="sugaNm1">90분이상(방문당)</th>
+
+
+			<th>
+				<input type="checkbox" name="togatherYn1" value="N"   disabled style='background-color:#eaf3f4;border:0;' onclick='calTotCnt();'>
+			</th>
+
+
+
+			<!-- //+sj -->
+			<!-- 가족여부--><th><input type="checkbox" id="familyYn11" name="familyYn11" value="Y" checked onclick="enableOptions(this, 'familyRel11');"></th>
+			<!-- 가족관계--><th><select id="familyRel11" name="familyRel11" class="familyRelCd"  >
+			                    </select>
+								<input type="hidden" id="_familyRel11" name="_familyRel11" value="S033" >
+			                </th>
+
+			<th id="serviceTmFr1"  style="display:none;">0700</th>
+			<th id="serviceTmTo1"  style="display:none;">0830</th>
+			<th id="serviceTm1">0700 - 0830</th>
+			<th id="totCnt1"></th>
+			<th><input type="checkbox" name="allSelect1" onclick="allSelected('1');"></th>
+
+			<th id="totAmt1" style="display:none;"></th>
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 0); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 1); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 2); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 3); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 4); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" checked value="" onclick="colTimeTwoHourBefChecked(1, 5); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 6); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 7); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 8); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 9); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 10); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 11); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" checked value="" onclick="colTimeTwoHourBefChecked(1, 12); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 13); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 14); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 15); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 16); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 17); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 18); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" checked value="" onclick="colTimeTwoHourBefChecked(1, 19); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 20); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 21); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 22); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 23); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 24); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 25); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" checked value="" onclick="colTimeTwoHourBefChecked(1, 26); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 27); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 28); calTotCnt();"></td>
+
+
+			<td><input type="checkbox" name="payDt1" value="" onclick="colTimeTwoHourBefChecked(1, 29); calTotCnt();"></td>
+
+
+		</tr>
+
+
+
+	</table>
+</div>
+
+<div class="nheight"></div><!-- 높이 조절 -->
+<div class="nheight"></div><!-- 높이 조절 -->
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<b>동일 시간대에 중복된 일정이 있거나 해당 요양보호사의 일정이 중복되는 경우에는 서비스 제공이 제한되오니
+
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<b>귀 기관 또는 타 기관과의 중복 일정이 있는지 확인 후 등록하여 주시기 바랍니다.
+<br>
+
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<b>* 65세 이상 요양보호사가 배우자를 수발하는 경우 <font color="red">나이가 만으로 65세 이상이 되는 날짜부터 90분 수가로 반영</font>되오니 유의하시기 바랍니다.</b>
+<br>
+
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<b>* <font color="red">타기관 포함 월금액</font>이 월한도를 초과한 경우에도 한도초과계약에 해당하므로 반드시 확인하시고 일정을 등록하시기 바랍니다.</b>
+<br>
+
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<b>* 급여계약 해지 처리 요령</b>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+급여계약내용변경 -> 해지일자를 누름 -> 해지선택 -> 노란색바탕에 해지시간 입력 -> 저장
+<br>
+<br>
+<img src= "/portal/ny/img/A/02/tab02_10_on.gif" style="margin-left:4px;" alt="급여계약내용해지">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="blue"><b><span id="infoSpan"></span></b></font>
+<br>
+<div id="TableData10" style="position:relative; width:1330px; height:100%; z-index:1; overflow-y: auto; visibility: visible">
+	<table border="0" width="1330px">
+		<tr>
+			<td width="100%">
+				<table class="default">
+					<colgroup>
+						<col width="7%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+						<col width="3%"/>
+
+					</colgroup>
+					<tr>
+						<th>일자</th>
+
+						<th>
+							<font  color="">1
+									 <br/>
+							             (월)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk0" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('0');">
+
+						</th>
+
+						<th>
+							<font  color="">2
+									 <br/>
+							             (화)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk1" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('1');">
+
+						</th>
+
+						<th>
+							<font  color="">3
+									 <br/>
+							             (수)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk2" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('2');">
+
+						</th>
+
+						<th>
+							<font  color="">4
+									 <br/>
+							             (목)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk3" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('3');">
+
+						</th>
+
+						<th>
+							<font  color="">5
+									 <br/>
+							             (금)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk4" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('4');">
+
+						</th>
+
+						<th>
+							<font  color="red">6
+									 <br/>
+							             (토)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk5" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('5');">
+
+						</th>
+
+						<th>
+							<font  color="red">7
+									 <br/>
+							             (일)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk6" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('6');">
+
+						</th>
+
+						<th>
+							<font  color="">8
+									 <br/>
+							             (월)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk7" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('7');">
+
+						</th>
+
+						<th>
+							<font  color="">9
+									 <br/>
+							             (화)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk8" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('8');">
+
+						</th>
+
+						<th>
+							<font  color="">10
+									 <br/>
+							             (수)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk9" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('9');">
+
+						</th>
+
+						<th>
+							<font  color="">11
+
+							             (목)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk10" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('10');">
+
+						</th>
+
+						<th>
+							<font  color="">12
+
+							             (금)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk11" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('11');">
+
+						</th>
+
+						<th>
+							<font  color="red">13
+
+							             (토)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk12" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('12');">
+
+						</th>
+
+						<th>
+							<font  color="red">14
+
+							             (일)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk13" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('13');">
+
+						</th>
+
+						<th>
+							<font  color="">15
+
+							             (월)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk14" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('14');">
+
+						</th>
+
+						<th>
+							<font  color="">16
+
+							             (화)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk15" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('15');">
+
+						</th>
+
+						<th>
+							<font  color="">17
+
+							             (수)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk16" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('16');">
+
+						</th>
+
+						<th>
+							<font  color="">18
+
+							             (목)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk17" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('17');">
+
+						</th>
+
+						<th>
+							<font  color="">19
+
+							             (금)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk18" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('18');">
+
+						</th>
+
+						<th>
+							<font  color="red">20
+
+							             (토)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk19" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('19');">
+
+						</th>
+
+						<th>
+							<font  color="red">21
+
+							             (일)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk20" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('20');">
+
+						</th>
+
+						<th>
+							<font  color="">22
+
+							             (월)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk21" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('21');">
+
+						</th>
+
+						<th>
+							<font  color="">23
+
+							             (화)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk22" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('22');">
+
+						</th>
+
+						<th>
+							<font  color="">24
+
+							             (수)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk23" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('23');">
+
+						</th>
+
+						<th>
+							<font  color="">25
+
+							             (목)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk24" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('24');">
+
+						</th>
+
+						<th>
+							<font  color="">26
+
+							             (금)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk25" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('25');">
+
+						</th>
+
+						<th>
+							<font  color="red">27
+
+							             (토)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk26" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('26');">
+
+						</th>
+
+						<th>
+							<font  color="red">28
+
+							             (일)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk27" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('27');">
+
+						</th>
+
+						<th>
+							<font  color="">29
+
+							             (월)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk28" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('28');">
+
+						</th>
+
+						<th>
+							<font  color="">30
+
+							             (화)</font>
+
+
+							<br>
+							<input type="checkbox" name="chk29" style="background-color:#eaf3f4;border:0;" onclick="cnclSet('29');">
+
+						</th>
+
+					</tr>
+					<tr>
+						<th>등급</th>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" name="srcAmdtGradeCd" value="2" style="width:25px;text-align:center;border:0;" readonly></td>
+
+					</tr>
+					<tr>
+						<th>자격</th>
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+						<td>
+							<input type="hidden" name="srcTgtPrsnCd" value="3" style="width:25px;text-align:center;border:0;">
+							<input type="text" name="srcTgtPrsnNm" value="일반" style="width:25px;text-align:center;border:0;" readonly>
+						</td>
+
+
+					</tr>
+					<tr>
+						<th>해지시간</th>
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+						<td>
+							<input type="text" name="serviceFrTm" value="" style="width:25px;border:0;" maxlength="4" readonly>-
+							<input type="text" name="serviceToTm" value="" style="width:25px;border:0;" maxlength="4" readonly>
+						</td>
+
+
+					</tr>
+					<tr>
+						<th>해지여부</th>
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('0');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('1');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('2');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('3');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('4');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('5');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('6');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('7');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('8');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('9');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('10');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('11');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('12');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('13');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('14');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('15');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('16');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('17');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('18');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('19');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('20');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('21');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('22');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('23');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('24');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('25');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('26');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('27');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('28');">
+						</td>
+
+
+						<td>
+							<input type="hidden" name="cnclCd" style="width:25px;border:0;" value="" readonly>
+							<input type="text" name="cnclCdNm" style="width:25px;border:0;cursor:hand;" value="" readonly onclick="cnclSet('29');">
+						</td>
+
+
+					</tr>
+					<tr style="display:none;">
+						<th style="display:none;">치매</th>
+
+						<td><input type="text" id="src986Cd0" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd1" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd2" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd3" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd4" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd5" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd6" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd7" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd8" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd9" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd10" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd11" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd12" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd13" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd14" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd15" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd16" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd17" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd18" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd19" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd20" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd21" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd22" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd23" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd24" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd25" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd26" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd27" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd28" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+						<td><input type="text" id="src986Cd29" name="src986Cd" value="Y" style="display:none;" readonly></td>
+
+					</tr>
+					<tr style="display:none;">
+						<th>가족확장</th>
+
+						<td><input type="text" id="togatherExt0" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt1" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt2" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt3" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt4" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt5" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt6" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt7" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt8" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt9" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt10" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt11" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt12" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt13" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt14" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt15" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt16" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt17" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt18" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt19" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt20" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt21" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt22" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt23" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt24" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt25" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt26" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt27" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt28" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+						<td><input type="text" id="togatherExt29" name="togatherExt" value="N" style="width:25px;text-align:center;border:0;" readonly></td>
+
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div id="TableData10" style="position:relative; width:1330px; height:100%; z-index:1; overflow-y: auto; visibility: visible">
+	<table width="800" align="right" class="default" >
+	<tr>
+		<th style="width:100px">이용횟수</th>
+		<td id="useCount" style="width:200px">30</td>
+		<th style="width:100px">월금액</th>
+		<td id="mmAmt" style="width:250px">686,400</td>
+		<th style="width:200px">타기관포함 월금액</th>
+		<td id="mmAmtAll" style="width:250px">686,400</td>
+		<th style="width:100px">월한도액</th>
+		<td id="mmLimitAmt" style="width:250px">1,003,700</td>
+		<th style="width:100px">초과금액</th>
+		<td id="mmExcsAmt" style="width:250px;color:red;font-weight:bold;">0</td>
+	</tr>
+	</table>
+</div>
+
+
+<div class="nheight"></div><!-- 높이 조절 -->
+<div class="nheight"></div><!-- 높이 조절 -->
+
+
+<div id="TableData1" style="position:relative; width:1000px; height:100%; z-index:1; overflow-y: auto; visibility: visible">
+	<table border="0" width="1000px" align="center">
+		<tr>
+			<td>
+				<table align="center">
+					<tr>
+						<td>
+
+                            	<input type="button" class="sjBlackBtn" onclick="sjChkYoyangBoDup();" value="요양보호사 중복여부 점검"  style="width:180px; cursor:hand;">
+
+							<img src="/portal/ny/img/A/button/btn_a_save.gif" alt="저장" onclick="fn_JUsave();" style="cursor:hand;">
+							<img src="/portal/ny/img/B/button/btn_a_close.gif" alt="닫기" onclick="window.close();" style="cursor:hand;">
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div id="divCnclYn" style="display:none; position:absolute; left:1px; top:2px; width:1px; height:1px; z-index:1; border-width:1px; border-style:none;">
+	<select name="selCnclYn" id="selCnclYn" style="width:60px;height:40px;" size="6" onclick="setCncl();">
+		<option value="">선택해제</option>
+		<option value="7">해지</option>
+	</select>
+</div>
+
+<div id="message" style="position:absolute; left:2px; top:3px; width:1px; height:1px; z-index:1; border-width:1px; border-style:none;"></div>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,648 @@
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<title>케어비지트 사용요금 안내</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='imagetoolbar' content='no'>
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+
+<style type="text/css">
+body,a, abbr, acronym, address, applet, article, aside, audio,b, blockquote, big,center, canvas, caption, cite, code, command,datalist,del, details, dfn, div,
+em, embed,fieldset, figcaption, figure, font, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html,i, iframe, img, ins,kbd, keygen,label, legend, li,meter,nav, menu,
+object, ol, output,p, pre, progress,q,s, samp, section, small, span, source, strike, strong, sub, sup,table, tbody, tfoot, thead, th, tr, tdvideo, tt,u, ul, var 
+{margin:0; padding:0; border:0; font-size:9pt;}
+
+dl,dt,dd {margin:0; padding:0; border:0;}
+ ul { list-style:none; overflow:hidden;}
+ ul li{line-height:2em;}
+table { border-collapse:collapse; border-spacing:0; table-layout:fixed; }
+button { margin:0; padding:0; border:0; font:inherit; color:inherit; background:transparent; overflow:visible; cursor:pointer; line-height:0; vertical-align:middle; }
+legend, caption ,hr { position:absolute; top:0; left:0; width:1px; height:1px; visibility:hidden; font-size:0; line-height:0; }
+input { font:inherit; line-height:1em; font-size:9pt;}
+select { height:20px; font:inherit; color:inherit; vertical-align:middle; font-size:9pt;}
+textarea { font:inherit; color:inherit;}
+img { vertical-align:top; border:none;}
+
+legend, hr { overflow:hidden; position:absolute; top:0; left:0}
+legend, hr, caption { visibility:hidden; font-size:0; width:0; height:0; line-height:0}
+
+/* hidden */
+.hidden, #contents .hidden { visibility:hidden; position:absolute; font-size:0; width:0; height:0; line-height:0; margin:0; padding:0; background:none;}
+
+body { font-family: Dotum,Gulim,AppleGothic,Sans-serif; color:#2a2a2a;line-height:1.5em; font-size:9pt;}
+
+/*table_box*/
+.tbl_box,.tbl_box th,.tbl_box td{border:0}  
+.tbl_box{font-family:'돋움',dotum;font-size:12px; border-collapse:collapse; border-top:2px solid #828282;}  
+.tbl_box caption{display:none}  
+.tbl_box tfoot{background-color:#f5f7f9;font-weight:bold}  
+.tbl_box th{padding:8px 10px 8px;border-top:1px solid #cccccc;border-right:1px solid #cccccc;border-left:1px solid #cccccc; border-bottom:1px solid #cccccc; font-family:'돋움',dotum;font-size:9pt;font-weight:bold}  
+.tbl_box th{ background-color:#f0f0f0; line-height:1.5em;}
+.tbl_box th.fw, .tbl_box th.fw{font-weight:normal;}
+.tbl_box th.bg_blue, .tbl_box td.bg_blue{background-color:#f2f2f2;}
+.tbl_box th.bg_blue2, .tbl_box td.bg_blue2{background-color:#f5f1fe;}
+.tbl_box td{padding:6px 10px 6px;border:1px solid #cccccc; font-size:9pt; line-height:1.5em;}  
+.tbl_box td.ranking{font-weight:bold}  
+.tbl_box tbody.txt_left{text-align:left;}
+.tbl_box tbody.txt_center {text-align:center;}
+.tbl_box tbody.txt_right {text-align:right;}
+.tbl_box td.ls1 {letter-spacing:1px;}
+.tbl_box th.txt_center, .tbl_box td.txt_center, .tbl_box td ul.txt_center{text-align:center;}
+.tbl_box th.txt_left, .tbl_box td.txt_left, .tbl_box td ul.txt_left{text-align:left;}
+.tbl_box th.txt_right, .tbl_box td.txt_right, .tbl_box td ul.txt_right{text-align:right;}
+.tbl_box td.bord_none{border-left:none; border-right:none;}
+.tbl_width{width:600px;}
+.tbl_width600{width:650px;}
+.tbl_bg_none{background-image:none !important; background-color:#f7f7f7 !important;}
+.tbl_bg_none2{background-image:none !important; background-color:#ffffff !important; border:none !important; *height:10px; _height:10px;}
+.col_f6f6f6{ background:#f6f6f6}
+.tbl_box td .input_txt{ border:1px solid #7f9db9; padding:5px 2px;}
+
+/*table_box2*/
+.tbl_box2,.tbl_box2 th,.tbl_box2 td{border:0}  
+.tbl_box2{font-family:'돋움',dotum;font-size:12px; border-collapse:collapse;}  
+.tbl_box2 caption{display:none}  
+.tbl_box2 tfoot{background-color:#f5f7f9;font-weight:bold}  
+.tbl_box2 th{padding:10px 10px 8px;border-top:1px solid #b4b4b4;border-right:1px solid #b4b4b4;border-left:1px solid #b4b4b4; border-bottom:1px solid #b4b4b4; font-family:'돋움',dotum;font-size:9pt;font-weight:bold}  
+.tbl_box2 th{ background-color:#fbf153; line-height:1.5em;}
+.tbl_box2 th.bg_col{ background-color:#e3defd; line-height:1.5em;}
+.tbl_box2 th.fw, .tbl_box th.fw{font-weight:normal;}
+.tbl_box2 td{padding:14px 10px 10px;border:1px solid #b4b4b4; font-size:9pt; line-height:1.5em; background-color:#f9f9f9; }
+.tbl_box2 td.f_size {font-size:18px;}
+.tbl_box2 td.f_size span.col_red{color:#d50909; font-weight:bold;}
+td.f_size span{font-size:18px;}
+.tbl_box2 tbody.txt_cent {text-align:center;}
+td.bold1, td span.bold1, p span.bold1{font-weight:bold; color:#d50909;}
+td.bold2, td span.bold2{font-weight:bold;}
+ul.f_wb li{font-weight:bold;}
+
+p a{font-size:9pt; color:#777;} 
+p strong{font-size:9pt; color:#c21b06;}
+p a.path_home{position:relative; top:4px;}
+p a:hover, #right #location p a:focus, #right #loaction p a:active {text-decoration:none; }
+h2{font-size:30px;}	
+h3{color:#2a589f; letter-spacing:-1px; word-spacing:-1px; font-size:17px; background:url(./img/icon_title.png) left 30% no-repeat; padding-left:18px;} 
+strong{color:#333;}
+h4{margin-top:15px; color:#333; background:url(./img/icon_title2.gif) left 40% no-repeat; padding-left:10px;  font-size:14px; margin-left:2px;}
+p { display:block; margin-top:10px; font-size:12px; }
+
+h5{letter-spacing:-1px; word-spacing:-1px; font-size:12px; margin-left:16px; margin-top:15px; font-weight:normal;}
+dl dt{background:url(/images/sub/body_title/icon_title2.gif) left 45% no-repeat; padding:1px 0 1px 8px; color:#333; letter-spacing:-1px; word-spacing:-1px; font-size:13px; margin-top:10px;}
+ol.style_dec li{list-style-type:decimal;}
+th.title1{background:url(./img/icon_title3.png) 15px 43% no-repeat; padding-left:28px;  background-color:#f0f0f0; line-height:1.5em;}
+
+.s_month{margin-top:5px; margin-bottom:5px;}
+
+.mg_top5{margin-top:5px;}
+.mg_top10{margin-top:10px;}
+.mg_top15{margin-top:15px;}
+.mg_top20{margin-top:20px;}
+.mg_top26{margin-top:26px;}
+.mg_top25{margin-top:25px;}
+.mg_top35{margin-top:35px;}
+
+.mg_left0{margin-left:0;}
+.mg_left8{margin-left:8px;}
+.mg_left16{margin-left:16px;}
+.mg_left20{margin-left:20px;}
+.mg_btm15{margin-bottom:15px;}
+
+td.pd_left50{padding-left:50px;}
+td.pd_left20{padding-left:20px;}
+th.pd_left25, td.pd_left25{padding-left:25px;}
+td.pd_right20, tbody.pd_right20 td{padding-right:20px;}
+th.pd_right25, td.pd_right25 td{padding-right:25px;}
+
+.col_red, span.col_red{color:#d50909; font-weight:bold;}
+.col_green{color:#800d7f;}
+.col_green2{color:#07680e;}	
+.bg_ye{background-color:#eeffe5;}
+.bg_ye2{background-color:#fdfbea;}
+.col2{color:#0b6e93;}
+.col3{color:#2a085d;}
+
+.border0{border:0px;}
+span.pd_right2{padding-right:2px;}
+
+.div_sty{ width:600px; border-top:2px solid #0e69b0; border-bottom:1px solid #0e69b0; padding:10px;}
+.div_sty span{color:#2a589f; font-size:17px; font-weight:bold}
+</style>
+<script type="text/javascript" src="../../js/script.js"></script>
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$('input:checkbox[name="opt"]').unbind('click').bind('click',function(){
+			checkBoxValidate(this.value);
+			lfSetPay();
+		});
+
+		$('input:checkbox[name^="sc"]').unbind('click').bind('click',function(){
+			var obj = $(this).attr('name');
+			var chk = $(this).attr('checked');
+
+			$('input:checkbox[name="'+obj+'"]').attr('checked',false);
+			$(this).attr('checked',chk);
+
+			lfSetPay();
+		});
+		
+		$('#sc9').attr("disabled", true);
+		$('#id_char').attr("disabled", true);
+
+		self.focus();
+
+	});
+
+	function lfSetPay(smsChk){
+		//care 서비스
+		var opt = $('input:checkbox[name="opt"]:checked').val();
+		var sc1 = $('input:checkbox[name="sc1"]:checked').val();
+		var sc2 = $('input:checkbox[name="sc2"]:checked').val();
+		var sc3 = $('input:checkbox[name="sc3"]:checked').val();
+		var sc9 = $('input:checkbox[name="sc9"]:checked').val();
+		
+		
+		
+		var base = 0;
+		var pay = 0;
+		var add = 0;
+		var mCnt = 0; //장기요양 30명초과인원수
+		var	mPay = 0; //장기요양 30명초과금액
+		var oc1 = 0;
+		var oc2 = 0;
+		var scpay1 = 0;
+		var scpay2 = 0;
+		var scpay3 = 0;
+		var smsPay = 0;
+		var diffSmsCnt = 0;
+		var diffSmsPay = 0;
+		var usePay = 0;
+		var baseCharCnt = '';
+
+		
+ 		var pepleCnt = $('#id_su_num').val();
+		var charCnt = $('#id_char').val();
+		
+		//$("input[id=sc9]:checkbox").attr("disabled", true); //문자서비스 체크 막기
+		
+		if(sc1 == 'on' || 
+		   sc2 == 'on' || 
+		   sc3 == 'on' || 
+		   opt == '0'  ||
+		   opt == '1'  ){
+
+		   base = 24200;
+		  
+		   //$("input[id=sc9]:checkbox").removeAttr("disabled");
+		    $('#sc9').removeAttr("disabled");
+		   $('#id_char').removeAttr("disabled");
+		}
+		 
+		if(pepleCnt != ''){
+
+			//$("input[id=sc9]:checkbox").removeAttr("disabled");  
+			$('#sc9').removeAttr("disabled");
+			$('#id_char').removeAttr("disabled");
+
+			base = 24200;
+		   
+			if(pepleCnt > 15 && pepleCnt <= 30){
+				 pay += 12100+base;
+			}else if(pepleCnt > 30){
+				 var pe_pay = (pepleCnt-30) * 660;					
+				 pay  = 12100 + base;
+				 mCnt = pepleCnt - 30;
+				 mPay = pe_pay;
+			}else {
+				if(pepleCnt != 0){
+					pay = base;
+				}
+			}
+		}
+	
+		if(opt == '0'){
+		    if(pepleCnt == '' || pepleCnt == 0){
+				var oc1 = 36300;
+			}else {
+				var oc1 = 12100;
+			}
+		}else if (opt == '1'){
+		    if(pepleCnt == '' || pepleCnt == 0){
+				var oc2 = 44000;
+			}else {
+				var oc2 = 24200;
+			}
+		}
+
+		if(sc1 == 'on'){
+			if(pepleCnt == '' || pepleCnt == 0){
+				var scpay1 = 24200;
+			}else {
+				var scpay1 = 0;
+			}
+
+		}
+		
+		if(sc3 == 'on' && sc2 == 'on'){
+			if(pepleCnt == '' || pepleCnt == 0){
+				var scpay2 = 44000;
+			}else {
+				var scpay2 = 24200;
+			}
+		}else {
+			if(sc2 == 'on'){
+				if(pepleCnt == '' || pepleCnt == 0){
+					var scpay2 = 33000;
+				}else {
+					var scpay2 = 12100;
+				}
+			}
+			
+			if(sc3 == 'on'){
+				if(pepleCnt == '' || pepleCnt == 0){
+					var scpay2 = 33000;
+				}else {
+					var scpay2 = 12100;
+				}
+			}
+		}
+
+		if(sc9 == 'on' && smsChk == undefined){
+			baseCharCnt = 300;
+			$('#id_char').removeAttr("disabled");
+			smsPay = 5500;
+			$('#id_char').val(baseCharCnt);
+		}else if(smsChk == undefined){
+			charCnt = $('#id_char').val(baseCharCnt);
+		}
+		
+		
+		if(charCnt != ''){
+			
+			if(charCnt > 300){
+				
+				 var char_pay = (charCnt-300) * 22 + 5500;	
+
+				 smsPay = char_pay;
+				 
+				 var diffSmsCnt = charCnt-300;
+				 var diffSmsPay = (smsPay-5500);
+			}else if(charCnt > 0){
+				smsPay = 5500;
+				
+			}
+			 
+		}
+		
+		
+		totPay = parseInt(mPay+pay+oc1+oc2+scpay1+scpay2+scpay3+smsPay);
+		
+		$('#basePay').text(__num2str(base));
+		$('#carePay').text(__num2str(pay));
+		$('#cnt_1').text(__num2str(mCnt));
+		$('#cntPay').text(__num2str(mPay));
+		$('#ocPay_1').text(__num2str(oc1));
+		$('#ocPay_2').text(__num2str(oc2));
+		$('#scPay_1').text(__num2str(scpay1));
+		$('#scPay_2').text(__num2str(scpay2));
+		$('#scPay_3').text(__num2str(scpay3));
+		$('#smsPay').text(__num2str(smsPay));
+		$('#charCnt').text(__num2str(diffSmsCnt));
+		$('#charPay').text(__num2str(diffSmsPay));
+		$('#usePay').text(__num2str(totPay));
+		
+
+	}
+
+	function checkBoxValidate(cb) { 
+		for (j = 0; j < 2; j++) { 
+			if (document.getElementsByName('opt')[j].checked == true) { 
+				document.getElementsByName('opt')[j].checked = false;
+				if (j == cb) { 
+					document.getElementsByName('opt')[j].checked = true; 
+				} 
+			} 
+		} 
+	} 
+
+</script>
+
+</head>
+
+<body class="mg_left20 mg_top15 " style="margin-bottom:30px; ">
+<h2><img src="./img/title.gif" alt="케어비지트 사용요금 안내"/></h2>
+<!-- 사용 요금 계산 -->
+<h3 class="mg_top35">사용요금 계산 </h3>
+<p><span class="bold1">* 원하시는 서비스를 선택 또는 입력하시면 자동으로 월사용요금이 계산됩니다.</span> (중복선택가능)</p>
+<table class="tbl_box  tbl_width600 mg_top10" summary=" 서비스요금계산"> 
+	<colgroup>
+		<col width="16%">
+		<col width="14%">
+		<col width="28%">
+		<col width="20%">
+		<col width="*">
+	</colgroup>
+	<thead>
+		<tr>
+		<th scope="col" colspan="4" style="height:30px;">서비스</th>
+		<th scope="col">금액(VAT포함)</th>
+		</tr>
+	</thead>
+	<tbody class="txt_right pd_right20">
+		<!--tr>
+		<th colspan="4" class="txt_right" style="background-color:#fff; border-right:1px solid #fff; color:#403385;">사용기본요금 :</th>
+
+		<td style="background-color:#fff;"><span style="font-weight:bold; color:#403385;" class="pd_right2" id="basePay">0</span>원</td>
+		</tr-->
+		<tr>
+		<th class="txt_right pd_right25" scope="rowgroup" rowspan="9" style="background-color:#f8f8f8">장기요양</th>
+		<td  colspan="3"  class="txt_left pd_left20">재가요양(요양,목욕,간호)</td>
+		<td></td>
+		</tr>
+		<tr>
+		<td  colspan="3"   class="txt_left pd_left20"><label for="id_su_num"><span  class=" bold1">방문요양일정(목욕,간호 제외) 등록된 수급자수 :</span></label>
+		<input type="text" id="id_su_num" name="su_num" style="width:30px; ime-mode:disabled;"  maxlength="4"  title="수급자수입력" onkeyup="lfSetPay();" onkeydown="__onlyNumber(this);" />
+		<span class="col_red">명</span></td>
+		<td></td>
+		</tr>
+		<tr>
+		<td rowspan="2">기본요금</td>
+		<td colspan="2" class="txt_left">15명 까지 (24,200원)</td>
+		<td rowspan="2"><span class="pd_right2" style="color:red;" id="carePay" >0</span><span >원</span></td>
+		</tr>
+		<tr>
+		<td colspan="2" class="txt_left">16명~30명 까지 ( 36,300원 )</td>
+		</tr>
+		<tr>
+		<td>추가요금</td>
+		<td class="txt_left">30명 초과 (1인당/ 660원)</td>
+		<td><span id="cnt_1">0</span>명 초과</td>
+		<td><span class="pd_right2" id="cntPay" >0</span>원</td>
+		</tr>
+		<tr>
+		<td colspan="3" class="txt_left pd_left20">
+		<input type="checkbox" name="opt" id="opt1" value="0" /><label for="opt1">주‧야간보호<!--span class="bold1" style="font-weight:normal;" > (9명 이하)</span--></label>
+		</td>
+		<td rowspan="4"><span class="pd_right2" id="ocPay_1">0</span>원</td>
+		</tr>
+		<tr>
+		<td colspan="3" class="txt_left pd_left20">
+		<input type="checkbox" name="opt" id="opt2" value="1" disabled="true" /><label for="opt2"><strike>주‧야간보호 10명 이상</strike> <span class="bold1" style="font-weight:normal;" > (2016년 9월 사용료까지 적용)</span></label>	
+		</td>
+		<!--td><span class="pd_right2" id="ocPay_2">0</span>원</td-->
+		</tr>
+		<tr>
+		<td colspan="2">재가요양 사용시</td>
+		<td>12,100원</td>
+		</tr>
+		<tr>
+		<td colspan="2">주‧야간보호만 사용시</td>
+		<td>24,200원</td>
+		</tr>
+		<tr>
+		<th class="txt_right pd_right25" scope="rowgroup" rowspan="3" style="background-color:#f8f8f8">바우처</th>
+		<td colspan="3" class="txt_left pd_left20"><input type="checkbox" name="sc1" id="sc1" /><label for="sc1">바우처 (가사간병,노인돌봄,산모신생아,장애인활동지원)</label></td>
+		<td rowspan="3"><span class="pd_right2" id="scPay_1" >0</span>원</td>
+		</tr>
+		<tr>
+		<td colspan="2">재가요양 사용시</td>
+		<td><span  class=" bold1">무료</span></td>
+		</tr>
+		<tr>
+		<td colspan="2">바우처만 사용시</td>
+		<td>24,200원</td>
+		</tr>
+		<tr>
+		<th class="txt_right pd_right25" scope="rowgroup"  rowspan="7"  style="background-color:#f8f8f8">재가노인</th>
+		<td colspan="3" class="txt_left pd_left20"><input type="checkbox" name="sc2" id="sc2" /><label for="sc2">재가지원</label></td>
+		<td rowspan="7"><span class="pd_right2" id="scPay_2">0</span>원</td>
+		</tr>
+		<tr>
+		<td colspan="2">재가요양 사용시</td>
+		<td>12,100원</td>
+		</tr>
+		<tr>
+		<td colspan="2">재가지원만 사용시</td>
+		<td>33,000원</td>
+		</tr>
+		<tr>
+		<td colspan="3" class="txt_left pd_left20"><input type="checkbox" name="sc3" id="sc3" /><label for="sc2">자원연계</label></td>
+		</tr>
+		<tr>
+		<td colspan="2">재가요양 사용시</td>
+		<td>12,100원</td>
+		</tr>
+		<tr>
+		<td colspan="2">자원연계만 사용시</td>
+		<td>33,000원</td>
+		</tr>
+		<tr>
+		<td colspan="3">재가노인(재가지원,자원연계) 같이 사용 시 <span style="color:red;">44,000원</span></td>
+		</tr>
+		<!--tr>
+		<td colspan="3" class="txt_left pd_left20"><input type="checkbox" name="sc3" id="sc3" /><label for="sc3">자원연계</label></td>
+		<td><span class="pd_right2" id="scPay_3">0</span>원</td>
+		</tr-->
+		<tr>
+		<th class="txt_right pd_right25" scope="rowgroup" rowspan="5" style="background-color:#f8f8f8">부가서비스</th>
+		<td colspan="3" class="txt_left pd_left20">스마트폰 업무관리&nbsp;&nbsp;<span  class=" bold1">(무료)</span></td>
+		<td><span class="pd_right2" id="scPay_4">0</span>원</td>
+		</tr>
+		<tr>
+		<td colspan="3" class="txt_left pd_left20">
+			<input type="checkbox" name="sc9" id="sc9" /> <label for="sc9">SMS 문자서비스</label>
+		<td rowspan="4"><span class="pd_right2" id="smsPay" >0</span>원</td>
+		</tr>
+		<tr>
+		<td colspan="3"><label for="id_char"><span  class=" bold1" style="margin-left:20px; text-align:center;">문자 건수 :</span></label>
+		<input type="text" id="id_char" name="char" style="width:30px; ime-mode:disabled;"  maxlength="4"  title="수급자수입력" onkeyup="lfSetPay(1);" onkeydown="__onlyNumber(this);" /> <span  class=" bold1">건</span>
+		</tr>
+		<tr>
+		<td class="txt_center pd_left20">기본요금</td>
+		<td>300건</td>
+		<td>5,500원</td>
+		</tr>
+		<tr>
+		<td class="txt_center pd_left20">추가요금</td>
+		<td>1건당/22원</td>
+		<td><span id="charCnt">0</span>건 초과 : <span class="bold1" style="font-weight:normal;" id="charPay">0</span><span class="bold1" style="font-weight:normal;">원</span></td>
+		</tr>
+		<tr>
+		<th colspan="4" class="txt_center pd_left25"  style="background-color:#eaedf3; height:30px; font-size:14px; height:40px;">월사용요금</th>
+		<td class="txt_right pd_left20" style="line-height:2em; background-color:#eaedf3;"><span class=" bold1 pd_right2" style="font-size:16px;" id="usePay"  >0</span>원</td>
+		</tr>
+		<tr>
+		<td colspan="5" class="txt_left" style="background-color:#f8f8f8; padding:10px 20px;">
+			<ul>
+			<li style="color:#800d7f; font-size:14px; font-weight:bold;">- 신규가입 시 가입비 및 원격교육비<span class=" bold1" style="font-size:14px;"> 55,000원</span>이 별도로 부과됩니다.</li>
+			<!--li style="color:#800d7f; font-size:14px; font-weight:bold;">- 단, 주‧야간보호 및 복지용구는 <span class=" bold1" style="font-size:14px;">220,000원</span> 입니다.
+			<br /-->
+			<li style="font-size:14px; font-weight:bold;">- 가입 시 최초 1회 만 납부</li>
+			<li style="font-size:14px; font-weight:bold;">- 재교육을 원하실 경우 <span class=" bold1" style="font-size:14px;">55,000원</span>이 부과됩니다.</li>
+			</ul>
+		</td>
+		</tr>
+	</tbody>
+</table>
+<!--사용요금 예시-->
+<h3 class="mg_top35">사용요금 예시<span class="col_red" style="font-weight:400;  margin-left:5px; letter-spacing:0; ">(부가세 포함 가격)</span></h3>
+<table class="tbl_box2  tbl_width600 mg_top20" summary="사용료"> 
+	<colgroup>
+		<col width="24%">
+		<col width="6%">
+		<col width="32%">
+		<col width="6%">
+		<col width="32%">
+	</colgroup>
+	<tbody class="txt_cent">
+		<tr>
+		<th scope="col">재가요양(15명 까지)</th>
+		<td rowspan="2" style="border-top:2px solid #fff; border-bottom:none; padding:0;"><img src="./img/icon_plus.png" /></td>
+		<th scope="col"> 주‧야간보호</th>
+		<td rowspan="2" style="border-top:2px solid #fff; border-bottom:none; padding:0;"><img src="./img/icon_equal.png" /></td>
+		<th scope="col">사용요금 (월납부액)</th>
+		</tr>
+		<tr>
+		<td class="f_size"><span class="col_red">24,200</span>원</td>
+		<td class="f_size" style="line-height:1.2em;"><span class="col_red">12,100</span>원</td>
+		<td class="f_size" style="line-height:1.2em;"><span class="col_red">36,300</span>원/월</td>
+		</tr>
+	</tbody>
+</table>
+<p style="color:#323232; font-size:14px; line-height:2em; font-weight:bold; margin-top:20px;">
+- <span style="font-weight:bold;color:#d50909; font-size:14px;">재가요양 기본요금은  방문요양 일정(목욕,간호 제외)에 등록된 수급자수가 </span><br/>&nbsp;
+‧15명 까지 : <span style="font-weight:bold;color:#d50909; font-size:14px;">24,200원</span><br />&nbsp; 
+‧16명~30명 까지 :<span style="font-weight:bold;color:#d50909; font-size:14px;">36,300원</span><br />&nbsp; 
+‧ 30명 초과시  <span style="font-weight:bold;color:#d50909; font-size:14px;">1인당 660원씩</span> 추가<br/>
+- 재가요양 사용시 <span style="font-weight:bold;color:#d50909; font-size:14px;">주‧야간보호 : 12,100원, 바우처 : 무료,  재가노인 : 11,000원</span><br />
+</p>
+
+<!--//사용요금예시-->
+<!-- 가입비-->
+<h3 class="mg_top35">가입비 및 교육비<span class="col_red" style="font-weight:400;  margin-left:5px; letter-spacing:0; ">(부가세 포함 가격)</span></h3>
+
+<table class="tbl_box  tbl_width600 mg_top15" summary=" 기본요금"> 
+	<colgroup>
+		<col width="30%">
+		<col width="*">
+	</colgroup>
+	<tbody class="txt_center">
+		<tr>
+		<th>가입비 및 원격교육비</th>
+		<td class="txt_left pd_left50"> <span class=" bold1">55,000</span>&nbsp;원
+		<span class="col_red" style="font-weight:normal;">&nbsp;&nbsp;(신규가입시 1회 만 납부)</span>
+		</td>
+		</tr>
+		<!--tr>
+		<td colspan="2" style="text-align:left;">
+			<ul>
+			<li style="color:#800d7f; font-size:14px; font-weight:bold;">※<span class=" bold1" style="font-size:14px;"> 주‧야간보호</span> 사용시 가입비 및 교육비는 <span class=" bold1" style="font-size:14px;">220,000원</span> 입니다.</li>
+			</ul>
+		</td>
+		</tr-->
+	</tbody>
+</table>
+<!-- //가입비-->
+<!-- Care 서비스요금-->
+<h3 class="mg_top35">Care 서비스 요금 <span class="col_red" style="font-weight:400;  margin-left:5px; letter-spacing:0; ">(부가세 포함 가격)</span></h3>
+
+<table class="tbl_box  tbl_width600 mg_top15" summary=" 기본요금"> 
+	<colgroup>
+		<col width="30%">
+		<col width="*">
+	</colgroup>
+	<tbody class="txt_center">
+		<tr>
+		<th colspan="2" class="txt_left title1">장기요양</th>
+		</tr>
+		<tr>
+		<td>재가요양 (요양,목욕,간호)</td>
+		<td class="txt_left pd_left50"> 
+		<span class=" bold1">24,200</span>&nbsp;원/월<span class="col_red" style="font-weight:normal;">&nbsp;&nbsp;(수급자 15명 까지)</span><br />
+		<span class=" bold1">36,300</span>&nbsp;원/월<span class="col_red" style="font-weight:normal;">&nbsp;&nbsp;(수급자 16명~30명 까지)</span></td>
+		</tr>
+		<tr>
+		<td colspan="2" style="text-align:left;">
+			<ul>
+			<li class="col_red" style=" font-size:14px; font-weight:bold;">- 방문요양 일정에 등록된 수급자 <span class=" bold1" style="font-size:14px;">30명 초과 시 1명당 550원 추가 </li>
+			<li class="col_red" style=" font-size:14px; font-weight:bold;">- 방문목욕,방문간호 일정에 등록된 수급자는 제외</li>
+			</ul>
+		</td>
+		</tr>
+		<tr>
+		<td>주‧야간보호</td>
+		<td class="txt_left pd_left50">
+		<span class=" bold1">24,200</span>&nbsp;원/월<br />
+		<strike>36,300&nbsp;원/월</strike>
+		</td>
+		</tr>
+		<tr>
+		<td colspan="2" style="text-align:left;">
+			<ul>
+			<li class="col_red" style=" font-size:14px; font-weight:bold;">- 재가요양 사용시 <span class=" bold1" style="font-size:14px;">12,100원/월</li>
+			</ul>
+		</td>
+		</tr>
+		<!--tr>
+		<td>복지용구</td>
+		<td class="txt_left pd_left50"><span class=" bold1">55,000</span>&nbsp;원/월</td>
+		</tr-->
+		<tr>
+		<th colspan="2" class="txt_left title1">바우처</th>
+		</tr>
+		<tr>
+		<td>가사간병, 노인돌봄,<br />산모신생아, 장애인활동지원</td>
+		<td class="txt_left pd_left50"><span class=" bold1">24,200</span>&nbsp;원/월</td>
+		</tr>
+		<tr>
+		<td colspan="2" style="text-align:left;">
+			<ul>
+			<li class="col_red" style=" font-size:14px; font-weight:bold;">- 재가요양 사용시 바우처 무료</li>
+			</ul>
+		</td>
+		</tr>
+		<tr>
+		<th colspan="2" class="txt_left title1">재가노인</th>
+		</tr>
+		<tr>
+		<td>재가지원,자원연계</td>
+		<td class="txt_left pd_left50"><span class=" bold1">33,000</span>&nbsp;원/월</td>
+		</tr>
+		<tr>
+		<td colspan="2" style="text-align:left;">
+			<ul>
+			<li class="col_red" style=" font-size:14px; font-weight:bold;">- 재가요양 사용시 12,100원/월</li>
+			</ul>
+		</td>
+		</tr>
+	</tbody>
+</table>
+<!-- //서비스기본요금-->
+
+<!-- 부가서비스 요금-->
+<h3 class="mg_top35">부가서비스 요금 <span class="col_red" style="font-weight:400;  margin-left:5px; letter-spacing:0; "> (부가세 포함 가격)</span></h3>
+<table class="tbl_box  tbl_width600 mg_top15" summary=" 기본요금"> 
+	<colgroup>
+		<col width="30%">
+		<col width="*">
+	</colgroup>
+	<tbody class="txt_center">
+		<tr>
+		<th class="txt_left">스마트폰 업무관리</th>
+		<td class="txt_left pd_left50"><span class=" bold1">무료</span></td>
+		</tr>
+		<tr>
+		<th class="txt_left">SMS 문자서비스</th>
+		<td class="txt_left pd_left50"><span class=" bold1">5,500</span>&nbsp;원/월 300건<span class="col_red" style="font-weight:normal;">&nbsp;&nbsp;(300건 초과 시 1건당 22원)</span></td>
+		</tr>
+		<tr>
+		<th class="txt_left">재교육 (원격교육)</th>
+		<td class="txt_left pd_left50"><span class=" bold1">55,000</span>&nbsp;원</td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>

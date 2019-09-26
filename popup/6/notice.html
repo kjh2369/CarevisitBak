@@ -1,0 +1,44 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<meta http-equiv="imagetoolbar" content="no">
+<title>전화번호 및 상담시간 변경안내</title>
+<style type="text/css">
+	body{ border:0; margin:0; padding:0}
+</style>
+<script type="text/javascript">
+function setCookie(name, value, expiredays ){
+	var todayDate = new Date();
+		todayDate.setDate( todayDate.getDate() + expiredays );
+
+	document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+}
+function end(){
+	var f = document.f;
+
+	if (f.check.checked){
+		setCookie('POPUP_NOTI','DONE',1);
+	}
+
+	self.close();
+}
+
+
+
+</script>
+<body>
+<table cellspacing="0" cellpadding="0">
+	<form name="f" method="post" action="">
+		<tr>
+			<td colspan="2" style="background-color:#000;">
+					<img src="../6/notice_1.jpg" style=" width:400px; height:427px;" >
+			</td>
+		</tr>
+		<tr  style="background-color:#000;">
+			<td style="text-align:left; color:WHITE;"><label><input type="checkbox" name="check" value="checkbox"  style="border:0;" onClick="end();"/>오늘 하루동안 열지않기</label></td>
+			<td style="text-align:right; padding-right:20px"><a href="#" onclick="end();"><span style="color:WHITE;">닫기</span></a></td>
+		</tr>
+	</form>
+</table>
+</body>
+</html>

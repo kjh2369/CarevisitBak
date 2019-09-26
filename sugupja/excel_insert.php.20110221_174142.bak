@@ -1,0 +1,265 @@
+<?
+	include("../inc/_db_open.php");
+	include('../inc/_myFun.php');
+
+	header('Content-type: text/html; charset=utf-8'); // 문자셋
+
+	require_once '../excel/Excel/reader.php';
+
+	$mCode = $_GET['p_code'];
+	$mKind = $_GET['p_kind'];
+	$mDuplicate = $_POST['duplicateYN'];
+	$mFile = $_GET['p_file'];
+
+	$excel = new Spreadsheet_Excel_Reader();
+	$excel->setOutputEncoding('UTF-8'); // 문자셋
+	$excel->read('./Excel/'.$mFile);
+
+	error_reporting(E_ALL ^ E_NOTICE);
+
+	$conn->begin();
+
+	// 급여한도액
+	$sql = "select m91_code as code, m91_kupyeo as pay
+			  from m91maxkupyeo
+			 where '".date('Ymd', mkTime())."' between m91_sdate and m91_edate";
+	$conn->query($sql);
+	$conn->fetch();
+	$rowCount = $conn->row_count();
+
+	for($i=0; $i<$rowCount; $i++){
+		$maxPay[$i] = $conn->select_row($i);
+	}
+	$conn->row_free();
+	$maxPayCount = sizeOf($maxPay);
+
+	// 본인부담율
+	$sql = "select m92_code as code, m92_bonin_yul as rate
+			  from m92boninyul
+			 where '".date('Ymd', mkTime())."' between m92_sdate and m92_edate";
+	$conn->query($sql);
+	$conn->fetch();
+	$rowCount = $conn->row_count();
+
+	for($i=0; $i<$rowCount; $i++){
+		$rate[$i] = $conn->select_row($i);
+	}
+	$conn->row_free();
+	$rateCount = sizeOf($rate);
+
+	// 키
+	$sql = "select ifnull(max(m03_key), 0)
+			  from m03sugupja
+			 where m03_ccode = '$mCode'
+			   and m03_mkind = '$mKind'";
+	$key = $conn->get_data($sql);
+
+	for($i=2; $i<=$excel->sheets[0]['numRows']; $i++){
+		$key ++;
+
+		$name			= $excel->sheets[0]['cells'][$i][1]; //성명
+		$jumin			= str_replace('-', '', $excel->sheets[0]['cells'][$i][2]); //주민번호
+		$mobile			= str_replace('-', '', $excel->sheets[0]['cells'][$i][3]); //핸펀번호
+		$phone			= str_replace('-', '', $excel->sheets[0]['cells'][$i][4]); //자택전화번호
+		$postno			= str_replace('-', '', $excel->sheets[0]['cells'][$i][5]); //우편번호
+		$addr1			= $excel->sheets[0]['cells'][$i][6]; //주소
+		$addr2			= $excel->sheets[0]['cells'][$i][7]; //상세주소
+		$fromDate		= str_replace('-', '', $excel->sheets[0]['cells'][$i][8]); //계약개시일
+		$toDate			= str_replace('-', '', $excel->sheets[0]['cells'][$i][9]); //계약종료일
+		$level			= $excel->sheets[0]['cells'][$i][10]; //장기요양등급
+		$kind			= $excel->sheets[0]['cells'][$i][11]; //수급자종류
+		$injungNo		= str_replace('-', '', $excel->sheets[0]['cells'][$i][12]); //장기요양인증번호
+		$sickName		= $excel->sheets[0]['cells'][$i][13]; //병명
+		$familyYN		= $excel->sheets[0]['cells'][$i][14]; //동거가족케어유무
+		//$noFromDate		= str_replace('-', '', $excel->sheets[0]['cells'][$i][15]); //장기요양인증서유효기간(FM)
+		//$noToDate		= str_replace('-', '', $excel->sheets[0]['cells'][$i][16]); //장기요양인증서유효기간(TO)
+		//$yoyangsaPhone	= $excel->sheets[0]['cells'][$i][17]; //담당요양보호사핸펀번호
+		$bohojaName		= $excel->sheets[0]['cells'][$i][17]; //보호자성명
+		$bohojaJumin	= str_replace('-', '', $excel->sheets[0]['cells'][$i][18]); //보호자주민번호
+		$bohojaPhone	= str_replace('-', '', $excel->sheets[0]['cells'][$i][19]); //보호자연락처
+		$status			= $excel->sheets[0]['cells'][$i][20]; //수급상태
+		$yoyangsa1nm      = $excel->sheets[0]['cells'][$i][21]; //담당요양사1 이름
+		$yoyangsa1      = $excel->sheets[0]['cells'][$i][22]; //담당요양사1 주민
+		$yoyangsa2nm      = $excel->sheets[0]['cells'][$i][23]; //담당요양사2 이름
+		$yoyangsa2      = $excel->sheets[0]['cells'][$i][24]; //담당요양사2 주민
+		$sDate			= $fromDate;
+		$eDate			= '99999999';
+
+		// 급여한도액
+		for($j=0; $j<$maxPayCount; $j++){
+			if ($maxPay[$j]['code'] == $level){
+				$maxAmt = $maxPay[$j]['pay']; //급여한도액
+				break;
+			}
+		}
+
+		// 본인부담율
+		for($j=0; $j<$rateCount; $j++){
+			if ($rate[$j]['code'] == $kind){
+				$boninRate = $rate[$j]['rate']; //본인부담율
+				$boninAmt = $myF->cutOff($maxAmt * $boninRate / 100); //본인부담금
+				$supportAmt = $myF->cutOff($maxAmt - $boninAmt); //정부지원금
+				break;
+			}
+		}
+
+		// 담당요양사
+		$sql = "select m02_yjumin, m02_yname
+				  from m02yoyangsa
+				 where m02_ytel = '$yoyangsaPhone'
+				   and m02_ygoyong_stat = '1'";
+		$yoy = $conn->get_array($sql);
+
+		if ($yoy != null){
+			$yoyJumin = $yoy[0];
+			$yoyName = $yoy[1];
+		}
+
+		$count = $conn->get_data("select count(*) from m03sugupja where m03_ccode = '$mCode' and m03_mkind = '$mKind' and m03_jumin = '$jumin'");
+
+		if ($mDuplicate == 'Y'){
+			if ($count > 0){
+				$sql = "delete
+						  from m03sugupja
+						  where m03_ccode = '$mCode'
+							and m03_mkind = '$mKind'
+							and m03_yjumin = '$jumin'";
+				if (!$conn->query($sql)){
+					$conn->rollback();
+					echo '
+						<script language="javascript">
+							alert("데이타 저장중 오류가 발생하였습니다. 잠시후 다시 시도하여 주십시오.");
+							history.back();
+						</script>
+						 ';
+					exit;
+				}
+				$count = 0;
+			}
+		}
+
+		if ($count == 0){
+			$name = $excel->sheets[0]['cells'][$i][1]; //성명
+			$jumin = str_replace('-', '', $excel->sheets[0]['cells'][$i][2]); //주민번호
+			$mobile = str_replace('-', '', $excel->sheets[0]['cells'][$i][3]); //핸펀번호
+			$phone = str_replace('-', '', $excel->sheets[0]['cells'][$i][4]); //자택전화번호
+			$postno = str_replace('-', '', $excel->sheets[0]['cells'][$i][5]); //우편번호
+			$addr1 = $excel->sheets[0]['cells'][$i][6]; //주소
+			$addr2 = $excel->sheets[0]['cells'][$i][7]; //상세주소
+			$fromDate = str_replace('-', '', $excel->sheets[0]['cells'][$i][8]); //계약개시일
+			$toDate = str_replace('-', '', $excel->sheets[0]['cells'][$i][9]); //계약종료일
+			$level = $excel->sheets[0]['cells'][$i][10]; //장기요양등급
+			$kind = $excel->sheets[0]['cells'][$i][11]; //수급자종류
+			$injungNo = str_replace('-', '', $excel->sheets[0]['cells'][$i][12]); //장기요양인증번호
+			$sickName = $excel->sheets[0]['cells'][$i][13]; //병명
+			$familyYN = ($excel->sheets[0]['cells'][$i][14] == '유' ? 'Y' : 'N'); //동거가족케어유무
+			$noFromDate = str_replace('-', '', $excel->sheets[0]['cells'][$i][15]); //장기요양인증서유효기간(FM)
+			$noToDate = str_replace('-', '', $excel->sheets[0]['cells'][$i][16]); //장기요양인증서유효기간(TO)
+			//$yoyangsaPhone = $excel->sheets[0]['cells'][$i][17]; //담당요양보호사핸펀번호
+			$bohojaName = $excel->sheets[0]['cells'][$i][17]; //보호자성명
+			$bohojaJumin = str_replace('-', '', $excel->sheets[0]['cells'][$i][18]); //보호자주민번호
+			$bohojaPhone = str_replace('-', '', $excel->sheets[0]['cells'][$i][19]); //보호자연락처
+			$status = $excel->sheets[0]['cells'][$i][20]; //수급상태
+			$yoyangsa1nm      = $excel->sheets[0]['cells'][$i][21]; //담당요양사1 이름
+			$yoyangsa1      = $excel->sheets[0]['cells'][$i][22]; //담당요양사1 주민
+			$yoyangsa2nm      = $excel->sheets[0]['cells'][$i][23]; //담당요양사2 이름
+			$yoyangsa2      = $excel->sheets[0]['cells'][$i][24]; //담당요양사2 주민
+			$sDate = $fromDate;
+			$eDate = '99999999';
+
+			$sql = "insert into m03sugupja (
+					 m03_ccode
+					,m03_mkind
+					,m03_name
+					,m03_jumin
+					,m03_hp
+					,m03_tel
+					,m03_post_no
+					,m03_juso1
+					,m03_juso2
+					,m03_gaeyak_fm
+					,m03_gaeyak_to
+					,m03_ylvl
+					,m03_skind
+					,m03_injung_no
+					,m03_byungmung
+					,m03_familycare
+					,m03_gaeyak_fm
+					,m03_gaeyak_to
+					,m03_yboho_name
+					,m03_yboho_juminno
+					,m03_yboho_phone
+					,m03_sugup_status
+					,m03_yoyangsa1_nm
+					,m03_yoyangsa1
+					,m03_yoyangsa2_nm
+					,m03_yoyangsa2
+					,m03_key
+					,m03_sdate
+					,m03_edate
+					,m03_bonin_yul
+					,m03_kupyeo_max
+					,m03_kupyeo_1
+					,m03_kupyeo_2
+					,m03_subcd
+					,m03_vlvl
+					) values (
+					 '$mCode'
+					,'$mKind'
+					,'$name'
+					,'$jumin'
+					,'$mobile'
+					,'$phone'
+					,'$postno'
+					,'$addr1'
+					,'$addr2'
+					,'$fromDate'
+					,'$toDate'
+					,'$level'
+					,'$kind'
+					,'$injungNo'
+					,'$sickName'
+					,'$familyYN'
+					,'$noFromDate'
+					,'$noToDate'
+					,'$bohojaName'
+					,'$bohojaJumin'
+					,'$bohojaPhone'
+					,'$status'
+					,'$yoyangsa1nm'
+					,'$yoyangsa1'
+					,'$yoyangsa2nm'
+					,'$yoyangsa2'
+					,'$key'
+					,'$sDate'
+					,'$eDate'
+					,'$boninRate'
+					,'$maxAmt'
+					,'$supportAmt'
+					,'$boninAmt'
+					,'200'
+					,'$mKind')";
+			if (!$conn->query($sql)){
+				$conn->rollback();
+				echo '
+					<script language="javascript">
+						alert("데이타 저장중 오류가 발생하였습니다. 잠시후 다시 시도하여 주십시오.");
+						history.back();
+					</script>
+					 ';
+				exit;
+			}
+		}
+	}
+
+	$conn->commit();
+
+	include('../inc/_db_close.php');
+
+	echo '
+		<script language="javascript">
+			alert("입력이 완료되었습니다.");
+			location.replace("../main/main.php?gubun=search");
+		</script>
+		 ';
+?>

@@ -1,0 +1,18 @@
+<?
+	$tmpDomain = explode('.', $_SERVER['HTTP_HOST']);
+	$strDomain = $tmpDomain[sizeof($tmpDomain)-2].'.'.$tmpDomain[sizeof($tmpDomain)-1];
+
+	if ($strDomain == 'kacold.net'){
+		$str = '::³ëÀÎ¸ÂÃãµ¹º½¼­ºñ½º::';
+	}
+?>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?=$str;?></title>
+<LINK REL="SHORTCUT ICON" HREF="./favicon.ico">
+</head>
+<frameset rows="1*">
+<frame name="main" src="main/main.php">
+</frameset>
+</html>

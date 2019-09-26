@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="description" content="요양기관장(센타장)을 위한 LTE 프로모션" />
+<meta name="keywords" content="요양기관장(센타장)을 위한 LTE 프로모션" />
+
+<title>요양기관장(센타장)을 위한 LTE 프로모션</title>
+<style type="text/css">
+<!--
+body,a, abbr, acronym, address, applet, article, aside, audio,b, blockquote, big,center, canvas, caption, cite, code, command,datalist,del, details, dfn, div,
+em, embed,fieldset, figcaption, figure, font, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html,i, iframe, img, ins,kbd, keygen,label, legend, li,meter,nav, menu,
+object, ol, output,p, pre, progress,q,s, samp, section, small, span, source, strike, strong, sub, sup,table, tbody, tfoot, thead, th, tr, tdvideo, tt,u, ul, var
+{margin:0; padding:0; border:0; font-size:9pt;}
+ 
+dl,dt,dd {margin:0; padding:0; border:0;}
+ ul { list-style:none; overflow:hidden;}
+table { border-collapse:collapse; border-spacing:0; table-layout:fixed; }
+button { margin:0; padding:0; border:0; font:inherit; color:inherit; background:transparent; overflow:visible; cursor:pointer; line-height:0; vertical-align:middle; }
+legend, caption ,hr { position:absolute; top:0; left:0; width:1px; height:1px; visibility:hidden; font-size:0; line-height:0; }
+input { font:inherit; line-height:1em; font-size:9pt;}
+select { height:20px; font:inherit; color:inherit; vertical-align:middle; font-size:9pt;}
+textarea { font:inherit; color:inherit;}
+img { vertical-align:top; border:none;}
+ 
+legend, hr { overflow:hidden; position:absolute; top:0; left:0}
+legend, hr, caption { visibility:hidden; font-size:0; width:0; height:0; line-height:0}
+ 
+/* hidden */
+.hidden, #contents .hidden { visibility:hidden; position:absolute; font-size:0; width:0; height:0; line-height:0; margin:0; padding:0; background:none;}
+ 
+body { font-family: Dotum,Gulim,AppleGothic,Sans-serif; color:#2a2a2a;line-height:1.5em; font-size:9pt;}
+
+
+ p{margin-left:0; display:block;}
+
+
+.tbl_btn_box2{padding:0; padding-top:10px; text-align:center;}
+
+
+/*table_box*/
+.tbl_box,.tbl_box th,.tbl_box td{border:0; }
+.tbl_box{font-family:'돋움',dotum; border-collapse:collapse; border-top:2px solid #888888; width:100%;}
+.tbl_box caption{display:none}
+.tbl_box tfoot{background-color:#f5f7f9;font-weight:bold}
+.tbl_box th{padding:7px 10px 4px;border-top:1px solid #dcdcdc;border-right:1px solid #dcdcdc;border-left:1px solid #dcdcdc; border-bottom:1px solid #e5e5e5; font-family:'돋움',dotum;font-size:11pt;font-weight:bold}
+.tbl_box th{ background-color:#eff6f8;  text-align:center;}
+.tbl_box td{padding:6px 10px 4px;border:1px solid #e5e5e5; font-size:11pt;  text-align:right;}
+.tbl_box td.ranking{font-weight:bold}
+.tbl_box tbody.txt_center{text-align:center;}
+.tbl_box th.txt_center, .tbl_box td.txt_center, .tbl_box td ul.txt_center{text-align:center;}
+.tbl_box td.bord_none{border-left:none; border-right:none;}
+.tbl_bg_none{background-image:none !important; background-color:#f7f7f7 !important;}
+.tbl_bg_none2{background-image:none !important; background-color:#ffffff !important; border:none !important; *height:10px; _height:10px;}
+.col_f6f6f6{ background:#f6f6f6}
+.tbl_box td .input_txt{ border:1px solid #7f9db9; padding:5px 2px;}
+
+/*table_box2*/
+.tbl_box2,.tbl_box2 th,.tbl_box2 td{border:0; }
+.tbl_box2{font-family:'돋움',dotum; border-collapse:collapse; border-top:1px solid #606060; width:100%;}
+.tbl_box2 caption{display:none}
+.tbl_box2 tfoot{background-color:#f5f7f9;font-weight:bold}
+.tbl_box2 th{padding:7px 10px 4px;border-top:1px solid #acacac;border-right:1px solid #acacac;border-left:1px solid #acacac; border-bottom:1px solid #e5e5e5; font-family:'돋움',dotum;font-size:11pt;font-weight:bold}
+.tbl_box2 th{ background-color:#eff6f8;  text-align:center;}
+.tbl_box2 td{padding:6px 10px 4px;border:1px solid #acacac; font-size:11pt;  text-align:right; background-color:#eff6f8; font-weight:bold;}
+.tbl_box2 td.ranking{font-weight:bold}
+.tbl_box2 tbody.txt_center{text-align:center;}
+.tbl_box2 th.txt_center, .tbl_box2 td.txt_center, .tbl_box2 td ul.txt_center{text-align:center;}
+.tbl_box2 td.bord_none{border-left:none; border-right:none;}
+.tbl_bg_none{background-image:none !important; background-color:#f7f7f7 !important;}
+.tbl_bg_none2{background-image:none !important; background-color:#ffffff !important; border:none !important; *height:10px; _height:10px;}
+.col_f6f6f6{ background:#f6f6f6}
+.tbl_box2 td .input_txt{ border:1px solid #7f9db9; padding:5px 2px;}
+
+.mg_top10{margin-top:10px;}
+.mg_top20{margin-top:20px;}
+.mg_top30{margin-top:30px;}
+.mg_top40{margin-top:60px;}
+.bg_color1{background-color:#f9f9f9;}
+-->
+</style>
+
+</head>
+<body >
+	<div style="width:680px; margin:0 auto;">
+		<!--ctn_title-->
+		<h2><img src=" img/title_total.png" alt=" KT 요양기관장(센터장)님을 위한 LTE 프로모션" /></h2>
+	<div style="width:680px;overflow-x:hidden;">
+	<!--//ctn_title-->
+		<!--Total Form-->
+		<table class="tbl_box mg_top20" summary=" 스마트폰비용"> 
+		<caption>스마트폰비용</caption>
+		<colgroup>
+			<col width="20%">
+			<col width="20%">
+			<col width="15%">
+			<col width="15%" style="background-color:#ffff74; color:#000;">
+			<col width="15%">
+			<col width="15%" style="background-color:#ffff74; color:#000;">
+		</colgroup>
+		<thead>
+			<tr>
+			<th colspan="2">24개월 약정 신규/MNP 기준</th>
+			<th>모두다올레<br/>65요금제<br/>(71,500원)</th>
+			<th style="background-color:#ffff00; color:red;">완전무한<br/>67요금제<br/>(73,700원)</th>
+			<th>모두다올레<br/>75요금제<br/>(82,500원)</th>
+			<th style="background-color:#ffff00; color:red;">완전무한<br/>77요금제<br/>(84,700원)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+			<td rowspan="3" class="txt_center">(공통사항)<br/>문자무제한</br>Kt망내통화</br>무제한</td>
+			<td class="txt_center">기본요금</td>
+			<td>65,000원</td>
+			<td>67,000원</td>
+			<td>75,000원</td>
+			<td>77,000원</td>
+			</tr>
+			<tr>
+			<td class="txt_center">무료음성(kt망외)</td>
+			<td>350분</td>
+			<td>무제한</td>
+			<td>450분</td>
+			<td>무제한</td>
+			</tr>
+			<tr>
+			<td class="txt_center">무료데이타</td>
+			<td>6G(이월)</td>
+			<td>5G(이월)</td>
+			<td>10G(이월)</td>
+			<td>9G(이월)</td>
+			</tr>
+		</tbody>
+		</table>
+		<table class="tbl_box2"  summary=" 스마트폰비용"> 
+		<caption>스마트폰비용</caption>
+		<colgroup>
+			<col width="20%">
+			<col width="20%">
+			<col width="15%">
+			<col width="15%" style=" font-height:bold;">
+			<col width="15%">
+			<col width="15%" style="font-height:bold;">
+		</colgroup>
+			<tr>
+			<td class="txt_center">갤럭시S4</br>LTE A</td>
+			<td class="txt_center">월납부금액</br>(VAT포함)</td>
+			<td>70,789원</td>
+			<td>72,989원</td>
+			<td>79,589원</td>
+			<td>81,789원</td>
+			</tr>
+			<tr>
+			<td class="txt_center">옵티머스 G2</td>
+			<td class="txt_center">월납부금액</br>(VAT포함)</td>
+			<td>68,581원</td>
+			<td>70,781원</td>
+			<td>77,381원</td>
+			<td>79,581원</td>
+			</tr>
+			<tr>
+			<td class="txt_center">갤럭시노트3</td>
+			<td class="txt_center">월납부금액</br>(VAT포함)</td>
+			<td>87,087원</td>
+			<td>89,287원</td>
+			<td>95,887원</td>
+			<td>98,087원</td>
+			</tr>
+		</tbody>
+		</table>
+		<!--//Total Form-->
+	<p class="mg_top20"><img src="img/txt_t1.png"  alt=" 첫 3개월간은  상기 월납부금액보다 많이 청구가 되고, 4개월째부터는 더 청구된 금액이 차감되어
+		이보다 적은 월납부금액이 청구됩니다. 상기 내용은 신규/번호이동을 기준으로 작성되었으며, 기기변경(18개월이상만 가능)의 경우도 금액은 거의 비슷합니다.자세한 사항은 세부 요금표를 참조하시기 바랍니다." /></p>
+	</div>
+		<div class="tbl_btn_box2 mg_top30"  style="background-color:#1c1c1c; height:50px; border-top:3px solid #cd0909;">
+			<a href="http://ollehmns.com/carevisit" target="_blank"/><img alt="신청하기"  src="img/btn_total.png" /></a>
+		</div>
+	</div>
+</body>
+</html>

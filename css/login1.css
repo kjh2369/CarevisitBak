@@ -1,0 +1,30 @@
+body { 
+  text-align: center; 
+  min-width: 1024px;
+	margin-left:10px;
+}
+
+#login_box { 
+  width: 768px; height:324px;
+  margin: 0 auto;  margin-top:150px;
+  text-align: left; 
+} 
+
+#log_ci{margin-left:30px; margin-bottom:9px;}
+#log_box{
+	width:768px; height:276px; background:url('../member/img/login/bg_login.gif') repeat-x left top;}
+}
+
+#log_box2{float:left; position:relative; top:80px; left:35px; width:344px; height:104px;  padding:0;}
+
+#log_box2 #log_login{width:344px; height:84px;}
+#log_box2 #log_login ul{ float:left; width:244px; height:84px; margin:0; padding:0;}
+#log_box2 #log_login li{margin:0; padding:0; margin-bottom:2px;}
+#log_box2 #log_login ul li input{width:196px; height:22px;  border:1px solid #bebebe;}
+#log_box2 #log_login .log_btn{float:right; width:96px; height:48px;}
+#log_box2 #log_login .log_btn a{display:block;}
+#log_box2 #log_login .id_check{clear:both; celar:left; margin-left:45px;}
+#log_box2 #log_login .id_check input{border:0;margin:0; padding:0; width:20px;}
+
+#log_box3{float:right; position:relative; top:80px; right:39px; width:294px; height:85px; padding:0;}
+#log_copy{clear:both; float:left;}

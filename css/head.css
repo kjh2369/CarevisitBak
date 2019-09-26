@@ -1,0 +1,18 @@
+/* top */
+.top_ci{ float:left; width:209px; height:40px; margin-top:40px;}
+
+.top_gubun{ float:right;  height:23px; width:auto; margin-right:10px; margin-top:4px;} 
+.top_gubun ul{float:right; margin:0; padding:0;}
+.top_gubun li.icon_gubun{float:left;  width:50px;}
+.top_gubun li{float:left; height:23px; line-height:23px; color:#fff;}
+.top_gubun li.g_margin{width:30px;}
+.top_logout {float:right; width:89px; height:24px; margin:0px; padding:0px;}
+.top_logout a{float:left; width:89px; height:24px; display:block;   background: url('../img/top/btn_logout.png')  no-repeat left top;}
+
+/* gnb */
+#top_gnb{position:absolute; top:54px; right:0; width:auto; height:28px;}
+#top_gnb ul{margin:0;}
+#top_gnb li{float:left;  border:1px solid #e1e3e9;}
+#top_gnb li a{display:block; padding:10px 15px; width:140px; color:#000; font-weight:700; font-size:16px; text-align:center;}
+#top_gnb li a:hover{ color:#0e69b0; text-decoration:none;}
+#top_gnb li.gnb_end{background-image:none;}

@@ -1,0 +1,114 @@
+table{border-collapse:0;border-spacing:0; border:0;}
+body{
+	margin:0;
+	padding:0;
+	background-color:#fff; 
+	color:#4a4a4a; 
+	font-family:"돋움","굴림", "dotum",verdana,arial,helvetica;
+	font-size:13px;
+	overflow:hidden
+}
+
+.nowrap{
+	overflow: hidden;
+	text-overflow: ellipsis; 
+	-o-text-overflow: 
+	ellipsis; 
+	white-space: nowrap;
+}
+
+/*로그인*/
+/*body{width:100%; height:100%; margin:0; padding:0;}*/
+fieldset {margin:0; border:none;}
+legend, caption{visibility:hidden; font-size:0; width:0; height:0; line-height:0}
+#login{position:relative; width:473px; height:323px; background:url(../img/login_bg.jpg) no-repeat; font-family:'돋움',dotum;font-size:12px; margin:100px auto;}
+#login ul {position:absolute;  list-style:none; overflow:hidden; margin:0; padding:0;  top:197px; left:124px;}
+#login li label{margin-right:10px;}
+#login li label img{border:0; vertical-align:middle;}
+#login li input 
+{width:123px; height:18px; line-height:18px; padding-left:5px; padding-right:5px; vertical-align:middle; font-size:12px; border-left:1px solid #c2c2c2; border-top:1px solid #c2c2c2; border-right:1px solid #ececec; border-bottom:1px solid #ececec;}
+#login .btn_ok{position:absolute; top:197px; left:320px;}
+
+
+/*헤더*/
+#top{position:relative; width:100%; min-width:1024px; height:89px; background:url(../img/bg_head.gif) repeat-x left top; }
+#top .logo{position:absolute; top:25px; left:24px; z-index:10;}
+#top .logout{position:absolute; top:30px; left:246px; z-index:10;}
+#top .img_key{position:absolute; top:0; right:0;}
+/*gnb*/
+#gnb{ position:relative; width:100%; min-width:1024px; height:37px; background:url(../img/bg_gnb.gif) repeat-x left top; margin-bottom:1px;}
+#gnb ul.gnb_list { margin:0; padding:0;}
+#gnb ul.gnb_list li{list-style:none; overflow:hidden; float:left; height:37px;}
+#gnb ul.gnb_list li a{ height:37px; line-height:37px; font-size:12px; color:#fff; font-weight:bold; font-family:'돋움',dotum; display:block; padding-left:24px; padding-right:24px; text-decoration:none;  background:url(../img/bg_r_line.gif) no-repeat right top;}
+#gnb ul.gnb_list li a.on{background:url(../img/bg_over_line.gif) repeat-x left top;}
+#gnb ul.gnb_list li a:hover,	#gnb ul.gnb_list li a:focus{background:url(../img/bg_over_line2.gif) repeat-x left top;}
+
+a:link {color:#4a4a4a; border:none; text-decoration:none;}
+a:visited {color: #000000;text-decoration:none;}
+a:active {color: #000000;text-decoration:none;}
+a:hover {color: #0000ff; text-decoration:underline;}
+
+.my_month{
+	width:35px;
+	height:23px;
+	border:none;
+	padding:0 1px;
+	margin:0;
+	padding-top:5px;
+	text-align:center;
+	font-weight:normal;
+}
+
+.my_month_g{
+	background:url('../img/bg_calendar_g.gif') no-repeat;
+}
+
+.my_month_r{
+	background:url('../img/bg_calendar_r.gif') no-repeat;
+}
+
+.my_month_y{
+	background:url('../img/bg_calendar_y.gif') no-repeat;
+}
+
+.my_month_n{
+	background:url('../img/bg_calendar_n.gif') no-repeat;
+}
+
+.my_month_1{
+	background:url('../img/bg_calendar_1.gif') no-repeat;
+}
+
+.my_month_2{
+	background:url('../img/bg_calendar_2.gif') no-repeat;
+}
+
+
+/* BUTTON Object */
+.btn_pack,
+.btn_pack *{display:inline-block;overflow:visible;/*position:relative;*/margin:0;padding:0;border:0;background:url(../image/btn_p.gif) no-repeat;font-size:12px;font-family:Tahoma, Sans-serif;color:#333;text-decoration:none !important;vertical-align:top;white-space:nowrap}
+/*.btn_pack{margin-right:4px}*/
+.btn_pack{padding-left:4px}
+.btn_pack *{left:4px;cursor:pointer;_cursor:hand}
+.btn_pack.medium,
+.btn_pack.medium *{height:24px;line-height:24px}
+.btn_pack.large,
+.btn_pack.large *{height:30px;line-height:30px}
+.btn_pack.xlarge,
+.btn_pack.xlarge *{height:36px;line-height:36px}
+.btn_pack.small,
+.btn_pack.small *{height:19px;line-height:19px}
+.btn_pack.medium{background-position:left 0}
+.btn_pack.large{background-position:left -30px}
+.btn_pack.xlarge{background-position:left -65px}
+.btn_pack.small{background-position:left -106px}
+.btn_pack.medium *{padding:0 10px 0 6px;background-position:right top;font-size:12px}
+.btn_pack.large *{padding:0 10px 0 6px;background-position:right -30px;font-size:16px}
+.btn_pack.xlarge *{padding:0 10px 0 6px;background-position:right -65px;font-size:20px}
+.btn_pack.small *{padding:0 6px 0 2px;background-position:right -106px;font-size:11px}
+
+.btn_pack.m,
+.btn_pack.m{background-position:left -129px;}
+.btn_pack.m *{height:22px;line-height:22px;}
+.btn_pack.m *{padding:0 10px 0 6px;background-position:right -129px;font-size:12px}
+

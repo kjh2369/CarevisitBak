@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<meta http-equiv="imagetoolbar" content="no">
+<title>명세서 문자 전송 안내</title>
+<style type="text/css">
+	body{ border:0; margin:0; padding:0}
+</style>
+<script type="text/javascript">
+
+function setCookie(name, value, expiredays ){
+	var todayDate = new Date();
+		todayDate.setDate( todayDate.getDate() + expiredays );
+
+	document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+}
+function end(){
+	var f = document.f;
+
+	if (f.check.checked){
+		setCookie('LMS_POPUP','DONE',1);
+	}
+
+	self.close();
+}
+
+
+</script>
+<body>
+<table cellspacing="0" cellpadding="0">
+	<form name="f" method="post" action="">
+		<tr>
+			<td colspan="2">
+				<img src="./lms_pop.png" alt="안내 문자 전송서비스" style=" width:980px; height:748px;" usemap="#link" border="0">
+				<map name="link">
+				 <area shape="rect" coords="54,649,232,693" href="../../sms/sms_send.php?mode=BILL"  target="_blank">
+				 <area shape="rect" coords="251,649,428,693" href="./lms_client.pdf"  target="_blank">
+				 <area shape="rect" coords="548,649,728,693" href="../../sms/sms_send.php?mode=BILL_M"  target="_blank">
+				 <area shape="rect" coords="745,649,924,693" href="./lms_member.pdf"  target="_blank">
+				</map>
+			</td>
+		</tr>
+		<tr  style="background-color:#000;">
+			<td style="text-align:left; color:WHITE;"><label><input type="checkbox" name="check" value="checkbox"  style="border:0;" onClick="end();"/>오늘 하루동안 열지않기</label></td>
+			<td style="text-align:right; padding-right:20px"><a href="#" onclick="end();"><span style="color:WHITE;">닫기</span></a></td>
+		</tr>
+	</form>
+</table>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<meta http-equiv="imagetoolbar" content="no">
+<title></title>
+<style type="text/css">
+	body{ border:0; margin:0; padding:0}
+</style>
+<script type="text/javascript">
+
+function Request_pop(){
+	var Top = (window.screen.height-320) /2;
+	var Left = (window.screen.width-635) /2;
+	window.open('request.php','REQUEST_POP','resizable=no scrollbars=no width=456 height=330 Top='+Top+' left='+Left+'');
+}
+
+function setCookie(name, value, expiredays ){
+	var todayDate = new Date();
+		todayDate.setDate( todayDate.getDate() + expiredays );
+
+	document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+}
+function end(){
+	var f = document.f;
+
+	if (f.check.checked){
+		setCookie('HOME_APP','DONE',1);
+	}
+
+	self.close();
+}
+
+
+</script>
+<body>
+<table cellspacing="0" cellpadding="0">
+	<form name="f" method="post" action="">
+		<tr>
+			<td colspan="2">
+				<img src="img/top.jpg" style=" width:690px; height:217px;" >
+				<div style="position:absolute; top:127px; left:400px; ">
+					<a href="#" onclick="Request_pop();"><img src="img/request_btn.jpg" style="border:0;" alt="신청하기"></a>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div id="wrap" style="width:690px; height:400px; overflow-y:scroll; overflow-x:hidden;">
+					<img src="img/body.jpg" style=" width:690px; height:1931px;" >
+				</div>
+			</td>
+		</tr>
+		<tr  style="background-color:#000;">
+			<td style="text-align:left; color:WHITE;"><label><input type="checkbox" name="check" value="checkbox"  style="border:0;" onClick="end();"/>오늘 하루동안 열지않기</label></td>
+			<td style="text-align:right; padding-right:20px"><a href="#" onclick="end();"><span style="color:WHITE;">닫기</span></a></td>
+		</tr>
+	</form>
+</table>
+</body>
+</html>

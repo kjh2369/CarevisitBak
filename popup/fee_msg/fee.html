@@ -1,0 +1,67 @@
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<title>수급자 수에 따른 사용료 청구 안내</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='imagetoolbar' content='no'>
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+
+<style type="text/css">
+body,a, abbr, acronym, address, applet, article, aside, audio,b, blockquote, big,center, canvas, caption, cite, code, command,datalist,del, details, dfn, div,
+em, embed,fieldset, figcaption, figure, font, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html,i, iframe, img, ins,kbd, keygen,label, legend, li,meter,nav, menu,
+object, ol, output,p, pre, progress,q,s, samp, section, small, span, source, strike, strong, sub, sup,table, tbody, tfoot, thead, th, tr, tdvideo, tt,u, ul, var
+{margin:0; padding:0; border:0; font-size:9pt;}
+
+dl,dt,dd {margin:0; padding:0; border:0;}
+table { border-collapse:collapse; border-spacing:0; table-layout:fixed; }
+button { margin:0; padding:0; border:0; font:inherit; color:inherit; background:transparent; overflow:visible; cursor:pointer; line-height:0; vertical-align:middle; }
+legend, caption ,hr { position:absolute; top:0; left:0; width:1px; height:1px; visibility:hidden; font-size:0; line-height:0; }
+input { font:inherit; line-height:1em; font-size:9pt;}
+select { height:20px; font:inherit; color:inherit; vertical-align:middle; font-size:9pt;}
+textarea { font:inherit; color:inherit;}
+img { vertical-align:top; border:none;}
+
+legend, hr { overflow:hidden; position:absolute; top:0; left:0}
+legend, hr, caption { visibility:hidden; font-size:0; width:0; height:0; line-height:0}
+
+/* hidden */
+.hidden, #contents .hidden { visibility:hidden; position:absolute; font-size:0; width:0; height:0; line-height:0; margin:0; padding:0; background:none;}
+
+body { font-family: Dotum,Gulim,AppleGothic,Sans-serif; color:#2a2a2a;line-height:1.5em; font-size:9pt;}
+</style>
+
+</head>
+<script language='javascript'>
+	function setCookie(name, value, expiredays ){
+		var todayDate = new Date();
+			todayDate.setDate( todayDate.getDate() + expiredays );
+
+		document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+	}
+	function end(){
+		if (document.all.check.checked){
+			setCookie('FEEMSG','DONE',1);
+		}
+
+		self.close();
+	}
+</script>
+<body  style="margin-bottom:30px;">
+<h1><img src="img/title_place.png" alt="수급자수에 따른 사용료 청구안내" /></h1>
+<div  style="position:relative; background:url(img/bg_ctn.png) left top no-repeat; width500px; height:498px;">
+	<div style="position:absolute; top:330px; left:30px;">
+	<a href="#">
+	 <img src="img/btn_charge.png" alt="사용요금안내" onclick="window.open('./t.php','CHARGE','width=700,height=950,Top=0,left=100,scrollbars=yes,resizable=no,location=no,toolbar=no,menubar=no');"/>
+	</a>
+	</div>
+</div>
+<div style="background-color:#000; width:500px; height:35px; padding-top:5px;">
+<label><img src="img/p_img2.gif" style="border:0; vertical-align:middle;"></label><input type="checkbox" name="check" style="border:0; vertical-align:middle;" onClick="end();"/>
+<span style="width:43px; height:28px; margin-left:250px;">
+ <img src="img/p_img3.gif" onClick="window.close();" style="cursor:pointer; vertical-align:middle;">
+</span>
+</div>
+</body>
+</html>

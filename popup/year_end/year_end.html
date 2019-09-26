@@ -1,0 +1,43 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<meta http-equiv="imagetoolbar" content="no">
+<title></title>
+<style type="text/css">
+	body{ border:0; margin:0; padding:0}
+</style>
+<script type="text/javascript">
+function setCookie(name, value, expiredays ){
+	var todayDate = new Date();
+		todayDate.setDate( todayDate.getDate() + expiredays );
+
+	document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+}
+function end(){
+	var f = document.f;
+
+	if (f.check.checked){
+		setCookie('YEAREND_POP','DONE',1);
+	}
+
+	self.close();
+}
+
+
+</script>
+<body>
+<form name="f" method="post" action="">
+<table cellspacing="0" cellpadding="0">
+		<tr style="background-color:#000;">
+			<td colspan="2" style="margin:0; padding:0;">
+					<img src="./img_yearend.jpg" style=" width:400px;" >
+			</td>
+		</tr>
+		<tr  style="background-color:#000;">
+			<td style="text-align:left; color:WHITE;"><label><input type="checkbox" name="check" value="checkbox"  style="border:0;" onClick="end();"/>오늘 하루동안 열지않기</label></td>
+			<td style="text-align:right; padding-right:20px"><a href="#" onclick="end();"><span style="color:WHITE;">닫기</span></a></td>
+		</tr>
+</table>
+</form>
+</body>
+</html>

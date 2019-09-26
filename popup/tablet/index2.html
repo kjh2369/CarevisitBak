@@ -1,0 +1,78 @@
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<title>주연테크 Jtab pro 10.1 공동구매</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='imagetoolbar' content='no'>
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+
+<style type="text/css">
+body,a, abbr, acronym, address, applet, article, aside, audio,b, blockquote, big,center, canvas, caption, cite, code, command,datalist,del, details, dfn, div,
+em, embed,fieldset, figcaption, figure, font, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html,i, iframe, img, ins,kbd, keygen,label, legend, li,meter,nav, menu,
+object, ol, output,p, pre, progress,q,s, samp, section, small, span, source, strike, strong, sub, sup,table, tbody, tfoot, thead, th, tr, tdvideo, tt,u, ul, var
+{margin:0; padding:0; border:0; font-size:9pt;}
+img { vertical-align:top; border:none;}
+#wrap{width:600px;  background:#57517b;}
+#container:after{display:block;clear:both;content:'';}
+.top_title {position:relative; width:600px;  height:83px; background:url(./img/top_title.png) left top no-repeat;}
+.top_btn{position:absolute; left:345px; top:17px; width:277px; height:58px}
+.top_btn a{display:block; width:223px; height:50px;}
+.tablet{position:relative; width:600px;  height:604px; background:url(./img/bg_tablet.png) left top no-repeat;}
+
+/* hidden */
+.hidden, #contents .hidden { visibility:hidden; position:absolute; font-size:0; width:0; height:0; line-height:0; margin:0; padding:0; background:none;}
+
+body { font-family: Dotum,Gulim,AppleGothic,Sans-serif; color:#2a2a2a;line-height:1.5em; font-size:9pt;}
+</style>
+<script type="text/javascript">
+	function Request_pop(){
+		var Top = (window.screen.height-320) /2;
+		var Left = (window.screen.width-635) /2;
+		window.open('request.php','TABLET_PC','resizable=no scrollbars=no width=456 height=376 Top='+Top+' left='+Left+'');
+	}
+	function setCookie(name, value, expiredays ){
+		var todayDate = new Date();
+			todayDate.setDate( todayDate.getDate() + expiredays );
+
+		document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+	}
+
+	function end(){
+		var f = document.f;
+
+		if (f.check.checked){
+			setCookie('TABLET','DONE',1);
+		}
+
+		self.close();
+	}
+</script>
+</head>
+<body>
+	<div id="wrap" style="width:100%; height:720px; overflow-y:scroll; overflow-x:hidden;">
+	  <h2 class="top_title"><div class="top_btn"><a href="#" onclick="Request_pop();"><img src="./img/btn_request.png" alt="신청하기"></a></div></h2>
+	  <p style="height:307px; background:#1c2b39;">
+		<img src="./img/top_txt.png" alt="">
+		<a href="#demo"><img src="./img/btn_demo.png" alt="사용자업무시연화면보기" style="margin-left:27px;" /></a>
+	  </p>
+		<div class="tablet"></div>
+		<div style="margin-left:14px; ">
+			<iframe width="571" height="321" src="https://www.youtube.com/embed/8u4OVJjt6nk?feature=player_embedded&rel=0&version-2&autoplay=1" frameborder="0" allowfullscreen></iframe>
+		</div>
+		<h3 style="margin-top:18px; margin-left:14px; "><a name="demo"><img src="./img/title1.png" alt="사용자 업무 시연 화면"></a></h3>
+		<div style="margin-top:18px; margin-left:14px; padding-bottom:36px;">
+		 <img src="./img/ani.gif" alt="사용자 업무 시연 영상">
+		</div>
+	</div>
+	<div style="background-color:#000; width:100%; height:35px; padding-top:5px;">
+	<form name="f" method="post" action="">
+	<label><img src="img/p_img2.gif" style="border:0; vertical-align:middle;"></label><input type="checkbox" name="check" style="border:0; vertical-align:middle;" onClick="end();"/>
+	<span style="width:43px; height:28px; margin-left:360px;">
+	 <img src="img/p_img3.gif" onClick="window.close();" style="cursor:pointer; vertical-align:middle;">
+	</span>
+	</form>
+	</div>
+</body>
+</html>
