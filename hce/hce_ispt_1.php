@@ -4,19 +4,15 @@
 	include_once('../inc/_login.php');
 	include_once('../inc/_myFun.php');
 	include_once('../inc/_ed.php');
-
 	/*********************************************************
 	 *	사정기록지 - 기본
 	 *********************************************************/
-
 	//관계
 	$sql = 'SELECT	code,name
 			FROM	hce_gbn
 			WHERE	type	= \'HR\'
 			AND		use_yn	= \'Y\'';
-
 	$arrRel = $conn->_fetch_array($sql,'code');
-
 	//사례접수 및 초기면접 내용
 	$sql = 'SELECT	mst.m03_name AS name
 			,		mst.m03_jumin AS jumin
@@ -63,19 +59,15 @@
 			AND		rcpt.org_type	= \''.$hce->SR.'\'
 			AND		rcpt.IPIN		= \''.$hce->IPIN.'\'
 			AND		rcpt.rcpt_seq	= \''.$hce->rcpt.'\'';
-
 	$row = $conn->get_array($sql);
-
 	//주민번호
 	$sql = 'SELECT	jumin
 			FROM	mst_jumin
 			WHERE	org_no	= \''.$orgNo.'\'
 			AND		gbn		= \'1\'
 			AND		code	= \''.$row['jumin'].'\'';
-
 	$row['jumin'] = $conn->get_data($sql);
 	$row['jumin'] = SubStr($row['jumin'].'0000000',0,13);
-
 	$name	= $row['name'];	//성명
 	$gender = $myF->issToGender($row['jumin']);	//성별
 	$age	= $myF->issToAge($row['jumin']);	//연령
@@ -86,54 +78,40 @@
 	$mobile	= $myF->phoneStyle($row['mobile'],'.');	//핸드폰
 	$grdTel	= $myF->phoneStyle($row['grd_tel'],'.');	//비상연락처
 	$grdRel	= $arrRel[$row['grd_rel']]['name'];	//관계
-
 	$marry	= $row['marry_gbn'];	//결혼
 	$cohabit= $row['cohabit_gbn'];	//동거
-
 	$income		= $row['income_gbn'];	//보호형태
 	$incomeOther= $row['income_other'];
-
 	$dwelling		= $row['dwelling_gbn'];	//주거형태
 	$dwellingOther	= $row['dwelling_other'];
 	$depositAmt		= $row['deposit_amt'];	//보증금
 	$rentalAmt		= $row['rental_amt'];	//월세
-
 	$house		= $row['house_gbn'];	//주택형태
 	$houseOther	= $row['house_other'];
-
 	$health		= $row['health_gbn'];	//건강상태
 	$healthOther= $row['health_other'];
-
 	//만성질환
 	$tmp= $row['disease_gbn'];
 	$tmp= Explode('/',$tmp);
-
 	foreach($tmp as $var){
 		$var = Explode(':',$var);
 		$disease[$var[0]] = $var[1];
 	}
-
 	$handicap		= $row['handicap_gbn'];	//장애여부
 	$handicapOther	= $row['handicap_other'];
-
 	//보장구
 	$tmp= $row['device_gbn'];
 	$tmp= Explode('/',$tmp);
-
 	foreach($tmp as $var){
 		$var = Explode(':',$var);
 		$device[$var[0]] = $var[1];
 	}
 	$deviceOther= $row['device_other'];
-
 	$longLvl		= $row['longlvl_gbn'];	//장기요양등급
 	$longLvlOther	= $row['longlvl_other'];
-
 	Unset($row);
-
 	if ($_POST['hcptSeq']) $tmpHcptSeq = $_POST['hcptSeq'];
 	if (!$tmpHcptSeq) $tmpHcptSeq = $hce->rcpt;
-
 	//사정기록
 	$sql = 'SELECT	ispt_seq
 			,		work_amt
@@ -176,9 +154,7 @@
 			AND		rcpt_seq= \''.$tmpHcptSeq.'\'
 			ORDER	BY ispt_seq
 			LIMIT	1';
-
 	$row = $conn->get_array($sql);
-
 	$workAmt			= Number_Format($row['work_amt']);			//근로소득
 	$liveAidAmt			= Number_Format($row['live_aid_amt']);		//생계.주거비
 	$basicOldAmt		= Number_Format($row['basic_old_amt']);		//기초노령연금
@@ -205,67 +181,54 @@
 	$familyCnt			= IntVal($row['per_family_cnt']);	//수입 의존 가족수
 	$costGbn			= $row['per_cost_gbn'];		//최저생계비 구분
 	$medicalGbn			= $row['per_medical_gbn'];	//의료구분
-
 	$hspNm = stripslashes($row['hsp_nm']);
 	$disNm = stripslashes($row['dis_nm']);
 	$hspGo = stripslashes($row['hsp_go']);
 	$hspFre = stripslashes($row['hsp_fre']);
 	$hspMed = stripslashes($row['hsp_med']);
 	$hspTel = stripslashes($row['hsp_tel']);
-
 	$hspNm2 = stripslashes($row['hsp_nm_2']);
 	$disNm2 = stripslashes($row['dis_nm_2']);
 	$hspGo2 = stripslashes($row['hsp_go_2']);
 	$hspFre2 = stripslashes($row['hsp_fre_2']);
 	$hspMed2 = stripslashes($row['hsp_med_2']);
 	$hspTel2 = stripslashes($row['hsp_tel_2']);
-
 	$hspNm3 = stripslashes($row['hsp_nm_3']);
 	$disNm3 = stripslashes($row['dis_nm_3']);
 	$hspGo3 = stripslashes($row['hsp_go_3']);
 	$hspFre3 = stripslashes($row['hsp_fre_3']);
 	$hspMed3 = stripslashes($row['hsp_med_3']);
 	$hspTel3 = stripslashes($row['hsp_tel_3']);
-
 	$hspNm4 = stripslashes($row['hsp_nm_4']);
 	$disNm4 = stripslashes($row['dis_nm_4']);
 	$hspGo4 = stripslashes($row['hsp_go_4']);
 	$hspFre4 = stripslashes($row['hsp_fre_4']);
 	$hspMed4 = stripslashes($row['hsp_med_4']);
 	$hspTel4 = stripslashes($row['hsp_tel_4']);
-
-
 	$remark	 = StripSlashes($row['remark']);				//비고
 	$isptSeq = $row['ispt_seq'];				//순번
-
 	//신체적문제
 	$tmp = Explode('/',$row['physical_problem_gbn']);
 	foreach($tmp as $var){
 		$var = Explode(':',$var);
 		$physicalGbn[$var[0]] = $var[1];
 	}
-
 	//정신적문제
 	$tmp = Explode('/',$row['mental_problem_gbn']);
 	foreach($tmp as $var){
 		$var = Explode(':',$var);
 		$mentalGbn[$var[0]] = $var[1];
 	}
-
 	//순번
 	if (Empty($isptSeq)) $isptSeq = 0;
-
 	Unset($row);
-
 	//사진
 	$pic = '../sugupja/picture/'.$orgNo.'_'.$hce->IPIN.'.jpg';
-
 	if (!is_file($pic)) $pic = '';
 ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		lfGetCostOfLiving(true);
-
 		$('input:text[name="txtIcAmt"]').unbind('change').bind('change',function(){
 			var amt = __str2num($('#txtIcWorkAmt').val())
 					+ __str2num($('#txtIcAidAmt').val())
@@ -273,80 +236,58 @@
 					+ __str2num($('#txtIcExtAmt').val())
 					+ __str2num($('#txtIcSupportAmt').val())
 					+ __str2num($('#txtIcSpAidAmt').val());
-
 			$('#lblIcAmt').text(__num2str(amt));
-
 			lfChkCostOfLiving();
 		});
-
 		__init_form(document.f);
 		__fileUploadInit($('#frmFile'), 'fileUploadCallback');
-
 		$('#txtIcWorkAmt').change();
 	});
-
 	//저장
 	function lfSaveSub(){
 		var data = {};
-
 		data['txtIVerJumin']= $('#txtIVer').attr('jumin');
-
 		$('input:text').each(function(){
 			var id	= $(this).attr('id');
 			var val	= $(this).val();
 			var dis = $(this).attr('disabled');
-
 			if (!val || dis) val = '';
-
 			data[id] = val;
 		});
-
 		$('input:hidden').each(function(){
 			var id	= $(this).attr('id');
 			var val	= $(this).val();
-
 			if (!val) val = '';
-
 			data[id] = val;
 		});
-
 		$('input:radio').each(function(){
 			var name= $(this).attr('name');
 			var val	= $('input:radio[name="'+name+'"]:checked').val();
 			var dis = $(this).attr('disabled');
-
 			if (!val || dis) val = '';
-
 			data[name] = val;
 		});
-
 		$('input:checkbox').each(function(){
 			var id	= $(this).attr('id');
 			var val	= $(this).attr('checked') ? 'Y' : 'N';
 			var dis = $(this).attr('disabled');
-
 			if (dis) val = '';
-
 			data[id] = val;
 		});
-
 		$('select').each(function(){
 			var id	= $(this).attr('id');
 			var val	= $(this).val();
-
 			if (id.substring(0,12) == 'cboFamilyGbn' ||
 				id.substring(0,15) == 'cboFamilyCohabit'){
 			}else{
 				data[id] = val;
 			}
 		});
-
 		$('textarea').each(function(){
 			var id	= $(this).attr('id');
 			var val	= $(this).val();
 			var dis = $(this).attr('disabled');
 		});
-
 		$.ajax({
 			type:'POST'
 		,	url:'./hce_apply.php'
@@ -370,7 +311,6 @@
 			}
 		}).responseXML;
 	}
-
 	//파일업로드
 	function fileUpload(){
 		if (!$('#filePicture').val()){
@@ -378,17 +318,14 @@
 		}
 		
 		var exp = $('#filePicture').val().split('.');
-
 		//if (exp[exp.length-1].toLowerCase() != 'xls'){
 		//	alert('EXCEL 파일을 선택하여 주십시오.');
 		//	return;
 		//}
-
 		var frm = $('#frmFile');
 			frm.attr('action', './hce_client_picture_reg.php?fileCd=<?=$hce->IPIN;?>');
 			frm.submit();
 	}
-
 	function fileUploadCallback(data, state){
 		/*
 		if (__fileUploadCallback(data, state)){
@@ -399,20 +336,16 @@
 		*/
 		//$('#msgBody').html(data).show();
 	}
-
 	//최저생계비
 	function lfGetCostOfLiving(isLoad){
 		if (!$('#txtIsptDt').val() || !$('#txtPerCnt').val()) return;
-
 		var perCnt = __str2num($('#txtPerCnt').val());
-
 		if (perCnt >= 1 && perCnt <= 6){
 		}else{
 			if (!isLoad) alert('수입 의존 가족수를 1명에서 6명사이로 입력하여 주십시오.');
 			$('#txtPerCnt').focus();
 			return;
 		}
-
 		$.ajax({
 			type:'POST'
 		,	url:'./hce_find.php'
@@ -434,13 +367,11 @@
 			}
 		}).responseXML;
 	}
-
 	//최저생계비 구분 체크
 	function lfChkCostOfLiving(){
 		var cost= __str2num($('#lblLivingCost').text());
 		var pay	= __str2num($('#lblIcAmt').text());
 		var gbn	= '9';
-
 		if (cost > 0){
 			if (cost > pay){
 				gbn = '1';
@@ -448,13 +379,12 @@
 				gbn = '2';
 			}
 		}
-
 		$('#optCostOfLiving_'+gbn).attr('checked',true);
 	}
 </script>
-<table class="my_table" style="width:100%;">
+<table class="my_table my_border_blue" style="width:100%;">
 	<colgroup>
-		<col width="70px">
+		<col width="80px">
 		<col width="80px">
 		<col width="40px">
 		<col width="50px">
@@ -474,20 +404,15 @@
 					<script type="text/javascrit">
 						function lfPicShow(obj){
 							if (!__checkImageExp3(obj)) return;
-
 							var path = __get_file_path(obj);
-
 							$('#divImgView').hide();
 							$('#divImgView').css('filter','progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'file://'+path+'\', width=\'100%\', height=\'100%\', sizingMethod=\'image\'');
-
 							var picW = $('#divImgView').width();
 							var picH = $('#divImgView').height();
 							var prtW = $('#divImgView').parent().width();
 							var prtH = $('#divImgView').parent().height();
-
 							if (picW > prtW || picH > prtH){
 								var picR = 1;
-
 								if (picW > picH){
 									picR = picH / picW;
 									picW = prtW;
@@ -497,17 +422,13 @@
 									picH = prtH;
 									picW = prtW * picR;
 								}
-
 								$('#divImgView').css('filter','progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'file://'+path+'\', width=\''+picW+'px\', height=\''+picH+'px\', sizingMethod=\'scale\'');
 							}
-
 							$('#divImgView').css('width',picW+'px').css('height',picH+'px');
 							$('#divImgView').show();
 						}
-
 						function lfPicDel(){
 							if (!confirm('삭제 후 복구가 불가능합니다.\n정말로 삭제하시겠습니까?')) return;
-
 							$.ajax({
 								type:'POST'
 							,	url:'./hce_apply.php'
@@ -532,7 +453,6 @@
 							,	error:function(){
 								}
 							}).responseXML;
-
 							$('#divImgView').hide();
 						}
 					</script>
@@ -560,7 +480,7 @@
 		</tr>
 		<tr>
 			<th class="center">주소</th>
-			<td class="left" colspan="9"><?=$addr;?></td>
+			<td class="left" ><?=$addr;?></td>
 		</tr>
 		<tr>
 			<th class="center">연락처</th>
@@ -598,35 +518,26 @@
 						FROM	hce_gbn
 						WHERE	type	= \'MR\'
 						AND		use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<span style="margin-left:5px;"><?=($marry == $row['code'] ? '■' : '□');?></span><span style="margin-left:2px;"><?=$row['name'];?></span><?
 				}
-
 				$conn->row_free();?>
 				<span style="margin-left:5px;">/</span><?
-
 				$sql = 'SELECT	code,name
 						FROM	hce_gbn
 						WHERE	type	= \'CB\'
 						AND		use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<span style="margin-left:5px;"><?=($cohabit == $row['code'] ? '■' : '□');?></span><span style="margin-left:2px;"><?=$row['name'];?></span><?
 				}
-
 				$conn->row_free();?>
 			</td>
 		</tr>
@@ -646,7 +557,7 @@
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">- 가족사항</th>
+			<th class="bold last" colspan="8">- 가족사항</th>
 		</tr>
 		<tr>
 			<th class="head">관계</th>
@@ -673,12 +584,9 @@
 				AND		org_type= \''.$hce->SR.'\'
 				AND		IPIN	= \''.$hce->IPIN.'\'
 				AND		rcpt_seq= \''.$hce->rcpt.'\'';
-
 		$conn->query($sql);
 		$conn->fetch();
-
 		$rowCnt = $conn->row_count();
-
 		if ($rowCnt > 0){
 			for($i=0; $i<$rowCnt; $i++){
 				$row = $conn->select_row($i);?>
@@ -698,7 +606,6 @@
 				<td class="center last" colspan="20">::등록된 가족이 없습니다.::</td>
 			</tr><?
 		}
-
 		$conn->row_free();?>
 	</tbody>
 </table>
@@ -711,7 +618,7 @@
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">- 경제상항</th>
+			<th class="bold last" colspan="3">- 경제상항</th>
 		</tr>
 		<tr>
 			<th class="head">보호형태</th>
@@ -720,21 +627,16 @@
 						FROM	hce_gbn
 						WHERE	type	= \'IG\'
 						AND		use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<span style="margin-left:5px;"><?=($income == $row['code'] ? '■' : '□');?></span><span style="margin-left:2px;"><?=$row['name'];?></span><?
-
 					if ($income == '9' && $income == $row['code'] && $incomeOther){?>
 						<span style="margin-left:1px;">(<?=$incomeOther;?>)</span><?
 					}
 				}
-
 				$conn->row_free();?>
 			</td>
 		</tr>
@@ -743,52 +645,52 @@
 			<td class="">
 				<table class="my_table" style="width:100%;">
 					<colgroup>
-						<col width="70px">
 						<col width="80px">
+						<col width="95px">
 						<col width="70px">
-						<col width="70px">
+						<col width="90px">
 						<col>
 					</colgroup>
 					<tbody>
 						<tr>
 							<th class="">근로소득</th>
-							<td class="last" colspan="4">
+							<td class="last" colspan="5">
 								<input id="txtIcWorkAmt" name="txtIcAmt" type="text" value="<?=$workAmt	;?>" class="number" style="width:70px;">
 							</td>
 						</tr>
 						<tr>
 							<th class="" rowspan="3">정부지원금</th>
 							<th class="">생계.주거비</th>
-							<td class="last" colspan="3">
+							<td class="last" colspan="4">
 								<input id="txtIcAidAmt" name="txtIcAmt" type="text" value="<?=$liveAidAmt;?>" class="number" style="width:70px;">
 							</td>
 						</tr>
 						<tr>
 							<th class="">기초노령연금</th>
-							<td class="last" colspan="3">
+							<td class="last" colspan="4">
 								<input id="txtIcOldAmt" name="txtIcAmt" type="text" value="<?=$basicOldAmt;?>" class="number" style="width:70px;">
 							</td>
 						</tr>
 						<tr>
 							<th class="">기타</th>
-							<td class="last" colspan="3">
+							<td class="last" colspan="4">
 								<input id="txtIcExtAmt" name="txtIcAmt" type="text" value="<?=$extAidAmt;?>" class="number" style="width:70px;">
 							</td>
 						</tr>
 						<tr>
 							<th class="">후원금</th>
-							<td class="last" colspan="4">
+							<td class="last" colspan="5">
 								<input id="txtIcSupportAmt" name="txtIcAmt" type="text" value="<?=$supportAmt;?>" class="number" style="width:70px;">
 							</td>
 						</tr>
 						<tr>
 							<th class="">부양자지원</th>
-							<td class="last" colspan="4">
+							<td class="last" colspan="5">
 								<input id="txtIcSpAidAmt" name="txtIcAmt" type="text" value="<?=$supportAidAmt;?>" class="number" style="width:70px;">
 							</td>
 						</tr>
 						<tr>
-							<th class="" colspan="2">이 수입에 의존하는 가족수</th>
+							<th class="" colspan="3">이 수입에 의존하는 가족수</th>
 							<td class="">
 								<input id="txtPerCnt" name="txt" type="text" value="<?=$familyCnt;?>" class="number" style="width:70px;" onchange="lfGetCostOfLiving();">
 							</td>
@@ -796,43 +698,35 @@
 							<td class="left last"><span id="lblLivingCost"></span></td>
 						</tr>
 						<tr>
-							<td class="last" colspan="5"><?
+							<td class="last" colspan="6"><?
 								$sql = 'SELECT	code,name
 										FROM	hce_gbn
 										WHERE	type	= \'MCL\'
 										AND		use_yn	= \'Y\'';
-
 								$conn->query($sql);
 								$conn->fetch();
-
 								$rowCnt = $conn->row_count();
-
 								for($i=0; $i<$rowCnt; $i++){
 									$row = $conn->select_row($i);?>
 									<label><input id="optCostOfLiving_<?=$row['code'];?>" name="optCostOfLiving" type="radio" class="radio" value="<?=$row['code'];?>" <?=($costGbn == $row['code'] ? 'checked' : '');?>><?=$row['name'];?></label><?
 								}
-
 								$conn->row_free();?>
 							</td>
 						</tr>
 						<tr>
 							<th class="bottom">의료보장</th>
-							<td class="bottom last" colspan="4"><?
+							<td class="bottom last" colspan="5"><?
 								$sql = 'SELECT	code,name
 										FROM	hce_gbn
 										WHERE	type	= \'MDC\'
 										AND		use_yn	= \'Y\'';
-
 								$conn->query($sql);
 								$conn->fetch();
-
 								$rowCnt = $conn->row_count();
-
 								for($i=0; $i<$rowCnt; $i++){
 									$row = $conn->select_row($i);?>
 									<label><input id="optMedical_<?=$row['code'];?>" name="optMedical" type="radio" class="radio" value="<?=$row['code'];?>" <?=($medicalGbn == $row['code'] ? 'checked' : '');?>><?=$row['name'];?></label><?
 								}
-
 								$conn->row_free();?>
 							</td>
 						</tr>
@@ -854,7 +748,7 @@
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">- 주거상항</th>
+			<th class="bold last" colspan="2">- 주거상항</th>
 		</tr>
 		<tr>
 			<th class="head">주택<br>소유상태</th>
@@ -863,12 +757,9 @@
 						FROM	hce_gbn
 						WHERE	type	= \'DL\'
 						AND		use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<span style="margin-left:5px;"><?=($dwelling == $row['code'] ? '■' : '□');?></span><span style="margin-left:2px;"><?=$row['name'];?></span><?
@@ -894,7 +785,6 @@
 						}
 					}
 				}
-
 				$conn->row_free();?>
 			</td>
 		</tr>
@@ -905,23 +795,18 @@
 						FROM	hce_gbn
 						WHERE	type	= \'HT\'
 						AND		use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<span style="margin-left:5px;"><?=($house == $row['code'] ? '■' : '□');?></span><span style="margin-left:2px;"><?=$row['name'];?></span><?
-
 					if ($row['code'] == '9'){
 						if ($house == $row['code']){?>
 							<span style="margin-left:1px;">(<?=$houseOther;?>)</span><?
 						}
 					}
 				}
-
 				$conn->row_free();?>
 			</td>
 		</tr>
@@ -932,21 +817,16 @@
 						FROM	hce_gbn
 						WHERE	type	= \'DLE\'
 						AND		use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<label><input id="optDwellingEnv_<?=$row['code'];?>" name="optDwellingEnv" type="radio" class="radio" value="<?=$row['code'];?>" otherVal="9" otherObj="txtDwellingEnvOther" <?=($dwellingEnv == $row['code'] ? 'checked' : '');?>><?=$row['name'];?></label><?
-
 					if ($row['code'] == '9'){?>
 						(<input id="txtDwellingEnvOther" name="txt" type="text" value="<?=$dwellingEnvOther;?>" style="width:150px; background-color:#efefef;" disabled="true">)<?
 					}
 				}
-
 				$conn->row_free();?>
 			</td>
 		</tr>
@@ -992,21 +872,16 @@
 						FROM	hce_gbn
 						WHERE	type	= \'HTG\'
 						AND		use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<label><input id="optHeat_<?=$row['code'];?>" name="optHeat" type="radio" class="radio" value="<?=$row['code'];?>" otherVal="9" otherObj="txtHeatOther" <?=($heatGbn == $row['code'] ? 'checked' : '');?>><?=$row['name'];?></label><?
-
 					if ($row['code'] == '9'){?>
 						(<input id="txtHeatOther" name="txt" type="text" value="<?=$heatOther;?>" style="width:150px; background-color:#efefef;" disabled="true">)<?
 					}
 				}
-
 				$conn->row_free();?>
 			</td>
 		</tr>
@@ -1036,34 +911,26 @@
 						FROM	hce_gbn
 						WHERE	type	= \'TLG\'
 						AND		use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<label><input id="optToilet_<?=$row['code'];?>" name="optToilet" type="radio" class="radio" value="<?=$row['code'];?>" <?=($toiletGbn == $row['code'] ? 'checked' : '');?>><?=$row['name'];?></label><?
 				}
-
 				$conn->row_free();?>
 				<span>/</span><?
 				$sql = 'SELECT	code,name
 						FROM	hce_gbn
 						WHERE	type	= \'TLT\'
 						AND		use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<label><input id="optToiletType_<?=$row['code'];?>" name="optToiletType" type="radio" class="radio" value="<?=$row['code'];?>" <?=($toiletType == $row['code'] ? 'checked' : '');?>><?=$row['name'];?></label><?
 				}
-
 				$conn->row_free();?>
 			</td>
 		</tr>
@@ -1077,7 +944,7 @@
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">- 건강상태</th>
+			<th class="bold last" colspan="2">- 건강상태</th>
 		</tr>
 		<tr>
 			<th class="head">전체적<br>건강상태</th>
@@ -1086,17 +953,13 @@
 						FROM	hce_gbn
 						WHERE	type	= \'HS\'
 						AND		use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<div style="float:left; width:47%;">
 						<span style="margin-left:5px;"><?=($health == $row['code'] ? '■' : '□');?></span><span style="margin-left:2px;"><?=$row['name'];?></span><?
-
 						if ($row['code'] == '9'){
 							if ($health == $row['code']){?>
 								<span style="margin-left:2px;"><?=$healthOther;?></span><?
@@ -1104,7 +967,6 @@
 						}?>
 					</div><?
 				}
-
 				$conn->row_free();?>
 			</td>
 		</tr>
@@ -1115,19 +977,15 @@
 						FROM	hce_gbn
 						WHERE	type	= \'DT\'
 						AND		use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<div style="float:left; width:23%;">
 						<span style="margin-left:5px;"><?=($disease[$row['code']] == 'Y' ? '■' : '□');?></span><span style="margin-left:2px;"><?=$row['name'];?></span>
 					</div><?
 				}
-
 				$conn->row_free();?>
 			</td>
 		</tr>
@@ -1173,23 +1031,18 @@
 						FROM	hce_gbn
 						WHERE	type= \'LLV\'
 						AND	use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<span style="margin-left:5px;"><?=($longLvl == $row['code'] ? '■' : '□');?></span><span style="margin-left:2px;"><?=$row['name'];?></span><?
-
 					if ($row['code'] == '9'){
 						if ($longLvl == $row['code']){?>
 							<span style="margin-left:5px;"><?=$longLvlOther;?></span><?
 						}
 					}
 				}
-
 				$conn->row_free();?>
 			</td>
 		</tr>
@@ -1200,23 +1053,18 @@
 						FROM	hce_gbn
 						WHERE	type= \'DV\'
 						AND	use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<span style="margin-left:5px;"><?=($device[$row['code']] == 'Y' ? '■' : '□');?></span><span style="margin-left:2px;"><?=$row['name'];?></span><?
-
 					if ($row['code'] == '99'){
 						if ($device[$row['code']] == 'Y'){?>
 							<span style="margin-left:5px;"><?=$deviceOther;?></span><?
 						}
 					}
 				}
-
 				$conn->row_free();?>
 			</td>
 		</tr>
@@ -1227,21 +1075,16 @@
 						FROM	hce_gbn
 						WHERE	type= \'PP\'
 						AND	use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<label><input id="chkPhysical_<?=$row['code'];?>" name="chkDevice" type="checkbox" class="checkbox" value="<?=$row['code'];?>" <?=($physicalGbn[$row['code']] == 'Y' ? 'checked' : '');?> otherVal="9" otherObj="txtPhysicalOther"><?=$row['name'];?></label><?
-
 					if ($row['code'] == '9'){?>
 						(<input id="txtPhysicalOther" name="txt" type="text" value="<?=$physicalOther;?>" style="width:150px; background-color:#efefef;" disabled="true">)<?
 					}
 				}
-
 				$conn->row_free();?>
 			</td>
 		</tr>
@@ -1252,21 +1095,16 @@
 						FROM	hce_gbn
 						WHERE	type= \'MP\'
 						AND	use_yn	= \'Y\'';
-
 				$conn->query($sql);
 				$conn->fetch();
-
 				$rowCnt = $conn->row_count();
-
 				for($i=0; $i<$rowCnt; $i++){
 					$row = $conn->select_row($i);?>
 					<label><input id="chkMental_<?=$row['code'];?>" name="chkMental" type="checkbox" class="checkbox" value="<?=$row['code'];?>" <?=($mentalGbn[$row['code']] == 'Y' ? 'checked' : '');?> otherVal="9" otherObj="txtMentalOther"><?=$row['name'];?></label><?
-
 					if ($row['code'] == '9'){?>
 						(<input id="txtMentalOther" name="txt" type="text" value="<?=$mentalOther;?>" style="width:150px; background-color:#efefef;" disabled="true">)<?
 					}
 				}
-
 				$conn->row_free();?>
 			</td>
 		</tr>

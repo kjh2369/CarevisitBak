@@ -17,9 +17,9 @@
 	//if (__BODY__ == 1) include_once('../work/result_confirm_reserve.php');
 
 	//요구문서 발생시 팝업실행
-	include_once('../inc/set_doc.php');
+	//include_once('../inc/set_doc.php');
 
 	//include_once('../inc/_loop.php');
 	include_once('../inc/_db_close.php');
-	include_once('../inc/_carlendarLayer.php');
+	//include_once('../inc/_carlendarLayer.php');
 ?>

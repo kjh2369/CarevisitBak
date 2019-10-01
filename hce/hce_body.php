@@ -1,6 +1,7 @@
 <?
 	include_once('../inc/_header.php');
 	include_once('../inc/_http_uri.php');
+	include_once("../inc/_body_header.php");
 	include_once('../inc/_myFun.php');
 	include_once('../inc/_hce.php');
 
@@ -32,6 +33,7 @@
 </script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		console.log("test");
 		__init_form(document.f);
 		lfResize();
 	});
@@ -213,5 +215,6 @@
 <input id="sr" name="sr" type="hidden" value="<?=$sr;?>">
 </form>
 <?
+	include_once("../inc/_body_footer.php");
 	include_once('../inc/_footer.php');
 ?>

@@ -41,16 +41,16 @@
 	echo '<script type=\'text/javascript\' src=\'../js/counsel.js\'></script>';
 	echo '<script type=\'text/javascript\' src=\'../js/report.js\'></script>';
 	echo '<form name=\'f\' method=\'post\'>';
-	echo '<div class=\'title title_border\'>직원 과정상담내역</div>';
+	echo '<div class=\'title\'><div>직원 과정상담내역</div></div>';
 	
-	echo '<table class=\'my_table\' style=\'width:100%; \'>';
+	echo '<table class=\'my_table my_border\' style=\'width:100%; \'>';
 	echo '<colgroup>';
-	echo '<col width=\'60px\'>';
+	echo '<col width=\'80px\'>';
 	echo '<col width=\'110px\'>';
-	echo '<col width=\'60px\'>';
+	echo '<col width=\'80px\'>';
 	echo '<col width=\'110px\'>';
-	echo '<col width=\'60px\'>';
-	echo '<col width=\'45px\'>';
+	echo '<col width=\'80px\'>';
+	echo '<col width=\'150px\'>';
 	echo '<col >';
 	echo '<tbody>';
 	echo '<tr>';
@@ -88,7 +88,7 @@
 				<option value=\'CASE\' '.($find_type == 'CASE' ? 'selected' : '').'>사례관리회의</option>
 				</select>
 			</td>';
-	echo '<td class="other" style="padding-left:5px; vertical-align:top; padding-top:2px;">
+	echo '<td class="other">
 			<span class="btn_pack m icon"><span class="refresh"></span><button type="button" onclick="_member_search();">조회</button></span>';
 	
 	if($debug) echo '  <span class="btn_pack m "><button type="button" onclick=\'_client_proc_counsel_show("","","");\' >전체출력</button></span>';
@@ -97,10 +97,10 @@
 	echo '</tr>';
 	echo '</tbody>';
 	echo '</table>';
-	echo '<table class=\'my_table my_border\' style=\'margin-top:-1px;" width:100%;\'>';
+	echo '<table class=\'my_table my_border\' width:100%;\'>';
 	echo '<colgroup>';
-	echo '<col width=\'60px\'>';
-	echo '<col width=\'50px\'>';
+	echo '<col width=\'80px\'>';
+	echo '<col width=\'110px\'>';
 	echo '<col>';
 	echo '</colgroup>';
 	echo '<tbody>';

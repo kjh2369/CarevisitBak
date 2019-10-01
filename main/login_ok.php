@@ -51,7 +51,8 @@
 		}
 
 		$_SESSION["userCode"] = $uCode;
-		$_SESSION["userName"] = $row["mname"];
+		$_SESSION["userName"] = $row["name"];
+		$_SESSION["userMemCd"] = $row["mem_cd"];
 		$_SESSION["userCenterCode"] = $row["org_no"];
 		$_SESSION['userArea'] = $row['area_cd'];
 		$_SESSION['userGroup'] = $row['group_cd'];

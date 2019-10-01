@@ -239,7 +239,7 @@
 			exit;
 		}
 
-		//상세서비스 삭제	
+		//상세서비스 삭제
 		$sql = 'DELETE
 				FROM	care_suga
 				WHERE	org_no	= \''.$code.'\'
@@ -279,7 +279,6 @@
 				WHERE	org_no		= \''.$code.'\'
 				AND		care_sr		= \''.$sr.'\'
 				AND		care_svc	= \''.$svc.'\'
-				AND		care_sub	= \''.$sub.'\'
 				AND		care_cd		= \''.$cd.'\'';
 
 		$cnt = $conn->get_data($sql);
@@ -287,13 +286,11 @@
 		if ($cnt > 0){//수정
 			$sql = 'UPDATE	care_resource
 					SET		care_cust	= \''.$cust.'\'
-					,		care_cost	= \''.$cost.'\'
 					,		from_dt		= \''.$from.'\'
 					,		to_dt		= \''.$to.'\'
 					WHERE	org_no		= \''.$code.'\'
 					AND		care_sr		= \''.$sr.'\'
 					AND		care_svc	= \''.$svc.'\'
-					AND		care_sub	= \''.$sub.'\'
 					AND		care_cd		= \''.$cd.'\'';
 		}else{//신규
 			$sql = 'SELECT	MAX(care_cd)
@@ -301,7 +298,7 @@
 					WHERE	org_no	= \''.$code.'\'
 					AND		care_sr	= \''.$sr.'\'
 					AND		care_svc= \''.$svc.'\'
-					AND		care_sub= \''.$sub.'\'';
+					';
 
 			$cd = '000'.(IntVal($conn->get_data($sql))+1);
 			$cd = SubStr($cd,StrLen($cd)-4,StrLen($cd));
@@ -310,19 +307,15 @@
 					 org_no
 					,care_sr
 					,care_svc
-					,care_sub
 					,care_cd
 					,care_cust
-					,care_cost
 					,from_dt
 					,to_dt) VALUES (
 					 \''.$code.'\'
 					,\''.$sr.'\'
 					,\''.$svc.'\'
-					,\''.$sub.'\'
 					,\''.$cd.'\'
 					,\''.$cust.'\'
-					,\''.$cost.'\'
 					,\''.$from.'\'
 					,\''.$to.'\'
 					)';
@@ -1032,8 +1025,8 @@
 		$addrDtl	= $_POST['addrDtl'];
 		$pernm		= $_POST['pernm'];
 		$pertel		= Str_Replace('-','',$_POST['pertel']);
-		$support	= $_POST['support'];
-		$resource	= $_POST['resource'];
+		$support	= 'Y'; //$_POST['support'];
+		$resource	= 'N'; //$_POST['resource'];
 		$userCd		= $_SESSION['userCode'];
 		$today		= Date('Ymd');
 

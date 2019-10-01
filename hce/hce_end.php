@@ -172,49 +172,43 @@
 		}).responseXML;
 	}
 </script>
-<table class="my_table" style="width:100%;">
+
+<div class="title title_border">
+	<div style="float:left; width:auto;">서비스종결</div>
+	<div style="float:right; width:auto; padding-top:10px;">
+		<span class="btn_pack m" id="btnSave"><button type="button" class="bold" onclick="lfSave();">저장</button></span>
+		<span class="btn_pack m"><button type="button" class="bold" id="btnEnd" onclick="lfEndRun();">종결</button></span>
+		<span class="btn_pack m" id="btnCancel" style="display:none;"><button type="button" class="bold" onclick="lfEndCancel();">종결취소</button></span>
+		<span class="btn_pack m"><button type="button" class="bold" onclick="lfPDF('<?=$type;?>');">출력</button></span>
+	</div>
+</div>
+
+
+<table class="my_table my_border_blue" style="width:100%;">
 	<colgroup>
+		<col width="70px">
 		<col>
 	</colgroup>
 	<tbody>
 		<tr>
-			<td class="right bottom last">
-				<div id="divBtn" style="display:none;">
-					<span class="btn_pack m" id="btnSave"><span class="save"></span><a href="javascript:lfSave();">저장</a></span>
-					<span class="btn_pack m"><a id="btnEnd" href="javascript:lfEndRun();" style="font-weight:bold;">종결</a></span>
-					<span class="btn_pack m"><a id="btnCancel" href="javascript:lfEndCancel();" style="font-weight:bold; display:none;">종결취소</a></span>
-					<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>');">출력</button></span>
-				</div>
-			</td>
+			<th class="head">성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;명</th>
+			<td class="left last"><?=$name;?></td>
+		</tr>
+		<tr>
+			<th class="head">주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</th>
+			<td class="left last"><?=$addr;?></td>
+		</tr>
+		<tr>
+			<th class="head">종결일자</th>
+			<td class="last"><input id="txtEndDt" type="text" value="<?=$endDt;?>" class="date"></td>
+		</tr>
+		<tr>
+			<th class="head bottom">종결사유</th>
+			<td class="bottom last"><input id="txtEndRsn" type="text" value="<?=$endRsn;?>" style="width:100%;"></td>
 		</tr>
 	</tbody>
 </table>
-<div class="my_border_blue" style="">
-	<table class="my_table" style="width:100%;">
-		<colgroup>
-			<col width="70px">
-			<col>
-		</colgroup>
-		<tbody>
-			<tr>
-				<th class="head">성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;명</th>
-				<td class="left last"><?=$name;?></td>
-			</tr>
-			<tr>
-				<th class="head">주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</th>
-				<td class="left last"><?=$addr;?></td>
-			</tr>
-			<tr>
-				<th class="head">종결일자</th>
-				<td class="last"><input id="txtEndDt" type="text" value="<?=$endDt;?>" class="date"></td>
-			</tr>
-			<tr>
-				<th class="head bottom">종결사유</th>
-				<td class="bottom last"><input id="txtEndRsn" type="text" value="<?=$endRsn;?>" style="width:100%;"></td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+
 <input id="endYn" type="hidden" value="<?=$endYn;?>">
 <?
 	include_once('../inc/_db_close.php');

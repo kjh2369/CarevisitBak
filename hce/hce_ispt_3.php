@@ -145,7 +145,7 @@
 	<colgroup>
 		<col width="80px">
 		<col width="160px">
-		<col width="135px" span="3">
+		<col width="250px" span="4">
 		<col>
 	</colgroup>
 	<tbody>

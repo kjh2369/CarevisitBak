@@ -6,36 +6,19 @@
 
 	$code  = $_SESSION['userCenterCode'];
 	$jumin = $ed->de($_POST['jumin']);
-	$seq   = $_POST['seq'];
+	$fromDt   = $_POST['fromDt'];
 
-	$sql = 'SELECT	seq
-			,		from_dt
-			,		to_dt
-			,		annuity_yn
-			,		health_yn
-			,		employ_yn
-			,		sanje_yn
-			,		paye_yn
-			,		from_stat
-			,		to_stat
-			FROM	mem_insu
-			WHERE	org_no = \''.$code.'\'
-			AND		jumin  = \''.$jumin.'\'';
+	$sql = 'SELECT	from_dt, to_dt, nps_flag, nhic_flag, ei_flag, lai_flag, income_tax_off_flag
+			FROM	ltcf_insu_hist
+			WHERE	org_no	 = \''.$code.'\'
+			AND		ipin	 = \''.$jumin.'\'
+			AND		del_flag = \'N\'';
 
-	if (!Empty($seq)){
-		if (Is_Numeric($seq)){
-			$sql .= '
-				AND		seq = \''.$seq.'\'';
-		}
-	}
+	if ($lmtcnt) $sql .= ' AND from_dt <= DATE_FORMAT(NOW(), \'%Y%m%d\')';
 
-	$sql .= '
-			ORDER	BY seq DESC';
+	$sql .= ' ORDER	BY from_dt DESC';
 
-	if ($seq == 'MAX'){
-		$sql .= '
-			LIMIT	1';
-	}
+	if ($lmtcnt) $sql .= ' LIMIT '.$lmtcnt;
 
 	$conn->query($sql);
 	$conn->fetch();
@@ -48,17 +31,13 @@
 		$data .= 'seq='.$row['seq'];
 		$data .= '&from='.$row['from_dt'];
 		$data .= '&to='.$row['to_dt'];
-		$data .= '&a='.$row['annuity_yn'];
-		$data .= '&h='.$row['health_yn'];
-		$data .= '&e='.$row['employ_yn'];
-		$data .= '&s='.$row['sanje_yn'];
-		$data .= '&p='.$row['paye_yn'];
-		$data .= '&statF='.$row['from_stat'];
-		$data .= '&statT='.$row['to_stat'];
+		$data .= '&a='.$row['nps_flag'];
+		$data .= '&h='.$row['nhic_flag'];
+		$data .= '&e='.$row['ei_flag'];
+		$data .= '&s='.$row['lai_flag'];
+		$data .= '&p='.$row['income_tax_off_flag'];
 
-		if ($seq != 'MAX'){
-			$data .= chr(11);
-		}
+	
 	}
 
 	$conn->row_free();

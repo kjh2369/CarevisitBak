@@ -1,6 +1,3 @@
-<?
-	include_once('../inc/_root_return.php');
-?>
 <script type="text/javascript">
 	function lfMenu(menuId, para, popYn){
 		if (!para) para = '';

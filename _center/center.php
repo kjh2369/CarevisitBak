@@ -11,6 +11,8 @@
 
 	$menuPath = './center_'.$menuFile.'.php';
 
+
+
 	if (!is_file($menuPath)){
 		 include('../inc/_http_home.php');
 		 exit;
@@ -437,8 +439,8 @@
 		function lfResizeSub(){}
 		function lfExcel(){}
 	</script>
-	<div id="divTitle" class="title title_border" style="width:100%;">
-		<div style=""><?=$title;?></div><?
+	<div id="divTitle" class="title" style="width:100%;">
+		<div style="float:left; width:auto;"><?=$title;?></div><?
 		if ($showNew){?>
 			<div style="float:right; width:auto; margin-top:9px;"><span class="btn_pack m"><span class="add"></span><button onclick="lfReg();">등록</button></span></div><?
 		}?>

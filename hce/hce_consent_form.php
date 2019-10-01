@@ -267,286 +267,293 @@
 			}
 		}).responseXML;
 	}
-</script><?
+</script>
+
+<div class="title title_border">
+	<div style="float:left; width:auto;">이용안내 및 동의서</div>
+	<div style="float:right; width:auto; padding-top:10px;">
+		<span style="color:red;">※동의서는 사례회의록이 작성이되있어야 저장이 가능합니다.</span>
+		<span class="btn_pack m"><span class="save"></span><button type="button" class="bold" onclick="lfSave();">저장</button></span>
+		<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>');">출력</button></span>
+	</div>
+</div>
+
+<?
 $colgroup	= '	<col width="200px">
 				<col width="200px">
 				<col width="200px">
-				<col>';?>
-<div class="my_border_blue" style="border-bottom:none; margin-top:10px;">
-	<table class="my_table" style="width:100%;">
-		<colgroup>
-			<col width="40px">
-			<col width="50px">
-			<col width="50px">
-			<col width="10px">
-			<col width="50px">
-			<col>
-		</colgroup>
-		<tbody>
-			<tr>
-				<th class="head">일자</th>
-				<td><input id="txtConsentDt" name="txt" type="text" value="<?=$consentDt;?>" class="date"></td>
-				<th class="head">담당자</th>
-				<td class="" style="padding:1px 1px 0 2px;"><span class="btn_pack find" onclick="lfMemFind();"></span></td>
-				<td class="last"><input id="txtPer" name="txt" type="text" value="<?=$perNm;?>" jumin="<?=$perJumin;?>" alt="not" readonly></td>
-				<td class="right last">
-					<span style="color:red;">※동의서는 사례회의록이 작성이되있어야 저장이 가능합니다.</span>
-					<span class="btn_pack m" style="vertical-align:middle;"><span class="save"></span><a href="#" onclick="lfSave();">저장</a></span>
-					<span class="btn_pack m" style="vertical-align:middle;"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>');">출력</button></span>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-<div id="divBody" class="my_border_blue" style="height:200px; overflow-x:hidden; overflow-y:auto; border-top:none;"><?
+				<col>';
+?>
+
+<table class="my_table my_border_blue" style="width:100%;">
+	<colgroup>
+		<col width="80px">
+		<col width="120px">
+		<col width="80px">
+		<col width="80px">
+		<col width="80px">
+		<col>
+	</colgroup>
+	<tbody>
+		<tr>
+			<th class="head">일자</th>
+			<td><input id="txtConsentDt" name="txt" type="text" value="<?=$consentDt;?>" class="date"></td>
+			<th class="head">담당자</th>
+			<td class="" style="padding:1px 1px 0 2px;"><span class="btn_pack find" onclick="lfMemFind();">lfMemFind()</span></td>
+			<td class="last"><input id="txtPer" name="txt" type="text" value="<?=$perNm;?>" jumin="<?=$perJumin;?>" alt="not" readonly></td>
+			<td class="right last"> </td>
+		</tr>
+	</tbody>
+</table>
+
+<?
 if($userArea == '05'){ 
 	if($cnt>0){ ?>
-		<table class="my_table" style="width:100%;">
-			<colgroup><?=$colgroup;?></colgroup>
-				<tr>
-					<th class="left bold last" colspan="4">1. 서비스 종류</th>
-				</tr>
-				<tr>
-					<th class="head">서비스명</th>
-					<th class="head">내용</th>
-					<th class="head">비고</th>
-					<th class="head last"><!--div style="text-align:left; padding-left:5px; padding-top:1px;"><span class="btn_pack m"><span class="add"></span><a href="#" onclick="lfAddRow();">추가</a></span></div--></th>
-				</tr>
-			<tbody><?
-				$sql = 'SELECT	decision_svc
-						FROM	hce_meeting
-						WHERE	org_no	= \''.$orgNo.'\'
-						AND		org_type= \''.$hce->SR.'\'
-						AND		IPIN	= \''.$hce->IPIN.'\'
-						AND		rcpt_seq= \''.$hce->rcpt.'\'
-						AND		del_flag= \'N\'
-						ORDER	BY meet_seq DESC
-						LIMIT	1';
-				
-				$tmpSvc = $conn->get_data($sql);
-				$tmpSvc = Str_Replace('/','&',$tmpSvc);
-				$tmpSvc = Str_Replace(':','=',$tmpSvc);
+<table class="my_table my_border_blue" style="width:100%;">
+	<colgroup><?=$colgroup;?></colgroup>
+		<tr>
+			<th class="left bold last" colspan="4">1. 서비스 종류</th>
+		</tr>
+		<tr>
+			<th class="head">서비스명</th>
+			<th class="head">내용</th>
+			<th class="head">비고</th>
+			<th class="head last"><!--div style="text-align:left; padding-left:5px; padding-top:1px;"><span class="btn_pack m"><span class="add"></span><a href="#" onclick="lfAddRow();">추가</a></span></div--></th>
+		</tr>
+	<tbody><?
+		$sql = 'SELECT	decision_svc
+				FROM	hce_meeting
+				WHERE	org_no	= \''.$orgNo.'\'
+				AND		org_type= \''.$hce->SR.'\'
+				AND		IPIN	= \''.$hce->IPIN.'\'
+				AND		rcpt_seq= \''.$hce->rcpt.'\'
+				AND		del_flag= \'N\'
+				ORDER	BY meet_seq DESC
+				LIMIT	1';
+		
+		$tmpSvc = $conn->get_data($sql);
+		$tmpSvc = Str_Replace('/','&',$tmpSvc);
+		$tmpSvc = Str_Replace(':','=',$tmpSvc);
 
-				Parse_Str($tmpSvc,$arrSvc);
+		Parse_Str($tmpSvc,$arrSvc);
 
-				$sql = 'SELECT	DISTINCT
-								care.suga_cd AS cd
-						,		suga.nm1 AS mst_nm
-						,		suga.nm2 AS pro_nm
-						,		suga.nm3 AS svc_nm
-						FROM	care_suga AS care
-						INNER	JOIN	suga_care AS suga
-								ON		suga.cd1 = SUBSTR(care.suga_cd,1,1)
-								AND		suga.cd2 = SUBSTR(care.suga_cd,2,2)
-								AND		suga.cd3 = SUBSTR(care.suga_cd,4,2)
-						WHERE	care.org_no	= \''.$orgNo.'\'
-						AND		care.suga_sr= \''.$hce->SR.'\'';
-				
-				$conn->query($sql);
-				$conn->fetch();
+		$sql = 'SELECT	DISTINCT
+						care.suga_cd AS cd
+				,		suga.nm1 AS mst_nm
+				,		suga.nm2 AS pro_nm
+				,		suga.nm3 AS svc_nm
+				FROM	care_suga AS care
+				INNER	JOIN	suga_care AS suga
+						ON		suga.cd1 = SUBSTR(care.suga_cd,1,1)
+						AND		suga.cd2 = SUBSTR(care.suga_cd,2,2)
+						AND		suga.cd3 = SUBSTR(care.suga_cd,4,2)
+				WHERE	care.org_no	= \''.$orgNo.'\'
+				AND		care.suga_sr= \''.$hce->SR.'\'';
+		
+		$conn->query($sql);
+		$conn->fetch();
 
-				$rowCnt = $conn->row_count();
-				$idx = 1;
+		$rowCnt = $conn->row_count();
+		$idx = 1;
 
-				for($i=0; $i<$rowCnt; $i++){
-					$row = $conn->select_row($i);
+		for($i=0; $i<$rowCnt; $i++){
+			$row = $conn->select_row($i);
 
-					if ($arrSvc[$row['cd']] == 'Y'){?>
-						<tr class="clsData" code="<?=$row['cd'];?>">
-							<td><div class="nowrap" style="margin-left:5px; width:195px;"><?=$row['svc_nm'];?></div></td>
-							<td><input id="txtCont" name="txt" type="text" value="" style="width:100%;"></td>
-							<td><input id="txtOther" name="txt" type="text" value="" style="width:100%;"></td>
-							<td class="last"></td>
-						</tr><?
-					}
-				}
+			if ($arrSvc[$row['cd']] == 'Y'){?>
+				<tr class="clsData" code="<?=$row['cd'];?>">
+					<td><div class="nowrap" style="margin-left:5px; width:195px;"><?=$row['svc_nm'];?></div></td>
+					<td><input id="txtCont" name="txt" type="text" value="" style="width:100%;"></td>
+					<td><input id="txtOther" name="txt" type="text" value="" style="width:100%;"></td>
+					<td class="last"></td>
+				</tr><?
+			}
+		}
 
-				$conn->row_free();?>
-			</tbody>
-		</table> <?
+		$conn->row_free();?>
+	</tbody>
+</table> <?
 	}else { 	
 		
 		?>
-		<table class="my_table" style="width:100%;">
-				<colgroup>
-					<col width="200px">
-					<col width="300px">
-					<col>
-				</colgroup>
-				<thead>
-					<tr>
-						<th class="head bold last" colspan="6"><div style="text-align:left; padding-left:5px;">- 서비스 종류</div></th>
-					</tr>
-					<tr>
-						<th class="head">서비스명</th>
-						<th class="head">내용</th>
-						<th class="head">
-							<div style="float:center; width:auto;">비고</div>
-						</th>
-					</tr>
-				</thead>
-				<tbody id="ID_LIST"><?
-					$sql = 'SELECT	IFNULL(MAX(plan_seq),0)
-							FROM	hce_plan_sheet
-							WHERE	org_no	= \''.$orgNo.'\'
-							AND		org_type= \''.$hce->SR.'\'
-							AND		IPIN	= \''.$hce->IPIN.'\'
-							AND		rcpt_seq= \''.$hce->rcpt.'\'
-							AND     del_flag= \'N\'';
-							
-							$planSeq = $conn->get_data($sql);
-					
-					$sql = 'SELECT	plan_idx
-							,		contents
-							,		period
-							,		times
-							,		method
-							FROM	hce_plan_sheet_item
-							WHERE	org_no	 = \''.$orgNo.'\'
-							AND		org_type = \''.$hce->SR.'\'
-							AND		IPIN	 = \''.$hce->IPIN.'\'
-							AND		rcpt_seq = \''.$hce->rcpt.'\'
-							AND     plan_seq = \''.$planSeq.'\'
-							AND		del_flag = \'N\'';
-					
-					$conn->query($sql);
-					$conn->fetch();
+<table class="my_table my_border_blue" style="width:100%;">
+	<colgroup>
+		<col width="200px">
+		<col width="300px">
+		<col>
+	</colgroup>
+	<thead>
+		<tr>
+			<th class="head bold last" colspan="6"><div style="text-align:left; padding-left:5px;">- 서비스 종류</div></th>
+		</tr>
+		<tr>
+			<th class="head">서비스명</th>
+			<th class="head">내용</th>
+			<th class="head">
+				<div style="float:center; width:auto;">비고</div>
+			</th>
+		</tr>
+	</thead>
+	<tbody id="ID_LIST"><?
+		$sql = 'SELECT	IFNULL(MAX(plan_seq),0)
+				FROM	hce_plan_sheet
+				WHERE	org_no	= \''.$orgNo.'\'
+				AND		org_type= \''.$hce->SR.'\'
+				AND		IPIN	= \''.$hce->IPIN.'\'
+				AND		rcpt_seq= \''.$hce->rcpt.'\'
+				AND     del_flag= \'N\'';
+				
+				$planSeq = $conn->get_data($sql);
+		
+		$sql = 'SELECT	plan_idx
+				,		contents
+				,		period
+				,		times
+				,		method
+				FROM	hce_plan_sheet_item
+				WHERE	org_no	 = \''.$orgNo.'\'
+				AND		org_type = \''.$hce->SR.'\'
+				AND		IPIN	 = \''.$hce->IPIN.'\'
+				AND		rcpt_seq = \''.$hce->rcpt.'\'
+				AND     plan_seq = \''.$planSeq.'\'
+				AND		del_flag = \'N\'';
+		
+		$conn->query($sql);
+		$conn->fetch();
 
-					$rowCnt = $conn->row_count();
-					$no = 1;
+		$rowCnt = $conn->row_count();
+		$no = 1;
 
-					if ($rowCnt > 0){
-						for($i=0; $i<$rowCnt; $i++){
-							$row = $conn->select_row($i);?>
-							<tr class="clsData" code="<?=$row['plan_idx'];?>">
-								<td><div class="nowrap" style="margin-left:5px; width:195px;"><?=StripSlashes($row['contents']);?></div></td>
-								<td><input id="txtCont" name="txt" type="text" value="" style="width:100%;"></td>
-								<td><input id="txtOther" name="txt" type="text" value="" style="width:100%;"></td>
-							</tr><?
+		if ($rowCnt > 0){
+			for($i=0; $i<$rowCnt; $i++){
+				$row = $conn->select_row($i);?>
+				<tr class="clsData" code="<?=$row['plan_idx'];?>">
+					<td><div class="nowrap" style="margin-left:5px; width:195px;"><?=StripSlashes($row['contents']);?></div></td>
+					<td><input id="txtCont" name="txt" type="text" value="" style="width:100%;"></td>
+					<td><input id="txtOther" name="txt" type="text" value="" style="width:100%;"></td>
+				</tr><?
 
-							$no ++;
-						}
-					}
+				$no ++;
+			}
+		}
 
-					$conn->row_free();
-				?>
-				</tbody>
-			</table><?
+		$conn->row_free();
+	?>
+	</tbody>
+</table><?
 	} 
 }else { ?> 
-	<table class="my_table" style="width:100%;">
-		<colgroup><?=$colgroup;?></colgroup>
-			<tr>
-				<th class="left bold last" colspan="4">1. 서비스 종류</th>
-			</tr>
-			<tr>
-				<th class="head">서비스명</th>
-				<th class="head">내용</th>
-				<th class="head">비고</th>
-				<th class="head last"><!--div style="text-align:left; padding-left:5px; padding-top:1px;"><span class="btn_pack m"><span class="add"></span><a href="#" onclick="lfAddRow();">추가</a></span></div--></th>
-			</tr>
-		<tbody><?
-			$sql = 'SELECT	decision_svc
-					FROM	hce_meeting
-					WHERE	org_no	= \''.$orgNo.'\'
-					AND		org_type= \''.$hce->SR.'\'
-					AND		IPIN	= \''.$hce->IPIN.'\'
-					AND		rcpt_seq= \''.$hce->rcpt.'\'
-					AND		del_flag= \'N\'
-					ORDER	BY meet_seq DESC
-					LIMIT	1';
-			
-			$tmpSvc = $conn->get_data($sql);
-			$tmpSvc = Str_Replace('/','&',$tmpSvc);
-			$tmpSvc = Str_Replace(':','=',$tmpSvc);
+<table class="my_table my_border_blue" style="width:100%;">
+	<colgroup><?=$colgroup;?></colgroup>
+		<tr>
+			<th class="left bold last" colspan="4">1. 서비스 종류</th>
+		</tr>
+		<tr>
+			<th class="head">서비스명</th>
+			<th class="head">내용</th>
+			<th class="head">비고</th>
+			<th class="head last"><!--div style="text-align:left; padding-left:5px; padding-top:1px;"><span class="btn_pack m"><span class="add"></span><a href="#" onclick="lfAddRow();">추가</a></span></div--></th>
+		</tr>
+	<tbody><?
+		$sql = 'SELECT	decision_svc
+				FROM	hce_meeting
+				WHERE	org_no	= \''.$orgNo.'\'
+				AND		org_type= \''.$hce->SR.'\'
+				AND		IPIN	= \''.$hce->IPIN.'\'
+				AND		rcpt_seq= \''.$hce->rcpt.'\'
+				AND		del_flag= \'N\'
+				ORDER	BY meet_seq DESC
+				LIMIT	1';
+		
+		$tmpSvc = $conn->get_data($sql);
+		$tmpSvc = Str_Replace('/','&',$tmpSvc);
+		$tmpSvc = Str_Replace(':','=',$tmpSvc);
 
-			Parse_Str($tmpSvc,$arrSvc);
+		Parse_Str($tmpSvc,$arrSvc);
 
-			$sql = 'SELECT	DISTINCT
-							care.suga_cd AS cd
-					,		suga.nm1 AS mst_nm
-					,		suga.nm2 AS pro_nm
-					,		suga.nm3 AS svc_nm
-					FROM	care_suga AS care
-					INNER	JOIN	suga_care AS suga
-							ON		suga.cd1 = SUBSTR(care.suga_cd,1,1)
-							AND		suga.cd2 = SUBSTR(care.suga_cd,2,2)
-							AND		suga.cd3 = SUBSTR(care.suga_cd,4,2)
-					WHERE	care.org_no	= \''.$orgNo.'\'
-					AND		care.suga_sr= \''.$hce->SR.'\'';
+		$sql = 'SELECT	DISTINCT
+						care.suga_cd AS cd
+				,		suga.nm1 AS mst_nm
+				,		suga.nm2 AS pro_nm
+				,		suga.nm3 AS svc_nm
+				FROM	care_suga AS care
+				INNER	JOIN	suga_care AS suga
+						ON		suga.cd1 = SUBSTR(care.suga_cd,1,1)
+						AND		suga.cd2 = SUBSTR(care.suga_cd,2,2)
+						AND		suga.cd3 = SUBSTR(care.suga_cd,4,2)
+				WHERE	care.org_no	= \''.$orgNo.'\'
+				AND		care.suga_sr= \''.$hce->SR.'\'';
 
-			$conn->query($sql);
-			$conn->fetch();
+		$conn->query($sql);
+		$conn->fetch();
 
-			$rowCnt = $conn->row_count();
-			$idx = 1;
+		$rowCnt = $conn->row_count();
+		$idx = 1;
 
-			for($i=0; $i<$rowCnt; $i++){
-				$row = $conn->select_row($i);
+		for($i=0; $i<$rowCnt; $i++){
+			$row = $conn->select_row($i);
 
-				if ($arrSvc[$row['cd']] == 'Y'){?>
-					<tr class="clsData" code="<?=$row['cd'];?>">
-						<td><div class="nowrap" style="margin-left:5px; width:195px;"><?=$row['svc_nm'];?></div></td>
-						<td><input id="txtCont" name="txt" type="text" value="" style="width:100%;"></td>
-						<td><input id="txtOther" name="txt" type="text" value="" style="width:100%;"></td>
-						<td class="last"></td>
-					</tr><?
-				}
+			if ($arrSvc[$row['cd']] == 'Y'){?>
+				<tr class="clsData" code="<?=$row['cd'];?>">
+					<td><div class="nowrap" style="margin-left:5px; width:195px;"><?=$row['svc_nm'];?></div></td>
+					<td><input id="txtCont" name="txt" type="text" value="" style="width:100%;"></td>
+					<td><input id="txtOther" name="txt" type="text" value="" style="width:100%;"></td>
+					<td class="last"></td>
+				</tr><?
 			}
+		}
 
-			$conn->row_free();?>
-		</tbody>
-	</table><?
+		$conn->row_free();?>
+	</tbody>
+</table><?
 } ?>
-	<table class="my_table" style="width:100%;">
-		<colgroup>
-			<col width="70px">
-			<col>
-		</colgroup>
-		<tbody>
-			<tr>
-				<th class="left bold last" colspan="2">2. 서비스 조정 및 중단</th>
-			</tr>
-			<tr>
-				<th class="head">서비스<br>조정</th>
-				<td class="head last">
-					ㆍ서비스 이용자에게 적절하지 않거나 서비스 제공 목적에 어긋날 때<br>
-					ㆍ서비스 이용자의 부적절한 서비스 요구가 있을 경우<br>
-				</td>
-			</tr>
-			<tr>
-				<th class="head">서비스<br>중단</th>
-				<td class="head last">
-					ㆍ서비스 이용자가 서비스를 중단의 의사가 있을 경우<br>
-					ㆍ다른 지역으로 이주를 하였을 경우<br>
-					ㆍ3개월 이상 연락이 끊겼을 경우<br>
-					ㆍ타 기관과 서비스가 중복되었을 경우<br>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<table class="my_table" style="width:100%;">
-		<colgroup>
-			<col>
-		</colgroup>
-		<tbody>
-			<tr>
-				<th class="left bold last">3. 서비스 이용 동의서</th>
-			</tr>
-			<tr>
-				<td class="left last">
-					&nbsp;&nbsp;서비스 이용자는 신상의 어려움이나 경제적인 변동이 있을 경우 기관에 알려야 하며, 어려움을 해결하기 위해 같이 노력하여야 한다.<br>
-					서비스 이용자는 본 기관이 이용자와 상호 협의한 서비스를 실시하기 위하여 개인정보를 수집.활용하는 것에 동의한다.
-				</td>
-			</tr>
-			<tr>
-				<td class="left last">
-					&nbsp;&nbsp;본 동의서는 "<?=$orgNm;?>"기관에서 제공되는 서비스에 대하여 본 기관과 (<?=$name;?>)님이 상호 협의한 내용이며, 서비스 제공에 있어 문제 및 어려움이 있을 경우 서비스 이용자와 기관과의 상호 협의를 통하여 조정이 가능하다.
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+<table class="my_table my_border_blue" style="width:100%;">
+	<colgroup>
+		<col width="70px">
+		<col>
+	</colgroup>
+	<tbody>
+		<tr>
+			<th class="left bold last" colspan="2">2. 서비스 조정 및 중단</th>
+		</tr>
+		<tr>
+			<th class="head">서비스<br>조정</th>
+			<td class="head last">
+				ㆍ서비스 이용자에게 적절하지 않거나 서비스 제공 목적에 어긋날 때<br>
+				ㆍ서비스 이용자의 부적절한 서비스 요구가 있을 경우<br>
+			</td>
+		</tr>
+		<tr>
+			<th class="head">서비스<br>중단</th>
+			<td class="head last">
+				ㆍ서비스 이용자가 서비스를 중단의 의사가 있을 경우<br>
+				ㆍ다른 지역으로 이주를 하였을 경우<br>
+				ㆍ3개월 이상 연락이 끊겼을 경우<br>
+				ㆍ타 기관과 서비스가 중복되었을 경우<br>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<table class="my_table my_border_blue" style="width:100%;">
+	<colgroup>
+		<col>
+	</colgroup>
+	<tbody>
+		<tr>
+			<th class="left bold last">3. 서비스 이용 동의서</th>
+		</tr>
+		<tr>
+			<td class="left last">
+				&nbsp;&nbsp;서비스 이용자는 신상의 어려움이나 경제적인 변동이 있을 경우 기관에 알려야 하며, 어려움을 해결하기 위해 같이 노력하여야 한다.<br>
+				서비스 이용자는 본 기관이 이용자와 상호 협의한 서비스를 실시하기 위하여 개인정보를 수집.활용하는 것에 동의한다.
+			</td>
+		</tr>
+		<tr>
+			<td class="left last">
+				&nbsp;&nbsp;본 동의서는 "<?=$orgNm;?>"기관에서 제공되는 서비스에 대하여 본 기관과 (<?=$name;?>)님이 상호 협의한 내용이며, 서비스 제공에 있어 문제 및 어려움이 있을 경우 서비스 이용자와 기관과의 상호 협의를 통하여 조정이 가능하다.
+			</td>
+		</tr>
+	</tbody>
+</table>
 <?
 
 	include_once('../inc/_db_close.php');

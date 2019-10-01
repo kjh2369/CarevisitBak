@@ -1,0 +1,63 @@
+.layer_body {display:none; left:0; top:0; width:100%; height:100%; position:fixed; overflow:hidden; z-index:8000; background:url(http://nhcs.kr/img/tmp_bg.png) 100% 100%;}
+.layer_pop {background-color: #fff; position: absolute; z-index: 9000; border:2px solid #0e69b0; padding:0; overflow:hidden; white-space:nowrap;} 
+/*#mask {width: 100%; background: #000000; position: absolute; z-index:1000; display: none;}*/
+div.b_rad2{overflow:hidden; white-space:nowrap;}
+
+div.pop_title {background-color:#0e69b0; padding:10px 10px; border-bottom:1px solid #6b7075;}
+div.pop_title:after{display:block;clear:both;content:''}
+div.pop_title > h3 {font-size:17px; height:30px; line-height:30px; color:#fff;}
+div.pop_title > h3 i.Col_b{color:#35acd0;}
+.pop_close{display:block; position:absolute; top:13px; right:15px;}
+.pop_save{display:block; position:absolute; top:13px; right:50px;}
+.pop_before_load{display:block; position:absolute; top:13px; right:170px;}
+
+.btn_l_box{background-color:#eee; padding:10px; overflow:hidden; border-top:1px solid #6b7075;}
+.btn_l_box:after{display:block;clear:both;content:''}
+
+div.icon_btn{float:left;}
+div.icon_btn a{display:inline-block}
+div.icon_btn .icon_s3{position:relative !important; z-index:0; display:inline-block; cursor:pointer; padding:12px; border:1px solid #bbbbbb;  background-color:#f2f2f2;  border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; vertical-align:middle;}
+div.icon_btn .icon_s3 i{position:absolute !important;; z-index:1; left:9px; top:7px; color:#47494a;}
+div.icon_btn .pd14{padding:14px;}
+
+.i_span{display:inline-block; cursor:default; height:30px;  line-height:30px;  padding:0 5px; vertical-align:middle;}
+
+/* 웹폰트 위치 및 색상 */
+div.icon_btn  .font_m_s1  i{font-size:20px; left:10px; top:4px; color:#337ab7;}
+div.icon_btn  .font_s1  i{font-size:18px; left:9px; top:4px; color:#337ab7;}
+div.icon_btn  .font_s2 {border:none; background:none;}
+div.icon_btn  .font_s2  i{left:7px; top:8px;}
+div.icon_btn  .font_s3  i{left:7px; top:6px;}
+div.icon_btn  .font_s4  i{left:4px; top:6px;}
+div.icon_btn  .font_s3_2  i{left:7px; top:5px;} /*div.icon_btn  .font_s3_2  i{left:9px; top:6px;}*/
+div.icon_btn  .font_s4_2  i{left:7px; top:6px;}
+div.icon_btn  .font_s5  i{left:8px; top:7px;}
+div.icon_btn  .font_s6  i{left:7px; top:7px;}
+div.icon_btn  .font_m_s7  i{left:8px; top:7px;}
+div.icon_btn  .font_s7  i{left:8px; top:7px;}
+div.icon_btn  .font_s8  i{left:6px; top:7px;}
+div.icon_btn  .font_s9  i{left:7px; top:8px;}
+div.icon_btn  .font_s10  i{left:7px; top:4px;}
+div.icon_btn  .font_s11  i{left:6px; top:6px;}
+div.icon_btn  .font_s12  i{left:7px; top:6px;}
+div.icon_btn  .font_s13  i{left:8px; top:7px;}
+div.icon_btn  .font_s14  i{left:6px; top:7px;}
+div.icon_btn  .font_m_s15  i{left:7px; top:7px;}
+div.icon_btn  .font_s15  i{left:6px; top:6px;  font-size:13px;}
+div.icon_btn  .font_s16  i{left:6px; top:5px;}
+div.icon_btn  .font_s17  i{left:8px; top:5px;}
+div.icon_btn  .font_s18  i{left:7px; top:5px;}
+div.icon_btn  .font_s19  i{left:11px; top:5px;}
+div.icon_btn  .font_s20 i{left:4px; top:0;}
+div.icon_btn  .font_s21 i{left:7px; top:5px;}
+div.icon_btn .Col_b  i, div.icon_btn a:hover span.Col_b i, span.Col_b i{color:#337ab7;}
+div.icon_btn .Col_r  i, div.icon_btn a:hover span.Col_r i, span.Col_r i{color:#f4336a;}
+div.icon_btn .Col_org  i, div.icon_btn a:hover span.Col_org i, span.Col_org i{color:#e79211;}
+div.icon_btn .Col_g  i, div.icon_btn a:hover span.Col_g i, span.Col_g i{color:#43ac6a;}
+div.icon_btn .Col_gr  i, div.icon_btn a:hover span.Col_gr i, span.Col_gr i{color:#c2c5c8;}
+div.icon_btn a:hover span.Col_b i, div.icon_btn a:hover span.Col_r i, div.icon_btn a:hover span.Col_org i,
+div.icon_btn a:hover span.Col_g i, div.icon_btn a:hover span.Col_gr i{color:#47494a} /* 컬러 버튼 over 색상*/
+div.icon_btn .Col_gr2  i{color:#47494a;}
+div.icon_btn a:hover .icon_s3  i{color:#337ab7;} /* 버튼 over color*/
+div.icon_btn .f_s18  i{ font-size:18px;}
+div.icon_btn .f_s19  i{font-size:19px;}

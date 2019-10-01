@@ -22,7 +22,7 @@
 				$('#divTemp').after('<div id=\'tempLodingBar\' style=\'position:absolute; width:auto; top:270px; left:470; text-align:center; padding:20px; background-color:#ffffff; border:3px solid #cccccc;\'>'+__get_loading()+'</div></center></div>').show();
 			}
 		,	success:function(data){
-				//if('<?=$debug;?>') document.write(data);
+				//document.write(data);
 
 				var row = data.split(String.fromCharCode(11));
 				var html = '';
@@ -46,17 +46,16 @@
 
 						html += '<tr style="cursor:default;" onmouseover="this.style.backgroundColor=\'#efefef\';" onmouseout="this.style.backgroundColor=\'#ffffff\';">';
 						html += '<td class="center">'+no+'</td>';
-						html += '<td class="center"><div class="left nowrap" style="width:130px;">'+col['svcNm']+'</div></td>';
+						html += '<td class="center">'+col['svcNm']+'</td>';
 						html += '<td class="center">'+gbn+'</td>';
-						html += '<td class="center"><div class="left nowrap" style="width:100px;">'+col['custNm']+'</div></td>';
-						//html += '<td class="center"><div class="right">'+__num2str(col['cost'])+'</div></td>';
-						html += '<td class="center"><div class="left nowrap" style="width:70px;">'+col['pernm']+'</div></td>';
+						html += '<td class="center">'+col['custNm']+'</td>';
+						html += '<td class="center">'+col['pernm']+'</td>';
 						html += '<td class="center">'+phone+'</td>';
 						html += '<td class="center">'+__getDate(col['from'],'.')+'</td>';
 						html += '<td class="center">'+__getDate(col['to'],'.')+'</td>';
 						html += '<td class="last">';
-						html += '&nbsp;<span class="btn_pack small"><button type="button" onclick="lfRegResource(\''+col['svcCd']+'\',\''+col['cd']+'\',\''+col['custCd']+'\');">수정</button></span>';
-						html += '&nbsp;<span class="btn_pack small"><button type="button" onclick="lfDelResource(\''+col['svcCd']+'\',\''+col['cd']+'\');">삭제</button></span>';
+						html += '<span class="btn_pack small"><button type="button" onclick="lfRegResource(\''+col['svcCd']+'\',\''+col['cd']+'\',\''+col['custCd']+'\');">수정</button></span> ';
+						html += '<span class="btn_pack small"><button type="button" onclick="lfDelResource(\''+col['svcCd']+'\',\''+col['cd']+'\');">삭제</button></span>';
 						html += '</td>';
 						html += '</tr>';
 
@@ -65,7 +64,7 @@
 				}
 
 				if (!html){
-					 html = '<tr><td class="center last" colspan="20">::검색된 데이타가 없습니다.::</td></tr>';
+					 html = '<tr><td class="center last" colspan="9">::검색된 데이타가 없습니다.::</td></tr>';
 				}
 
 				$('#tbodyList').html(html);
@@ -129,7 +128,7 @@
 	<div style="float:left;width:auto;">자원연결</div>
 	<div style="float:right; width:auto; margin-top:10px;"><span class="btn_pack m"><button type="button" onclick="lfRegResource();">등록</button></span></div>
 </div>
-<table class="my_table" style="width:100%;">
+<table class="my_table my_border" style="width:100%;">
 	<colgroup>
 		<col width="40px">
 		<col width="130px">
@@ -138,7 +137,7 @@
 		<!--col width="70px"-->
 		<col width="70px">
 		<col width="90px">
-		<col width="70px" span="2">
+		<col width="80px" span="2">
 		<col>
 	</colgroup>
 	<thead>
@@ -158,7 +157,7 @@
 	<tbody id="tbodyList"></tbody>
 	<tfoot>
 		<tr>
-			<td class="bottom last"></td>
+			<td class="" style="background-color:white; border:none;"></td>
 		</tr>
 	</tfoot>
 </table>

@@ -6,13 +6,13 @@
 
 	$code	= $_SESSION['userCenterCode'];
 	$jumin	= $ed->de($_POST['jumin']);
-	$seq	= $_POST['seq'];
+	$fromDt	= $_POST['fromDt'];
 
 	$sql = 'DELETE
-			FROM	mem_insu
+			FROM	ltcf_insu_hist
 			WHERE	org_no	= \''.$code.'\'
-			AND		jumin	= \''.$jumin.'\'
-			AND		seq		= \''.$seq.'\'';
+			AND		ipin	= \''.$jumin.'\'
+			AND     from_dt = \''.$fromDt.'\'';
 
 	$conn->begin();
 

@@ -3,18 +3,20 @@
 
 	include_once('mem_counsel_head.php');
 ?>
+
+<div style='overflow-x:hidden; overflow-y:scroll; width:100%; height:300px; margin-top:10px; margin-bottom:10px;'>
 <table class="my_table my_border_blue" style="width:100%; margin-top:10px; border-bottom:none;">
 	<colgroup>
-		<col width="100px">
+		<col width="120px">
 		<col width="362px">
-		<col width="70px">
-		<col width="80px">
+		<col width="90px">
+		<col width="110px">
 		<col>
 	</colgroup>
 	<tbody>
 		<tr>
 			<th>종교</th>
-			<td>
+			<td colspan="2">
 				<input name="counsel_religion" type="radio" value="N" tabindex="31" class="radio" onclick="_setDisabled(this, document.getElementById('counsel_rel_other'));" <? if($mem['mem_religion'] == 'N'){?>checked<?} ?>>무
 				<input name="counsel_religion" type="radio" value="1" tabindex="31" class="radio" onclick="_setDisabled(this, document.getElementById('counsel_rel_other'));" <? if($mem['mem_religion'] == '1'){?>checked<?} ?>>기독교
 				<input name="counsel_religion" type="radio" value="2" tabindex="31" class="radio" onclick="_setDisabled(this, document.getElementById('counsel_rel_other'));" <? if($mem['mem_religion'] == '2'){?>checked<?} ?>>천주교
@@ -23,7 +25,7 @@
 				<input name="counsel_rel_other" type="text" value="<?=$mem['mem_rel_other'];?>" tabindex="31" style="width:70px; margin-right:0;">
 			</td>
 			<th>취미/특기</th>
-			<td class="last" colspan="2"><input name="counsel_hobby" type="text" tabindex="31" value="<?=$mem['mem_hobby'];?>" style="width:100%;"></td>
+			<td class="last" ><input name="counsel_hobby" type="text" tabindex="31" value="<?=$mem['mem_hobby'];?>" style="width:100%;"></td>
 		</tr>
 		<tr>
 			<th>본인장애</th>
@@ -44,7 +46,7 @@
 
 <table class="my_table my_border_blue" style="width:100%; border-top:none;">
 	<colgroup>
-		<col width="100px">
+		<col width="120px">
 		<col width="200px">
 		<col width="100px">
 		<col>
@@ -91,8 +93,8 @@
 			</td>
 			<th>희망소득</th>
 			<td class="left last">
-				월<input name="counsel_hope_salary" type="text" value="<?=number_format($mem['mem_salary']);?>" tabindex="31" class="number" onkeydown="__onlyNumber(this);">원
-				(시급:<input name="counsel_hope_hourly" type="text" value="<?=number_format($mem['mem_hourly']);?>" tabindex="31" class="number" onkeydown="__onlyNumber(this);">원)
+				월<input name="counsel_hope_salary" type="text" value="<?=number_format($mem['mem_salary']);?>" tabindex="31" class="iw100" onkeydown="__onlyNumber(this);">원
+				(시급:<input name="counsel_hope_hourly" type="text" value="<?=number_format($mem['mem_hourly']);?>" tabindex="31" class="iw100" onkeydown="__onlyNumber(this);">원)
 			</td>
 		</tr>
 	</tbody>
@@ -101,12 +103,12 @@
 <!-- 가족사항 -->
 <table id="tbl_family" class="my_table my_border_blue" style="width:100%; margin-top:10px;">
 	<colgroup>
-		<col width="100px">
+		<col width="120px">
 		<col width="100px">
 		<col width="80px">
 		<col width="90px">
 		<col width="150px">
-		<col width="60px">
+		<col width="80px">
 		<col width="100px">
 		<col>
 	</colgroup>
@@ -135,7 +137,7 @@
 							<option value="N" <? if($family[$i]['family_with'] == 'N'){?>selected<?} ?>>아니오</option>
 						</select>
 					</td>
-					<td class="center"><input name="family_salary[]" type="text" value="<?=number_format($family[$i]['family_monthly']);?>" tabindex="41" class="number" style="width:100%;" onkeydown="if(event.keyCode == 13 || event.keyCode == 9){family_tbl.t_add_row();}else{__onlyNumber(this);}"></td><?
+					<td class="center"><input name="family_salary[]" type="text" value="<?=number_format($family[$i]['family_monthly']);?>" tabindex="41" class="iw100" style="width:100%;" onkeydown="if(event.keyCode == 13 || event.keyCode == 9){family_tbl.t_add_row();}else{__onlyNumber(this);}"></td><?
 					if ($i == 0){?>
 						<td class="left last"><span class="btn_pack m"><button type="button" onclick="family_tbl.t_add_row();">추가</button></span></td><?
 					}else{?>
@@ -150,7 +152,7 @@
 <!-- 교육이수 -->
 <table id="tbl_edu" class="my_table my_border_blue" style="width:100%; margin-top:10px;">
 	<colgroup>
-		<col width="100px">
+		<col width="120px">
 		<col width="100px">
 		<col width="150px">
 		<col width="150px">
@@ -193,7 +195,7 @@
 <!-- 자격 -->
 <table id="tbl_license" class="my_table my_border_blue" style="width:100%; margin-top:10px;">
 	<colgroup>
-		<col width="100px">
+		<col width="120px">
 		<col width="150px">
 		<col width="150px">
 		<col width="150px">
@@ -230,7 +232,7 @@
 
 <table class="my_table my_border_blue" style="width:100%; margin-top:10px; margin-bottom:10px;">
 	<colgroup>
-		<col width="100px">
+		<col width="120px">
 		<col width="150px">
 		<col width="100px">
 		<col width="200px">
@@ -283,3 +285,4 @@
 		</tr>
 	</tbody>
 </table>
+</div>

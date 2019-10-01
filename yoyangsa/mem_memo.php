@@ -1,8 +1,8 @@
 <?
 	if ($view_type == 'read'){?>
-		<div style="clear:both; width:100%; margin-left:10px; margin-top:10px; margin-right:10px;"><?
+		<div style="float:left; width:100%; margin-left:10px; margin-top:10px; margin-right:10px; "><?
 	}else{?>
-		<div style="clear:both; width:100%; margin-left:10px; margin-top:10px;"><?
+		<div style="width:100%; margin-top:10px; float:left;"><?
 	}
 
 	$year = Date('Y') - 1;?>

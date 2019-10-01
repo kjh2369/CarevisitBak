@@ -3,8 +3,6 @@
 	include_once("../inc/_function.php");
 	include_once("../inc/_myFun.php");
 
-	define(__ROOT__, TRUE);
-
 	if ($_GET['join'] != 'YES'){
 		$urlPage = explode("/",$_SERVER["REQUEST_URI"]);
 
@@ -22,7 +20,7 @@
 			}
 		}
 	}
-	
+
 
 	if ($gDomain == 'thegoodjob.net' && $gHostNm == 'admin' && empty($_SESSION['userCode'])){
 		//다케어본사 admin 로그인페이지일 경우
@@ -47,6 +45,7 @@
 			<link href="../css/head.css" rel="stylesheet" type="text/css">
 			<link href="../css/main_contents.css" rel="stylesheet" type="text/css">
 			<link href="../css/left_menu.css" rel="stylesheet" type="text/css">
+			<link href="../css/layer_pop.css" rel="stylesheet" type="text/css">
 			<link rel="stylesheet" type="text/css" href="../css/jqueryslidemenu.css" /><!--menu-->
 			<base target="_self">
 		</head>
@@ -67,94 +66,40 @@
 		<script type="text/javascript" src="../js/jquery.js"></script>
 		<script type="text/javascript" src="../js/jquery.form.js"></script>
 		<script type='text/javascript' src='../longcare/longcare.js'></script>
+		
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+		<link href="../common/monthpicker/MonthPicker.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="../common/monthpicker/MonthPicker.js"></script>
+
 		<!-------->
-		<script language="vbscript">
-			Function checkDate(p_date)
-				checkDate = IsDate(p_date)
-			End Function
 
-			Function getToday()
-				Dim y, m, d
-
-				y = Year(Now)
-				m = Month(Now)
-				d = Day(Now)
-
-				If (m < 10) Then m = "0" & m
-				If (d < 10) Then d = "0" & d
-
-				getToday = y & "-" & m & "-" & d
-			End Function
-
-			Function getTime()
-				Dim time
-
-				getTime = Right("0" & Hour(Now),2) & ":" & Right("0" & Minute(Now), 2)
-			End Function
-
-			Function diffDate(p_datepart, p_startDate, p_endDate)
-				diffDate = DateDiff(p_datepart, p_startDate, p_endDate)
-			End Function
-
-			Function addDate(p_interval, p_number, p_date)
-				Dim ls_date
-
-				ls_date = DateAdd(p_interval, p_number, p_date)
-
-				addDate = Year(ls_date) & "-" & Right("0" & Month(ls_date), 2) & "-" & Right("0" & Day(ls_date), 2)
-			End Function
-
-			Function addTime(p_interval, p_number, p_time)
-				Dim ls_time
-
-				ls_time = DateAdd(p_interval, p_number, p_time)
-
-				addTime = Hour(ls_time) & ":" & Minute(ls_time) & ":" & Second(ls_time)
-			End Function
-
-			Function getYear(p_date)
-				If (checkDate(p_date)) Then
-					getYear = Year(p_date)
-				Else
-					getYear = 0
-				End If
-			End Function
-
-			Function getMonth(p_date)
-				If (checkDate(p_date)) Then
-					getMonth = Month(p_date)
-				Else
-					getMonth = 0
-				End If
-			End Function
-
-			Function getDay(p_date)
-				If (checkDate(p_date)) Then
-					getDay = Day(p_date)
-				Else
-					getDay = 0
-				End If
-			End Function
-
-			Function getWeekDay(p_date)
-				If (checkDate(p_date)) Then
-					getWeekDay = Weekday(p_date)
-				Else
-					getWeekDay = 0
-				End If
-			End Function
-
-			Function getLastDay(p_date)
-				If (Not checkDate(p_date)) Then
-					getLastDay = 0
-					Exit Function
-				End If
-
-				getLastDay = Day(DateAdd("d", -1, DateAdd("m", 1, p_date)))
-			End Function
-		</script>
 
 		<script language='javascript'>
+			$(document).ready(function(){
+				$.datepicker.setDefaults({
+					dateFormat: 'yy-mm-dd' //Input Display Format 변경
+					,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+					,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+					//,changeYear: true //콤보박스에서 년 선택 가능
+					//,changeMonth: true //콤보박스에서 월 선택 가능
+					//,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시
+					//,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+					//,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+					,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트
+					,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+					,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+					,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+					,dayNamesMin: ['<span style="color:red;">일</span>','월','화','수','목','금','<span style="color:blue;">토</span>'] //달력의 요일 부분 텍스트
+					,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+					//,minDate: "-1M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+					//,maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+				});
+			});
+
 			$(document).unbind('keypress').bind('keypress',function(){
 				if (parent.opener){
 					if (window.event.keyCode == 27){
@@ -162,8 +107,8 @@
 					}
 				}
 			});
-			
-			
+
+
 			if( navigator.userAgent.indexOf( "MSIE 7" ) > 0 && navigator.userAgent.indexOf( "Trident" ) ) {
 				// 호환성 보기 활성화
 			}else {
@@ -175,6 +120,15 @@
 				if ('<?=$debug;?>' != '1'){
 					location.replace('../error.html');
 				}
+			}
+
+			function SetMouseMove(caption, body){
+				if (!body) body = $(caption).parent();
+
+				$(body).css('border', '2px solid red');
+
+				$(caption).css('cursor', 'default');
+				$(body).draggable({'containment':[0, 0, 1600, 800], 'handle': caption});
 			}
 		</script><?
 

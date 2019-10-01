@@ -23,7 +23,7 @@
 	$income = $_POST['cboIncome'];
 	$generation = $_POST['cboGeneration'];
 
-	
+
 	$rcptFrom = $_POST['txtRcptFrom'];
 	$rcptTo = $_POST['txtRcptTo'];
 
@@ -39,7 +39,7 @@
 	}else{
 		$regGbn = '1'; //등록전
 	}
-	
+
 	if ($regGbn == '1'){
 		$sql = 'SELECT	jumin
 				FROM	mst_jumin
@@ -180,14 +180,14 @@
 			$conn->row_free();
 		}
 	}else if ($regGbn == '2'){
-		
-		
+
+
 		if ($jumin){
 			$lbNew = false;
 		}else{
 			$lbNew = true;
 		}
-		
+
 		//기본정보
 		if(!$lbNew){
 			$sql = 'SELECT	jumin,name,postno,addr,addr_dtl,addr_ment,phone,mobile,grd_nm,grd_addr,grd_telno,marry_gbn,cohabit_gbn,edu_gbn,rel_gbn,kind_gbn,rst_reason,reg_dt, grd_telno AS grd_tel, end_dt, end_reason, rst_dt
@@ -195,7 +195,7 @@
 					WHERE	org_no		= \''.$orgNo.'\'
 					AND		normal_sr	= \''.$sr.'\'
 					AND		normal_seq	= \''.$gbn.'\'';
-			
+
 			$basic = $conn->get_array($sql);
 			$strJumin = $basic['jumin'];
 		}
@@ -225,9 +225,9 @@
 				,	beforeSend: function (){
 					}
 				,	success: function(data){
-						
+
 						var col = __parseStr(data);
-						
+
 						if (col['isYn'] == 'N'){
 							if ($('#linkSeq').val()) return false;
 
@@ -314,9 +314,9 @@
 			}catch(e){
 			}
 		}
-		
+
 	});
-	
+
 	//우편번호 검색
 	function lfPostCode(postno, addr, addr_dtl){
 		var width = 500; //팝업의 너비
@@ -332,7 +332,7 @@
                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 				var fullRoadAddr = data.roadAddress;
 				var extraRoadAddr = '';
-				
+
 				// 법정동명이 있을 경우 추가한다. (법정리는 제외)
                 // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
 				if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
@@ -393,14 +393,14 @@
 
 			f.appendChild(objs);
 		}
-		
+
 		f.action = '../care/care.php?sr=<?=$sr;?>&page=<?=$page;?>&type=81';
 		f.submit();
 	}
 
 	function lfSave(jumin){
 		var regGbn = $('input:radio[name="optRctGbn"]:checked').val();
-		
+
 		if (!regGbn) regGbn = '1';
 		if (regGbn == '1'){
 			//대상자만 주민번호를 확인한다.
@@ -567,7 +567,7 @@
 		,	beforeSend: function (){
 			}
 		,	success: function(result){
-				
+
 				if (result == 1){
 					alert('정상적으로 처리되었습니다.');
 					location.replace('./care.php?sr=<?=$sr;?>&type=81');
@@ -751,23 +751,22 @@
 		}
 	}
 </script>
-<div class="title title_border">대상자<?=($lbNew ? '등록' : '수정');?>(<?=$title;?>)</div>
-
-<div class="my_border_blue" style="margin-top:10px; margin-left:10px;">
+<div class="title"><div>대상자<?=($lbNew ? '등록' : '수정');?>(<?=$title;?>)</div></div>
+<div class="my_border_blue" style="">
 	<table class="my_table" style="width:100%;">
 		<colgroup>
 			<col width="70px" span="2">
 			<col width="150px">
+			<col width="70px">
 			<col width="60px">
-			<col width="50px">
 			<col width="130px">
 			<col width="70px">
-			<col width="40px">
+			<col width="50px">
 			<col>
 		</colgroup>
 		<thead>
 			<tr>
-				<th class="bold last" colspan="20">1.기본정보(<span class="bold">※성별 판단을 위해서 주민번호 7자리까지는 입력하여 주십시오.</span>)</th>
+				<th class="bold last" colspan="9" style="text-align:left;">1.기본정보(<span class="bold">※성별 판단을 위해서 주민번호 7자리까지는 입력하여 주십시오.</span>)</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -950,7 +949,7 @@
 				<th class="CLS_RST center bottom">처리일자</th>
 				<td class="CLS_RST bottom" colspan="2"><input id="txtRstDt" type="text" value="<?=$myF->dateStyle($basic['rst_dt']);?>" class="date"></td>
 				<th class="CLS_RST center bottom">처리결과</th>
-				<td class="CLS_RST bottom last" colspan="5">
+				<td class="CLS_RST bottom last" colspan="2">
 					<select id="cboRstReason" style="width:auto;" onchange="lfSetRst($(this).val());">
 						<option value="">-선택하여 주십시오.-</option>
 						<option value="01" <?=$basic['rst_reason'] == '01' ? 'selected' : '';?>>서비스대상등록</option>

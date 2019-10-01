@@ -145,11 +145,12 @@
 	<colgroup>
 		<col width="50px" span="2">
 		<col width="510px">
-		<col span="2">
+		<col width="200px">
+		<col width="200px">
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">- 정서적 측면</th>
+			<th class="bold last" colspan="5">- 정서적 측면</th>
 		</tr>
 		<tr>
 			<th class="head">No</th>

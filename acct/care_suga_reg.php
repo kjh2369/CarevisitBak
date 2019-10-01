@@ -2,6 +2,7 @@
 	include_once('../inc/_header.php');
 	include_once('../inc/_login.php');
 ?>
+
 <script type="text/javascript">
 	var opener = null;
 
@@ -10,6 +11,9 @@
 		opener.result = 9;
 
 		__init_form(document.f);
+
+		//$("#txtFromDt").datepicker();
+		//$("#txtToDt").datepicker();
 
 		$('input:text[name="txtCd"]').unbind('click').bind('click',function(){
 			if ($(this).attr('readonly')){
@@ -467,7 +471,9 @@
 </script>
 
 <form id="f" name="f" method="post">
-<div class="title title_border">서비스 등록 및 수정</div>
+<div class="title title_border">
+	<div style="">서비스 등록 및 수정</div>
+</div>
 
 <table class="my_table" style="width:100%;">
 	<colgroup>
@@ -481,17 +487,17 @@
 					<colgroup>
 						<col width="30px">
 						<col width="30px">
-						<col width="15px">
+						<col width="30px">
 						<col width="30px">
 						<col width="160px">
 						<col>
 					</colgroup>
 					<tbody>
 						<tr>
-							<th class="center" rowspan="2">대<br>분<br>류</th>
+							<th class="center" rowspan="2">관</th>
 							<th class="center">코드</th>
 							<td class="center">
-								<input id="mstCd" name="txtCd" type="text" value="" style="ime-mode:disabled; width:20px; text-align:center; border:none;" maxlength="1">
+								<input id="mstCd" name="txtCd" type="text" value="" style="ime-mode:disabled; width:100%; text-align:center; border:none;" maxlength="1">
 							</td>
 							<th class="center">명칭</th>
 							<td>
@@ -503,16 +509,16 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="last" colspan="5">
+							<td class="last" colspan="5" style="padding:0;">
 								<div id="divMST" style="height:100px; overflow-x:hidden; overflow-y:scroll; padding:5px; line-height:1.7em;"></div>
 							</td>
 						</tr>
 
 						<tr>
-							<th class="center" style="border-bottom:2px solid #0e69b0;" rowspan="2">중<br>분<br>류</th>
+							<th class="center" style="border-bottom:2px solid #0e69b0;" rowspan="2">항</th>
 							<th class="center">코드</th>
 							<td class="center">
-								<input id="proCd" name="txtCd" type="text" value="" style="ime-mode:disabled; width:20px; text-align:center; border:none;" maxlength="2" onkeyup="lfUpper(this);">
+								<input id="proCd" name="txtCd" type="text" value="" style="ime-mode:disabled; width:100%; text-align:center; border:none;" maxlength="2" onkeyup="lfUpper(this);">
 							</td>
 							<th class="center">명칭</th>
 							<td>
@@ -524,7 +530,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="last" style="border-bottom:2px solid #0e69b0;" colspan="5">
+							<td class="last" style="border-bottom:2px solid #0e69b0; padding:0;" colspan="5">
 								<div id="divPRO" style="height:100px; overflow-x:hidden; overflow-y:scroll; padding:5px; line-height:1.7em;"></div>
 							</td>
 						</tr>
@@ -536,17 +542,17 @@
 					<colgroup>
 						<col width="30px">
 						<col width="30px">
-						<col width="15px">
+						<col width="30px">
 						<col width="30px">
 						<col width="160px">
 						<col>
 					</colgroup>
 					<tbody>
 						<tr>
-							<th class="center" style="border-bottom:2px solid #0e69b0;" rowspan="2">소<br>분<br>류</th>
+							<th class="center" style="border-bottom:2px solid #0e69b0;" rowspan="2">목</th>
 							<th class="center">코드</th>
 							<td class="center">
-								<input id="svcCd" name="txtCd" type="text" value="" style="ime-mode:disabled; width:20px; text-align:center; border:none;" maxlength="2" onkeyup="lfUpper(this);">
+								<input id="svcCd" name="txtCd" type="text" value="" style="ime-mode:disabled; width:100%; text-align:center; border:none;" maxlength="2" onkeyup="lfUpper(this);">
 							</td>
 							<th class="center">명칭</th>
 							<td>
@@ -558,87 +564,8 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="last" style="border-bottom:2px solid #0e69b0;" colspan="5">
-								<div id="divSVC" style="height:227px; overflow-x:hidden; overflow-y:scroll; padding:5px; line-height:1.7em;"></div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<table class="my_table" style="width:100%;">
-					<colgroup>
-						<col width="60px">
-						<col>
-					</colgroup>
-					<tbody>
-						<tr>
-							<th class="center">적용단가</th>
-							<td class="bold last" colspan="5">
-								<input id="txtCost" name="txt" type="text" value="0" class="number" style="width:70px;">
-							</td>
-						</tr>
-						<tr>
-							<th class="center bottom">적용기간</th>
-							<td class="bottom last" colspan="5">
-								<input id="txtFromDt" name="txtDt" type="text" value="" orgVal="" class="date"> ~
-								<input id="txtToDt" name="txtDt" type="text" value="" orgVal="" class="date">
-								<input id="chkReReg" name="chk" type="checkbox" class="checkbox" value="Y" onclick="lfRePeriod();"><label id="lblReReg" for="chkReReg">재등록</label>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-			<td class="top" style="padding:5px;">
-				<div>
-					<span class="btn_pack m"><button type="button" onclick="lfApply('other');">적용</button></span>
-					<span class="btn_pack m"><button type="button" onclick="self.close();">닫기</button></span>
-				</div>
-				<div class="bold">
-					※ <span style="color:blue;">적용일</span>과 <span style="color:blue;">종료일</span>은 <span style="color:blue;">월단위</span>로 입력하여 주십시오.
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td class="bottom last" colspan="2">
-				<div class="title title_border">이력내역</div>
-				<table class="my_table" style="width:100%;">
-					<colgroup>
-						<col width="40px">
-						<col width="100px" span="3">
-						<col width="70px">
-						<col width="70px" span="2">
-						<col>
-					</colgroup>
-					<thead>
-						<tr>
-							<th class="head">No</th>
-							<th class="head">대분류</th>
-							<th class="head">중분류</th>
-							<th class="head">소분류</th>
-							<th class="head">단가</th>
-							<th class="head">적용일</th>
-							<th class="head">종료일</th>
-							<th class="head">비고</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td colspan="20">
-								<div style="height:155px; overflow-x:hidden; overflow-y:scroll;">
-									<table class="my_table" style="width:100%;">
-										<colgroup>
-											<col width="40px">
-											<col width="100px" span="3">
-											<col width="70px">
-											<col width="70px" span="2">
-											<col>
-										</colgroup>
-										<tbody id="tbodyList"></tbody>
-									</table>
-								</div>
+							<td class="last" style="border-bottom:2px solid #0e69b0; padding:0;" colspan="5">
+								<div id="divSVC" style="height:234px; overflow-x:hidden; overflow-y:scroll; padding:5px; line-height:1.7em;"></div>
 							</td>
 						</tr>
 					</tbody>

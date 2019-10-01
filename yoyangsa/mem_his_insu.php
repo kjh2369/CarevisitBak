@@ -35,17 +35,19 @@
 		});
 
 		$('#chkReReg').unbind('click').bind('click',function(){
-			if ($(this).attr('checked')){
+			
+			if ($(this).is(":checked") == true ){
 				try{
-					var from= __addDate('d',1,$('#txtToDt').val());
-					var to	= __addDate('d',-1,__addDate('yyyy',1,from));
-
+					var from= __dateAdd($('#txtToDt').val(), 1, "d");
+					var to	= __dateAdd(__dateAdd(from, 1, "y"), -1, "d");
+					
 					$('#txtFromDt').val(from);
 					$('#txtToDt').val(to);
-
-					$('#statF').val('9');
-					$('#statT').val('9');
-
+					
+					
+					//$('#statF').val('9');
+					//$('#statT').val('9');
+					
 					lfSetDtObj($('#txtFromDt'),$('#statF').val());
 					lfSetDtObj($('#txtToDt'),$('#statT').val());
 				}catch(e){
@@ -63,7 +65,9 @@
 					lfSetDtObj($('#txtFromDt'),$('#statF').attr('orgVal'));
 					lfSetDtObj($('#txtToDt'),$('#statT').attr('orgVal'));
 				}
+				
 			}else{
+
 				var from	= __getDate($('#txtFromDt').attr('orgVal'));
 				var to		= __getDate($('#txtToDt').attr('orgVal'));
 				var statF	= $('#statF').attr('orgVal');
@@ -207,7 +211,6 @@
 			}
 		,	data: {
 				'jumin':opener.jumin
-			,	'seq':$('#txtSeq').val()
 			,	'a':$('input:radio[name="optA"]:checked').val()
 			,	'h':$('input:radio[name="optH"]:checked').val()
 			,	'e':$('input:radio[name="optE"]:checked').val()
@@ -241,7 +244,7 @@
 			}
 		,	data: {
 				'jumin':opener.jumin
-			,	'seq':$('#txtSeq').val()
+			,	'fromDt':$('#txtFromDt').val()
 			}
 		,	success: function(result){
 				if (result == '9'){
@@ -258,12 +261,14 @@
 	}
 </script>
 <form id="f" name="f" method="post">
-<div class="title title_border">보험변경</div>
-<table class="my_table" style="width:100%;">
+<div class="title">
+	<div>보험변경</div>
+</div>
+<table class="my_table my_border" style="width:100%;">
 	<colgroup>
-		<col width="60px">
+		<col width="80px">
 		<col width="130px">
-		<col width="60px">
+		<col width="80px">
 		<col width="130px">
 		<col>
 	</colgroup>
@@ -315,17 +320,19 @@
 				<input id="txtToDt" name="txt" type="text" value="" orgVal="" class="date">
 				<input id="statF" type="hidden" value="" orgVal="">
 				<input id="statT" type="hidden" value="" orgVal="">
-				<input id="chkReReg" name="chk" type="checkbox" class="checkbox" value="Y"><label for="chkReReg">재등록</label>
+				<input id="chkReReg" name="chk" type="checkbox" class="checkbox" value="Y" ><label for="chkReReg">재등록</label>
 			</td>
 		</tr>
 	</tbody>
 </table>
-<div class="title title_border">변경이력</div>
-<table class="my_table" style="width:100%;">
+<div class="title">
+	<div>변경이력</div>
+</div>
+<table class="my_table my_border" style="width:100%;">
 	<colgroup>
 		<col width="30px">
 		<col width="30px" span="5">
-		<col width="130px">
+		<col width="160px">
 		<col>
 	</colgroup>
 	<thead>
@@ -337,18 +344,18 @@
 			<th class="head">산</th>
 			<th class="head">원</th>
 			<th class="head">적용기간</th>
-			<th class="head">비고</th>
+			<th class="head last">비고</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
-			<td class="top" colspan="20">
+			<td class="top" colspan="8" style="padding:0; margin:0;">
 				<div style="overflow-x:hidden; overflow-y:scroll; height:286px;">
-					<table class="my_table" style="width:100%;">
+					<table class="my_table" style="width:100%; ">
 						<colgroup>
 							<col width="30px">
 							<col width="30px" span="5">
-							<col width="130px">
+							<col width="160px">
 							<col>
 						</colgroup>
 						<tbody id="tbodyList"></tbody>

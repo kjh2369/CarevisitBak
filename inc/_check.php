@@ -340,9 +340,9 @@
 		}
 		$conn->row_free();
 	}else if($_GET['gubun'] == 'changePassword'){
-		$sql = "select m97_pass"
-			 . "  from m97user"
-			 . " where m97_id = '".$_SESSION["userCode"]
+		$sql = "select pswd"
+			 . "  from han_member"
+			 . " where id = '".$_SESSION["userCode"]
 			 . "'";
 		$conn->query($sql);
 		$row = $conn->fetch();
@@ -352,10 +352,10 @@
 		if ($pass != $_GET['nowPass']){
 			$requestString = 'X';
 		}else{
-			$sql = "update m97user"
-				 . "   set m97_pass = '".$_GET['newPass']
+			$sql = "update han_member"
+				 . "   set pswd = '".$_GET['newPass']
 				 . "'"
-				 . " where m97_id = '".$_SESSION["userCode"]
+				 . " where id = '".$_SESSION["userCode"]
 				 . "'";
 			$conn->query($sql);
 

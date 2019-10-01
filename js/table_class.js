@@ -89,13 +89,14 @@ Table.prototype.t_check_next = function(p_target, p_index, p_next){
 }
 
 Table.prototype.t_add_row = function(){
+	
 	var tbody	= __getObject(this.body_nm);
 	var row		= document.createElement('tr');
-	var seq		= tbody.childNodes.length;
+	var seq		= $('#'+this.body_nm+' tr').length;
 	var column	= eval(this.column);
 	var col		= new Array();
 	var text	= null;
-
+	
 	row.id = this.row_nm+'_'+seq;
 
 	for(var i=0; i<column.length; i++){

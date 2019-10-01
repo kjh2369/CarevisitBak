@@ -8,20 +8,7 @@
 	$today	= Date('Y-m-d');
 	$year	= Date('Y');
 
-	if ($gDomain == _KLCF_){
-		$lsUrl = 'care.'.$gDomain;
-	}else{
-		$lsUrl = 'www.'.$gDomain;
-	}
-
-	$lbAdmin = $_SESSION['userLevel'];
 	$SR = $_GET['sr'];
-
-	if ($lbAdmin == 'C'){
-		$lbUseYn = true;
-	}else{
-		$lbUseYn = false;
-	}
 ?>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -72,12 +59,7 @@
 							}
 
 							html += '<td class="center"><div class="left">'+col['nm3']+'</div></td>';
-							html += '<td class="center">'+col['from'].split('-').join('.')+'~'+col['to'].split('-').join('.')+'</td>';
-
-							if ('<?=$lbUseYn;?>' == '1'){
-								html += '<td class="center"><input id="chkUse" name="chk" type="checkbox" class="checkbox" value="'+cd+'"></td>';
-							}
-
+							//html += '<td class="center">'+col['from'].split('-').join('.')+'~'+col['to'].split('-').join('.')+'</td>';
 							html += '<td class="center last">&nbsp;</td>';
 							html += '</tr>';
 
@@ -128,12 +110,10 @@
 		}
 	}
 </script>
-<div class="title title_border">
+<div class="title my_border">
 	<div style="float:left; width:auto;">서비스관리</div>
-	<div style="float:right; width:auto; margin-top:8px;"><?
-		if ($lbAdmin == 'A' || $lbAdmin == 'HAN'){?>
-			<span class="btn_pack m"><button type="button" onclick="lfModify();">등록 및 수정</button></span><?
-		}?>
+	<div style="float:right; width:auto; margin-top:8px;">
+		<span class="btn_pack m"><button type="button" onclick="lfModify();">등록 및 수정</button></span>
 	</div>
 </div>
 <table class="my_table" style="width:100%;">
@@ -141,32 +121,24 @@
 		<col width="90px">
 		<col width="120px">
 		<col width="170px">
-		<col width="130px"><?
-		if ($lbUseYn){?>
-			<col width="30px"><?
-		}?>
 		<col>
 	</colgroup>
 	<thead>
 		<tr>
-			<th class="head">대분류(사업)</th>
-			<th class="head">중분류(프로그램)</th>
-			<th class="head">소분류</th>
-			<th class="head">기간</th><?
-			if ($lbUseYn){?>
-				<th class="head"><input id="chkAll" name="chk" type="checkbox" class="checkbox"></th><?
-			}?>
+			<th class="head">관</th>
+			<th class="head">항</th>
+			<th class="head">목</th>
 			<th class="head last">비고</th>
 		</tr>
 	</thead>
 	<tbody id="tbodyList">
 		<tr>
-			<td class="center last" colspan="10">::검색된 데이타가 없습니다.::</td>
+			<td class="center last" colspan="4">::검색된 데이타가 없습니다.::</td>
 		</tr>
 	</tbody>
 	<tfoot>
 		<tr>
-			<td class="bottom last"></td>
+			<td class="bottom last" style="background-color:white;"></td>
 		</tr>
 	</tfoot>
 </table>

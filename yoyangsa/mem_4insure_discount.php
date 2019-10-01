@@ -1,7 +1,7 @@
 <?
 	include_once('../inc/_login.php');
 ?>
-<div style="clear:both; width:100%; margin-left:10px; margin-top:10px;">
+<div style="width:100%; margin-top:10px; float:left;">
 	<script type="text/javascript">
 		$(document).ready(function(){
 			lfInsureDcSearch();
@@ -46,9 +46,9 @@
 		</colgroup>
 		<thead>
 			<tr>
-				<th class="head bold" colspan="4">
-					<div style="float:right; width:auto; padding-right:3px;"><span class="btn_pack m"><button onclick="lfInsureDcShow();">변경</button></span></div>
-					<div style="float:center; width:auto;">장기요양보험료 경감 적용</div>
+				<th class="head" colspan="4">
+					<div style="float:right; width:auto; padding-right:3px; "><span class="btn_pack m"><button onclick="lfInsureDcShow();">변경</button></span></div>
+					<div style="float:center; width:auto; ">장기요양보험료 경감 적용</div>
 				</th>
 			</tr>
 			<tr>

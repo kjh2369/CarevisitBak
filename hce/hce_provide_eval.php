@@ -43,44 +43,35 @@
 	}
 </script>
 
-<table class="my_table" style="width:100%;">
-	<colgroup>
-		<col>
-	</colgroup>
-	<tbody>
-		<tr>
-			<td class="right bottom last">
-				<span class="btn_pack m"><span class="add"></span><a href="../hce/hce_body.php?sr=<?=$sr;?>&type=142" target="frmBody">추가</a></span>
-			</td>
-		</tr>
-	</tbody>
-</table>
+<div class="title title_border">
+	<div style="float:left; width:auto;">제공평가서</div>
+	<div style="float:right; width:auto; padding-top:10px;">
+		<span class="btn_pack m"><button type="button" class="bold" onclick="location.href='../hce/hce_body.php?sr=<?=$sr;?>&type=142'">추가</button></span>
+	</div>
+</div>
 
-<div class="my_border_blue" style="border-bottom:none;"><?
-	$colgroup = '
+<table class="my_table my_border_blue" style="width:100%;">
+	<colgroup>
 		<col width="40px">
 		<col width="70px">
 		<col width="80px">
-		<col>';?>
-	<table class="my_table" style="width:100%;">
-		<colgroup><?=$colgroup;?></colgroup>
-		<thead>
-			<tr>
-				<th class="head">No</th>
-				<th class="head">평가일자</th>
-				<th class="head">사례관리자</th>
-				<th class="head last">비고</th>
-			</tr>
-		</thead>
-	</table>
-</div>
+		<col>
+	</colgroup>
+	<thead>
+		<tr>
+			<th class="head">No</th>
+			<th class="head">평가일자</th>
+			<th class="head">사례관리자</th>
+			<th class="head last">비고</th>
+		</tr>
+	</thead>
+</table>
 
-<div id="divBody" class="my_border_blue" style="height:200px; overflow-x:hidden; overflow-y:auto; border-top:none;">
-	<table class="my_table" style="width:100%;">
-		<colgroup><?=$colgroup;?></colgroup>
-		<tbody id="tbodyList"></tbody>
-	</table>
-</div>
+<table class="my_table" style="width:100%;">
+	<colgroup><?=$colgroup;?></colgroup>
+	<tbody id="tbodyList"></tbody>
+</table>
+
 <?
 	include_once('../inc/_db_close.php');
 ?>

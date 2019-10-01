@@ -161,7 +161,7 @@
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">- 사회적 측면</th>
+			<th class="bold last" colspan="5">- 사회적 측면</th>
 		</tr>
 		<tr>
 			<th class="head">No</th>

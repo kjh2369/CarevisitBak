@@ -77,22 +77,17 @@
 					<col width="70px">
 					<col>';
 ?>
-<table class="my_table" style="width:100%;">
-	<colgroup>
-		<col>
-	</colgroup>
-	<tbody>
-		<tr>
-			<td class="right bottom last">
-				<span class="btn_pack m"><span class="add"></span><a href="../hce/hce_body.php?sr=<?=$sr;?>&type=62" target="frmBody">신규</a></span>
-				<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>','ALL');">전체출력</button></span>
-				<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>','LIST');">이력출력</button></span>
-			</td>
-		</tr>
-	</tbody>
-</table>
-<div class="my_border_blue" style="border-bottom:none;">
-	<table class="my_table" style="width:100%;">
+<div class="title title_border">
+	<div style="float:left; width:auto;">서비스계획</div>
+	<div style="float:right; width:auto; padding-top:10px;">
+		<span class="btn_pack m"><span class="add"></span><button onclick="location.href='../hce/hce_body.php?sr=<?=$sr;?>&type=62'" target="frmBody">신규</button></span>
+		<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>','ALL');">전체출력</button></span>
+		<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>','LIST');">이력출력</button></span>
+	</div>
+</div>
+
+<!-- <div class="my_border_blue" style="border-bottom:none;"> -->
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup><?=$colgroup;?></colgroup>
 		<thead>
 			<tr>
@@ -103,14 +98,14 @@
 			</tr>
 		</thead>
 	</table>
-</div>
+<!-- </div> -->
 
-<div id="divBody" class="my_border_blue" style="border-top:none; height:200px; overflow-x:hidden; overflow-y:scroll;">
-	<table class="my_table" style="width:100%;">
+<!-- <div id="divBody" class="my_border_blue" style="border-top:none; height:200px; overflow-x:hidden; overflow-y:scroll;"> -->
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup><?=$colgroup;?></colgroup>
 		<tbody id="tbodyList"></tbody>
 	</table>
-</div>
+<!-- </div> -->
 <?
 	include_once('../inc/_db_close.php');
 ?>

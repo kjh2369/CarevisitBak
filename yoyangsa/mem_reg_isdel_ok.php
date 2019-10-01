@@ -32,55 +32,8 @@
 		 echo 'N';
 		 exit;
 	}
-
-	$sql = 'delete
-			  from mem_hourly
-			 where org_no   = \''.$code.'\'
-			   and mh_jumin = \''.$jumin.'\'';
-
-	if (!$conn->execute($sql)){
-		 $conn->rollback();
-		 $conn->close();
-		 echo 'N';
-		 exit;
-	}
-
-	$sql = 'delete
-			  from mem_option
-			 where org_no   = \''.$code.'\'
-			   and mo_jumin = \''.$jumin.'\'';
-
-	if (!$conn->execute($sql)){
-		 $conn->rollback();
-		 $conn->close();
-		 echo 'N';
-		 exit;
-	}
-
-	$sql = 'delete
-			  from mem_salary
-			 where org_no   = \''.$code.'\'
-			   and ms_jumin = \''.$jumin.'\'';
-
-	if (!$conn->execute($sql)){
-		 $conn->rollback();
-		 $conn->close();
-		 echo 'N';
-		 exit;
-	}
-
-	$sql = 'delete
-			  from mem_extra
-			 where org_no = \''.$code.'\'
-			   and jumin  = \''.$jumin.'\'';
-
-	if (!$conn->execute($sql)){
-		 $conn->rollback();
-		 $conn->close();
-		 echo 'N';
-		 exit;
-	}
-
+	
+	
 	$conn->commit();
 	echo 'Y';
 

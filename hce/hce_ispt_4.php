@@ -138,12 +138,14 @@
 </script>
 <table class="my_table" style="width:100%;">
 	<colgroup>
-		<col>
-		<col width="135px" span="4">
+		<col width="200px">
+		<col width="270px" span="4">
+		<col width="200px">
+		<col width="200px">
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">- 도구적 일상생활 동작(IADL)</th>
+			<th class="bold last" colspan="5">- 도구적 일상생활 동작(IADL)</th>
 		</tr>
 		<tr onmouseover="lfMouseEvt(this,'OVER');" onmouseout="lfMouseEvt(this,'OUT');" style="cursor:default;">
 			<th class="head">항목</th>

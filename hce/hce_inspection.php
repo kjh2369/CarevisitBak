@@ -118,39 +118,43 @@
 	}
 </script>
 
-<div class="my_border_blue" style="border-bottom:none; margin-top:10px;">
-	<table class="my_table" style="width:100%;">
+<!-- <div class="my_border_blue" style="border-bottom:none; margin-top:10px;"> -->
+<div class="title title_border">
+	<div style="float:left; width:auto;">사정기록</div>
+	<div style="float:right; width:auto; padding-top:10px;">
+		<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="if($('#bodyIdx').val()){lfPDF('<?=$type;?>',$('#bodyIdx').val(),$('#isptSeq').val());}">현재페이지 출력</button></span>
+		<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>','ALL');">전체 출력</button></span>
+	</div>
+</div>
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup>
-			<col width="60px">
+			<col width="70px">
 			<col width="180px">
-			<col width="50px">
+			<col width="60px">
 			<col width="70px">
 			<col width="20px">
 			<col>
 		</colgroup>
 		<tbody>
 			<tr>
-				<th class="center">상담일시</th>
+				<th class="center" >상담일시</th>
 				<td class="">
 					<input id="txtIsptDt" name="txt" type="text" value="<?=$isptDt;?>" class="date" style="margin-right:0;">
 					<input id="txtIsptFrom" name="txt" type="text" value="<?=$isptFrom;?>" class="no_string" alt="time" style="margin-left:0; margin-right:0;"> ~
 					<input id="txtIsptTo" name="txt" type="text" value="<?=$isptTo;?>" class="no_string" alt="time" style="margin-left:0; margin-right:0;">
 				</td>
 				<th class="center">담당자</th>
-				<td class="center last">
+				<td class="center last" colspan="2">
 					<input id="txtIVer" name="txt" type="text" value="<?=$iverNm;?>" jumin="<?=$iverJumin;?>" style="width:100%; border:none;" alt="not" readonly>
 				</td>
-				<td class="center">
+				<td class="center" colspan="9">
 					<span class="btn_pack find" onclick="lfMemFind();"></span>
 				</td>
-				<td class="right last">
-					<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="if($('#bodyIdx').val()){lfPDF('<?=$type;?>',$('#bodyIdx').val(),$('#isptSeq').val());}">현재페이지 출력</button></span>
-					<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>','ALL');">전체 출력</button></span>
-				</td>
+				
 			</tr>
 			<tr>
 				<th class="center">상담방법</th>
-				<td class="last" colspan="5">
+				<td class="last" colspan="13" >
 					<div style="float:left; width:auto;"><?
 						$sql = 'SELECT	code,name
 								FROM	hce_gbn
@@ -177,7 +181,7 @@
 			</tr>
 			<tr>
 				<th class="center">상담메뉴</th>
-				<td class="left last" colspan="5">
+				<td class="left last" colspan="13">
 					<span class="btn_pack small"><a href="#" onclick="lfSelMenu(this,'1'); return false;" style="color:blue;">기본</a></span>
 					<span class="btn_pack small"><a href="#" onclick="lfSelMenu(this,'2'); return false;">가계도</a></span>
 					<span class="btn_pack small"><a href="#" onclick="lfSelMenu(this,'3'); return false;">일상생활동작정도</a></span>
@@ -200,14 +204,14 @@
 			lfLoadBody(menuId, hcptSeq);
 		}
 	</script>
-	<table class="my_table" style="width:100%;">
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup>
 			<col width="100px">
 			<col>
 		</colgroup>
 		<tbody>
 			<tr>
-				<th class="center">이전내용불러오기</th>
+				<th class="center" colspan="2">이전내용불러오기</th>
 				<td class="left last">
 					<div id="ID_MENU_SEL_CD" style="display:none;" menuId=""></div><?
 					//echo $orgNo.'/'.$hce->SR.'/'.$hce->IPIN.'/'.$hce->rcpt;
@@ -240,7 +244,7 @@
 			</tr>
 		</tbody>
 	</table>
-</div>
+<!-- </div> -->
 <div id="divBody" class="my_border_blue" style="border-top:none; height:200px; overflow-x:hidden; overflow-y:auto;"></div>
 <?
 	include_once('../inc/_db_close.php');

@@ -311,8 +311,16 @@
 		
 	}
 </script>
-<div class="my_border_blue" style="border-bottom:none; margin-top:10px;">
-	<table class="my_table" style="width:100%;">
+<div class="title title_border">
+	<div style="float:left; width:auto;">선정기준</div>
+	<div style="float:right; width:auto; padding-top:10px;">
+		<span class="btn_pack m"><span class="save"></span><button type="button" onclick="lfSave();">저장</button></span>
+		<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>','<?=$choiceDt;?>','<?=$chicSeq;?>');">출력</button></span>
+	</div>
+</div>
+
+<!-- <div class="my_border_blue" style="border-bottom:none; margin-top:10px;"> -->
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup>
 			<col width="70px">
 			<col width="70px">
@@ -328,8 +336,7 @@
 				<th class="head">사례관리자</th>
 				<td class="left last"><?=$manager;?></td>
 				<td class="right last" colspan="6">
-					<span class="btn_pack m"><span class="save"></span><a href="#" onclick="lfSave();">저장</a></span>
-					<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>','<?=$choiceDt;?>','<?=$chicSeq;?>');">출력</button></span>
+					
 				</td>
 			</tr>
 			<tr>
@@ -347,10 +354,10 @@
 			</tr>
 		</tbody>
 	</table>
-</div>
+<!-- </div> -->
 
-<div id="divSub_1" class="my_border_blue" style="border-top:none; border-bottom:none;">
-	<table class="my_table" style="width:100%;">
+<!-- <div id="divSub_1" class="my_border_blue" style="border-top:none; border-bottom:none;"> -->
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup>
 			<col width="70px">
 			<col width="96px">
@@ -368,10 +375,10 @@
 			</tr>
 		</thead>
 	</table>
-</div>
+<!-- </div> -->
 
-<div id="divSub_2" class="my_border_blue" style="border-top:none; border-bottom:none;">
-	<table class="my_table" style="width:100%;">
+<!-- <div id="divSub_2" class="my_border_blue" style="border-top:none; border-bottom:none;"> -->
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup>
 			<col width="70px">
 			<col width="96px">
@@ -389,11 +396,11 @@
 			</tr>
 		</thead>
 	</table>
-</div>
+<!-- </div> -->
 
-<div id="divBody" class="my_border_blue" style="border-top:none; border-bottom:none; height:200px; overflow-x:hidden; overflow-y:auto;">
-	<div id="divChoice_1" style="display:block;">
-		<table class="my_table" style="width:100%;">
+<!-- <div id="divBody" class="my_border_blue" style="border-top:none; border-bottom:none; height:200px; overflow-x:hidden; overflow-y:auto;"> -->
+	<!-- <div id="divChoice_1" style="display:block;"> -->
+		<table class="my_table my_border_blue" style="width:100%;">
 			<colgroup>
 				<col width="70px">
 				<col width="35px">
@@ -893,9 +900,9 @@
 				</tr>
 			</tbody>
 		</table>
-	</div>
-	<div id="divChoice_2" style="display:none;">
-		<table class="my_table" style="width:100%;">
+	<!-- </div> -->
+	<!-- <div id="divChoice_2" style="display:none;"> -->
+		<table class="my_table my_border_blue" style="width:100%;">
 			<colgroup>
 				<col width="70px">
 				<col width="93px">
@@ -1302,10 +1309,10 @@
 			</tbody>
 		</table>
 	</div>
-</div>
+<!-- </div> -->
 
-<div id="divFoot" class="my_border_blue" style="border-top:none;">
-	<table class="my_table" style="width:100%;">
+<!-- <div id="divFoot" class="my_border_blue" style="border-top:none;"> -->
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup>
 			<col width="70px">
 			<col width="342px">
@@ -1342,7 +1349,7 @@
 			</tr>
 		</tbody>
 	</table>
-</div>
+<!-- </div> -->
 <input id="chicSeq" type="hidden" value="<?=$chicSeq;?>">
 <?
 	include_once('../inc/_db_close.php');

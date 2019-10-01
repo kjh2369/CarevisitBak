@@ -56,20 +56,20 @@
 
 						html += '<tr>';
 						html += '<td class="center">'+no+'</td>';
-						html += '<td class="center"><div class="left">'+col['nm']+'</div></td>';
+						html += '<td class="center">'+col['nm']+'</td>';
 						html += '<td class="center">'+col['gbn']+'</td>';
 						html += '<td class="center">'+col['kind']+'</td>';
 						html += '<td class="center">'+col['manager']+'</td>';
 						html += '<td class="center">'+col['phone']+'</td>';
 						//html += '<td class="center">'+col['fax']+'</td>';
-						html += '<td class="center"><div class="nowrap left" style="width:120px;">'+col['addr']+'</div></td>';
+						html += '<td class="center">'+col['addr']+'</td>';
 						html += '<td class="center">'+col['per']+'</td>';
 						html += '<td class="center">'+col['support']+'</td>';
 						html += '<td class="center">'+col['resource']+'</td>';
-						html += '<td class="center last"><div class="left">';
+						html += '<td class="left last">';
 						html += '<span class="btn_pack m"><button type="button" onclick="lfModify(\''+col['cd']+'\');">변경</button></span> ';
 						html += '<span class="btn_pack m"><button type="button" onclick="lfDelete(\''+col['cd']+'\');">삭제</button></span>';
-						html += '</div></td>';
+						html += '</td>';
 						html += '</tr>';
 
 						no ++;
@@ -136,11 +136,12 @@
 	<div style="float:left;width:auto;">자원관리</div>
 	<div style="float:right; width:auto; margin-top:10px;"><span class="btn_pack m"><button type="button" onclick="lfModify();">등록</button></span></div>
 </div>
-<table class="my_table" style="width:100%;">
+<table class="my_table my_border" style="width:100%;">
 	<colgroup>
 		<col width="40px">
 		<col width="120px">
-		<col width="50px" span="2">
+		<col width="50px">
+		<col width="70px">
 		<col width="70px">
 		<col width="90px">
 		<col width="120px">

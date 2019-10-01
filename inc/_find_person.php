@@ -17,6 +17,7 @@
 	}else{
 		$code = $_SESSION['userCenterCode'];
 	}
+	
 
 	$kind = $_REQUEST['kind'];
 	$type = $_REQUEST['type'];
@@ -31,8 +32,8 @@
 
 	$svcCd = $_POST['svcCd']; //서비스
 	$regDt = $_GET['regDt'];
-
 	
+
 	if (!$svcCd){
 		$sql = 'SELECT	m00_mkind
 				FROM	m00center
@@ -42,23 +43,8 @@
 		$svcCd = $conn->get_data($sql);
 	}
 
-	if (Empty($svc_gbn)){
-		$svc_gbn = $kind;
+	$svcCd = 'S';
 
-		if($kind == '0'){
-			$svc_gbn = '11';
-		}else if($kind == '1'){
-			$svc_gbn = '21';
-		}else if($kind == '2'){
-			$svc_gbn = '22';
-		}else if($kind == '3'){
-			$svc_gbn = '23';
-		}else if($kind == '4'){
-			$svc_gbn = '24';
-		}else if($kind == '5'){
-			$svc_gbn = '51';
-		}
-	}
 
 	//수급자
 	$jumin = $_POST['jumin'];
@@ -97,6 +83,12 @@
 		break;
 	case 'member':
 		$title = '직원';
+		break;
+	case 'team':
+		$title = '팀장';
+		break;
+	case 'manager':
+		$title = '담당자';
 		break;
 	}
 ?>
@@ -348,27 +340,7 @@ if ($type == 'svc_date'){
 						</select>
 					</td>
 					<td class="center" rowspan="2"><span class="btn_pack m" ><button type="button" onclick="_submit('1');" >조회</button></span></td>
-				</tr>
-				<tr>
-					<th class="head"><?=$title;?>명</th>
-					<td><input name="findName" type="text" value="<?=$findName;?>" style="width:100%;" onKeyPress="if(event.keyCode==13){_submit();}"></td>
-					<th class="center">케어구분</th>
-					<td colspan="3" style="text-align:left">
-						<select name="svc_gbn" style="width:auto;">
-							<option value=""<? if($svc_gbn == ""){echo "selected";}?>>전체</option>
-							<option value="11"<? if($svc_gbn == "11"){echo "selected";}?>>재가요양</option>
-							<option value="21"<? if($svc_gbn == "21"){echo "selected";}?>>바우처[가사]</option>
-							<option value="22"<? if($svc_gbn == "22"){echo "selected";}?>>바우처[노인]</option>
-							<option value="23"<? if($svc_gbn == "23"){echo "selected";}?>>바우처[산모]</option>
-							<option value="24"<? if($svc_gbn == "24"){echo "selected";}?>>바우처[장애]</option>
-							<!--option value="51"<? if($svc_gbn == "25"){echo "selected";}?>>바우처[시설]</option-->
-						</select>
-						<input id="idx" name="idx" type="hidden" value="<?=$_REQUEST['idx'];?>">
-						<input id="ynFamily" name="ynFamily" type="hidden" value="<?=$ynFamily;?>">
-						<input id="jumin" name="jumin" type="hidden" value="<?=$ed->en($jumin);?>">
-						<input id="year" name="year" type="hidden" value="<?=$_POST['year'];?>">
-						<input id="month" name="month" type="hidden" value="<?=$_POST['month'];?>">
-					</td><?
+				<?
 			}else if($type == 'team'){ ?>
 				<tr>
 					<th class="head">팀장명</th>
@@ -380,85 +352,49 @@ if ($type == 'svc_date'){
 		</tbody>
 	</table><?
 }?>
-		<table class="my_table" style="width:100%; height:100%; margin-top:-1px; border-top:1px solid #0e69b0;">
-			<?
-			if($type == 'svc_date'){
-				//이용계약서(계약기간리스트)?>
-				<colgroup>
-					<col width="30px">
-					<col width="200px">
-					<col>
-				</colgroup>
-				<thead>
-					<tr>
-						<th style="height:25px; text-align:center; border-bottom:1px solid #a6c0f3;">No</th>
-						<th style="height:25px; text-align:center; border-bottom:1px solid #a6c0f3; border-left:1px solid #d4d4d4;">계약기간</th>
-					</tr>
-				</thead> <?
-			}else { ?>
-				<colgroup>
-					<col width="30px">
-					<col width="110px"><?
-					if($type != 'sugupja'){ ?>
-						<col width="60px"><?
-					}?>
-					<col width="66px">
-					<col width="40px">
-					<col width="90px">
-					<col>
-				</colgroup>
-				<thead>
-					<tr>
-						<th style="height:25px; text-align:center; border-bottom:1px solid #a6c0f3;">No</th>
-						<th style="height:25px; text-align:center; border-bottom:1px solid #a6c0f3; border-left:1px solid #d4d4d4;">성명</th><?
-						if($type == 'yoyangsa'){ ?>
-							<th style="height:25px; text-align:center; border-bottom:1px solid #a6c0f3; border-left:1px solid #d4d4d4;">시급여부</th><?
-						}?>
-						<th style="height:25px; text-align:center; border-bottom:1px solid #a6c0f3; border-left:1px solid #d4d4d4;">생년월일</th>
-						<th style="height:25px; text-align:center; border-bottom:1px solid #a6c0f3; border-left:1px solid #d4d4d4;">성별</th>
-						<th style="height:25px; text-align:center; border-bottom:1px solid #a6c0f3; border-left:1px solid #d4d4d4;">연락처</th>
-						<th style="height:25px; text-align:center; border-bottom:1px solid #a6c0f3; border-left:1px solid #d4d4d4;">주소</th>
-					</tr>
-				</thead><?
-			} ?>
+		<table class="my_table my_border" style="width:100%; height:100%;">
+			<colgroup>
+				<col width="50px">
+				<col width="90px">
+				<col width="90px">
+				<col width="40px">
+				<col width="90px">
+				<col>
+			</colgroup>
+			<thead>
+				<tr>
+					<th class="head" >No</th>
+					<th class="head" >성명</th>
+					<th class="head" >생년월일</th>
+					<th class="head" >성별</th>
+					<th class="head" >연락처</th>
+					<th class="head last" >주소</th>
+				</tr>
+			</thead>
 			<tbody>
 				<tr>
 					<?
 					if($type == 'sugupja'){
 						$cols = 6;
 						$height = '305';
-					}else if($type == 'svc_date'){
-						$cols = 2;
-						$height = '70';
 					}else {
-						$cols = 7;
+						$cols = 6;
 						$height = '275';
 					}
 					?>
-					<td style="height:325px; vertical-align:top;" colspan="<?=$cols?>">
-						<div style="overflow-x:hidden; overflow-y:scroll; margin:0; padding:0; width:100%; height:<?=$height?>">
-							<table class="my_table" style=" width:100%; margin:0; margin-top:-1px; padding:0;">
-							<?if($type == 'svc_date'){
-								//이용계약서(계약기간리스트)?>
-								<colgroup>
-									<col width="33px">
-									<col width="200px">
-									<col>
-								</colgroup><?
-							}else { ?>
-								<colgroup>
-									<col width="30px">
-									<col width="110px"><?
-									if($type != 'sugupja'){ ?>
-										<col width="60px"><?
-									}?>
-									<col width="66px">
-									<col width="40px">
-									<col width="90px">
-									<col>
-								</colgroup>
-								<tbody><?
-							}
+					<td style="height:325px; vertical-align:top; margin:0; padding:0;" colspan="<?=$cols?>">
+						<div style="overflow-x:hidden; overflow-y:scroll; height:<?=$height?>">
+							<table class="my_table" style=" width:100%;">
+							<colgroup>
+								<col width="50px">
+								<col width="90px">
+								<col width="90px">
+								<col width="40px">
+								<col width="90px">
+								<col>
+							</colgroup>
+							<tbody><?
+							
 								if($type == 'sugupja'){
 									if ($wrkType != 'CARE_CLIENT_NORMAL'){
 										$sql = 'select ';
@@ -522,7 +458,7 @@ if ($type == 'svc_date'){
 															) as lvl
 															on lvl.jumin = m03_jumin
 														   and lvl.svc_cd = m03_mkind
-												  '.($svcCd == 'S' || $svcCd == 'R' ? 'inner' : 'left').' join (select jumin
+												  '.($svcCd == 'S' ? 'inner' : 'left').' join (select jumin
 															 ,      svc_cd
 															 ,		svc_stat
 															   from client_his_svc
@@ -708,38 +644,12 @@ if ($type == 'svc_date'){
 											,	   m02_ytoisail as ytoisail
 											,	   m02_yipsail as join_dt
 											,      job_nm as level
-											,	   mh_from_dt as fm_dt
-											,	   mh_to_dt as to_dt
-											,	   mh_svc
-											,      ifnull(mh_hourly, 0) as hourly
 											,	   m02_email as email
 											  from m02yoyangsa
 											  left join job_kind
 												on job_kind.org_no = m02_ccode
 											   and job_kind.job_cd = m02_yjikjong
-											  left join mem_hourly
-												on mem_hourly.org_no = m02_ccode
-											   and mem_hourly.mh_jumin = m02_yjumin";
-
-									if ($svc_gbn == 'S' || $svc_gbn == 'R'){
-										//옵션 테이블
-										$sql .= "	INNER	JOIN	mem_option
-															ON		mem_option.org_no	= m02_ccode
-															AND		mem_option.mo_jumin = m02_yjumin";
-
-										if ($svc_gbn == 'S'){
-											$sql .= "		AND		mem_option.support_yn = 'Y'";
-										}else if ($svc_gbn == 'R'){
-											$sql .= "		AND		mem_option.response_yn = 'Y'";
-										}
-									}else{
-										if (!empty($svc_gbn)) $sql .= " and mh_svc = '$svc_gbn'";
-									}
-
-									if ($svc_gbn >= '21' && $svc_gbn <= '24'){
-									//	$sql .= " AND mem_hourly.mh_from_dt <= '$yymm'
-									//			  AND mem_hourly.mh_to_dt >= '$yymm'";
-									}
+											 ";
 
 
 									if ($subCd == '800'){
@@ -850,18 +760,17 @@ if ($type == 'svc_date'){
 												echo '<tr onmouseover=\'this.style.backgroundColor="#f2f5ff";\' onmouseout=\'this.style.backgroundColor="#ffffff";\'>';
 												echo '<td class=\'center\'>'.$seq.'</td>';
 												echo '<td class=\'center\'><div class=\'left\'><a href=\'#\' onclick=\'current_row('.$lsResult.');\'>'.$row['name'].'</a></div></td>';
-												echo '<td class=\'center\'><div>'.$HourlyYn.'</div></td>';
 												echo '<td class=\'center\'><div>'.$myF->issToBirthDay($row['jumin'],'.').'</div></td>';
 												echo '<td class=\'center\'><div>'.$gender.'</div></td>';
 												echo '<td class=\'center\'><div>'.$myF->phoneStyle($row['tel'],'.').'</div></td>';
-												echo '<td class=\'center\'><div class="left nowrap" style="width:170px;">'.$row['addr'].'</div></td>';
+												echo '<td class=\'center last\'><div class="left nowrap" style="width:170px;">'.$row['addr'].'</div></td>';
 												echo '</tr>';
 
 												$seq ++;
 											}
 										}
 									}else if($type == 'yoyangsa'){
-
+										
 										for($i=0; $i<$rowCount; $i++){
 											$row = $conn->select_row($i);
 
@@ -884,40 +793,14 @@ if ($type == 'svc_date'){
 												$p_yn = $stat_nogood;
 											}
 
-
-											/*
-											$hourly_fm_dt = $row['fm_dt'];
-											$hourly_to_dt = $row['to_dt'];
-
-											if($_GET['mDate'] >= substr($hourly_fm_dt,0,6) and $_GET['mDate'] < substr($hourly_to_dt,0,6)){
-
-												if($row['hourly'] != 0){
-													$HourlyYn = 'Y';
-												}else {
-													$HourlyYn = 'N';
-												}
-
-											}else {
-												$HourlyYn = 'N';
-											}
-
-											*/
-
-											if($row['hourly'] != 0){
-												$HourlyYn = 'Y';
-											}else {
-												$HourlyYn = 'N';
-											}
-
 											?>
 											<tr>
-												<td style="height:25px; text-align:center;"	><?=$seq;?></td>
-												<td style="height:25px; text-align:left;"	><a href="#" onClick="_currnetRow('<?=$ed->en($row['jumin']);?>','<?=$row['name'];?>','<?=$gender;?>','<?=$birth;?>','<?=$row['no']?>','<?=$row['level'];?>','<?=$myF->issToAge($row['jumin']);?>세','<?=$myF->dateStyle($row['yipsail']).'~'.$myF->dateStyle($row['ytoisail']);?>','<?=$timePay;?>', '<?=$p_yn;?>');">&nbsp;<?=$row['name'];?></a></td>
-												<td style="height:25px; text-align:center;"	><?=$HourlyYn;?></td>
-												<td style="height:25px; text-align:center;"	><?=$myF->issToBirthday($row['jumin'],'.');?></td>
-												<td style="height:25px; text-align:center;"	><?=$gender;?></td>
-												<td style="height:25px; text-align:left;"	>&nbsp;<?=$myF->phoneStyle($row['tel']);?></td>
-												<td style="height:25px; text-align:left;"	><div class="nowrap" style="width:170px;">&nbsp;<?=$row['addr'];?></div></td>
+												<td class="center"><?=$seq;?></td>
+												<td class="left"><a href="#" onClick="_currnetRow('<?=$ed->en($row['jumin']);?>','<?=$row['name'];?>','<?=$gender;?>','<?=$birth;?>','<?=$row['no']?>','<?=$row['level'];?>','<?=$myF->issToAge($row['jumin']);?>세','<?=$myF->dateStyle($row['yipsail']).'~'.$myF->dateStyle($row['ytoisail']);?>','<?=$timePay;?>', '<?=$p_yn;?>');">&nbsp;<?=$row['name'];?></a></td>
+												<td class="center"><?=$myF->issToBirthday($row['jumin'],'.');?></td>
+												<td class="center"	><?=$gender;?></td>
+												<td class="left">&nbsp;<?=$myF->phoneStyle($row['tel']);?></td>
+												<td class="left last"	><div class="nowrap" style="width:170px;">&nbsp;<?=$row['addr'];?></div></td>
 											</tr><?
 											$seq ++;
 

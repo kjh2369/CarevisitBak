@@ -662,13 +662,19 @@ function __getSsn(target, alt){
 }
 
 function _setDisabled(object, target){
+
 	if(object.value != 9){
-		target.disabled = true;
-		target.style.backgroundColor = "#eeeeee";
+		
+		target.attr('disabled', true);
+		target.css('backgroundColor', '#eeeeee');
+		//target.style.backgroundColor = "#eeeeee";
 		//target.style.borderColor = "#cccccc";
 	}else{
-		target.disabled = false;
-		target.style.backgroundColor = "#ffffff";
+		target.attr('disabled', false);
+		target.css('backgroundColor', '#ffffff');
+
+		//target.disabled = false;
+		//target.style.backgroundColor = "#ffffff";
 		//target.style.borderColor = "#cccccc";
 	}
 }
@@ -690,7 +696,6 @@ function __setEnabled(target, enabled){
 		for(var i=0; i<cnt; i++){
 			if (enabled){
 				target[i].disabled = false;
-
 				if (target[i].className == 'checkbox' || target[i].className == 'radio'){
 				}else{
 					target[i].style.backgroundColor = "#ffffff";
@@ -1166,6 +1171,46 @@ function __addDate(pInterval, pAddVal, pYyyymmdd, pDelimiter){
 	}
  
 }
+
+function __dateAdd(sDate, v, t) {
+	
+	var yy = parseInt(sDate.substr(0, 4), 10);
+	
+	var mm = parseInt(sDate.substr(5, 2), 10);
+
+	var dd = parseInt(sDate.substr(8), 10);
+
+	if(t == "d"){
+
+		d = new Date(yy, mm - 1, dd + v);
+
+	}else if(t == "m"){
+
+		d = new Date(yy, mm - 1 + v, dd);
+
+	}else if(t == "y"){
+
+		d = new Date(yy + v, mm - 1, dd);
+
+	}else{
+
+		d = new Date(yy, mm - 1, dd + v);
+
+	}
+
+	yy = d.getFullYear();
+
+	mm = d.getMonth() + 1; mm = (mm < 10) ? '0' + mm : mm;
+
+	dd = d.getDate(); dd = (dd < 10) ? '0' + dd : dd;
+
+
+
+
+	return '' + yy + '-' +  mm  + '-' + dd;
+
+}
+
 
 
 function __getYYSCode(target){
@@ -2373,8 +2418,11 @@ function __find_client(code, target, dt){
 }
 
 // 요양보호사 찾기
-function __find_yoyangsa(p_code, p_kind, p_jumin, p_name){
-	var modal = showModalDialog('../inc/_find_person.php?type=yoyangsa&code='+p_code+'&kind='+p_kind, window, 'dialogWidth:600px; dialogHeight:400px; dialogHide:yes; scroll:no; status:yes');
+function __find_yoyangsa(p_code, p_kind, p_jumin, p_name, type){
+	
+	if(!type) type = 'yoyangsa'; 
+	
+	var modal = showModalDialog('../inc/_find_person.php?type='+type+'&code='+p_code+'&kind='+p_kind, window, 'dialogWidth:600px; dialogHeight:400px; dialogHide:yes; scroll:no; status:yes');
 
 	if (modal == undefined){
 		return false;
@@ -2770,79 +2818,58 @@ function __init_object(object){
 						__onlyNumber(this);
 					}
 				}
-			}else if (c_name == 'date' || c_name == 'yymm'){
-				el.style.imeMode = 'disabled';
-				if (c_name == 'date'){
-					el.setAttribute('maxLength', 8);
-				}else if (c_name == 'yymm'){
-					el.setAttribute('maxLength', 6);
-				}
+			}else if (c_name == 'date'){
+				var obj = el;
+				//날짜
+				var minDate = $(obj).attr('minDate') ? __date($(obj).attr('minDate')) : null;
+				var maxDate = $(obj).attr('maxDate') ? __date($(obj).attr('maxDate')) : null;
+				
+				$(obj)
+					.css({'width':'80px'})
+					.css({'text-align':'center'})
+					.prop('maxlength',8)
+					.datepicker({
+						//yearRange: "2005:2020",
+						dateFormat:'yy-mm-dd',
+						showAnim:'fadeIn', // show|slideDown|fadeIn
+						buttonImage:"jquery-calendar/images/calendar.gif",
+						minDate:minDate,
+						maxDate:maxDate,
+						showOtherMonths:true,
+						buttonImageOnly:true,
+						showButtonPanel:true})
+					.unbind('keydown').bind('keydown',function(){
+						if ($(obj).val().split('-').length > 1){
+							//$(obj).val($(obj).val().replace(/-/g,''));
+							$(obj).val('');
+						}
+						$(obj).datepicker('hide');
+					}).unbind('change').bind('change',function(){
+						var minDt = $(obj).attr("minDate");
+						var maxDt = $(obj).attr("maxDate");
 
-				if (alt == 'not'){
-					el.onfocus = function(){
-						this.blur();
-					}
+						if (!minDt) minDt = "00010101";
+						if (!maxDt) maxDt = "99991231";
 
-					el.onclick = null;
-					el.style.backgroundColor = '#eee';
-					el.style.cursor = 'default';
-				}else{
-					el.onfocus = function(){
-						if (el.readOnly){
+						if ($(obj).val() >= minDt && $(obj).val() <= maxDt){
 						}else{
-							__replace(this, '-', '');
-							this.style.borderColor='#0e69b0';
+							$(obj).val("").focus();
 						}
-					}
-					el.onblur = function(){
-						switch(c_name){
-							case 'date':
-								__getDate(this);
-								break;
-							case 'yymm':
-								__get_yymm(this);
-								break;
-						}
-						this.style.borderColor='';
-					}
+					});
+				//datepicker('option', 'minDate', '2016-01-01')
+			}else if (c_name == 'yymm'){
+				//년월
+				var obj = el;
+				var minYm = $(obj).attr('minYm') ? $(obj).attr('minYm').replace(/([0-9]{4})([0-9]{2})/,'$1-$2') : null;
+				var maxYm = $(obj).attr('maxYm') ? $(obj).attr('maxYm').replace(/([0-9]{4})([0-9]{2})/,'$1-$2') : null;
 
-					if (el.onkeydown == null){
-						el.onkeydown = function(){
-							__onlyNumber(this);
-						}
-					}
-
-					if (el.onclick == null){
-						el.onclick = function(){
-							try{
-								if (el.readOnly){
-								}else{
-									switch(c_name){
-										case 'date':
-											_carlendar(this);
-											break;
-										case 'yymm':
-											_carlendar_month(this);
-											break;
-									}
-								}
-							}catch(e){
-							}
-						}
-					}
-
-					//el.style.backgroundColor = '#fff';
-					el.style.cursor = 'default';
-				}
-
-				switch(c_name){
-					case 'date':
-						el.setAttribute('maxLength', 8);
-						break;
-					case 'yymm':
-						el.setAttribute('maxLength', 6);
-						break;
-				}
+				$(obj).css({'width':'65px'}).css({'text-align':'center'}).prop('maxlength',6)
+					.MonthPicker({ 
+						Button: false, MinMonth:minYm, MaxMonth:maxYm
+					}).unbind('keydown').bind('keydown',function(){
+						$(obj).val($(obj).val().replace(/-/g,''));
+						$(obj).MonthPicker({Disabled:false});
+					});
 			}else if (c_name == 'number'){
 				el.style.imeMode = 'disabled';
 				el.onfocus = function(){
@@ -3154,10 +3181,11 @@ function __go_menu(menu, uri){
 
 // 벨류값의 객체를 선택한다.
 function __object_checked(target, value){
+	
 	if (typeof(target) != 'object'){
 		var target = document.getElementsByName(target);
 	}
-
+	
 	for(var i=0; i<target.length; i++){
 		if (target[i].value == value){
 			target[i].checked = true;
@@ -4671,4 +4699,23 @@ function __ObjData(obj){
 	
 
 	return data;
+}
+
+
+function __initLayerPosition(obj, width, height, borderWidth){
+	//var width = 500; //우편번호서비스가 들어갈 element의 width
+	//var height = 400; //우편번호서비스가 들어갈 element의 height
+	//var borderWidth = 5; //샘플에서 사용하는 border의 두께
+
+	if (!width) width = 500;
+	if (!height) height = 400;
+	if (!borderWidth) borderWidth = 3;
+
+	// 위에서 선언한 값들을 실제 element에 넣는다.
+	document.getElementById(obj).style.width = width + 'px';
+	document.getElementById(obj).style.height = height + 'px';
+	document.getElementById(obj).style.border = borderWidth + 'px solid #000000';
+	// 실행되는 순간의 화면 너비와 높이 값을 가져와서 중앙에 뜰 수 있도록 위치를 계산한다.
+	document.getElementById(obj).style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+	document.getElementById(obj).style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
 }

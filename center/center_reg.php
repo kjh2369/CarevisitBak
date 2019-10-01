@@ -815,7 +815,7 @@ function clear_mem(cd, nm){
 
 <div class="title title_border">
 	<div style="float:left; width:auto;"><?=$title;?></div>
-	<div style="float:right; width:auto; margin-top:9px;"><span class='btn_pack m'><button type='button' onClick='_center_save();'>저장</button></span></div>
+	<div style="float:right; width:auto; margin-top:6px;"><button type='button' onClick='_center_save();'>저장</button></div>
 </div>
 <?
 	/*********************************************************
@@ -919,7 +919,7 @@ function clear_mem(cd, nm){
 
 	echo '</div>';?>
 
-	<div style="clear:both; padding:10px;">
+	<div style="clear:both; padding:10px 0;">
 		<table class="my_table my_border_blue" style="width:100%;">
 			<colgroup>
 				<col>

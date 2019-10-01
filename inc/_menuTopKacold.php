@@ -23,10 +23,6 @@
 
 	$host = $myF->host();
 
-	if ($debug){?>
-		<span id="isCareAdmin" style="display:none;">Y</span><?
-	}
-
 	$lsStatsId = $ed->en($_SESSION['userCode']);
 	$lsStatsPw = $ed->en($_SESSION['userPass']);
 ?>
@@ -36,8 +32,123 @@
 	<!--lnb -->
 	<div id="lnb">
 		<div id="lnb_box">
-			<div class="top_gubun" style="width:auto;">
-				<div class="top_logout"><a href="#" onClick="location.href='../main/logout_ok.php';"></a></div>
+			<!--로그인 기관정보-->
+			<div style="float:left; width:242px; height:50px; border-left:1px solid #667c91; border-right:1px solid #667c91;">
+				<table class="t_table" border="1" cellspacing="0" >
+				<colgroup>
+					<col width="120px">
+					<col width="120px">
+				</colgroup>
+				<tbody class="txt_center">
+					<tr>
+						<th colspan="2">기관명</th>
+					</tr>
+					<tr>
+						<td>성명</td>
+						<td>직위</td>
+					</tr>
+				</tbody>
+				</table>
+			</div>
+			<!--//로그인 기관정보-->
+			<!--기관현황-->
+			<div style="float:left; width:530px; height:50px; border-left:1px solid #667c91; border-right:1px solid #667c91; margin-left:3px;">
+				<table class="t_table" border="1" cellspacing="0" style="width:100%">
+				<colgroup>
+					<col width="28px">
+					<col width="*">
+				</colgroup>
+				<tbody class="txt_center">
+					<tr>
+						<th rowspan="2" style="padding:0; font-size:14px; line-height:1.3em; background-color:#014687; border-bottom:1px solid #014687;">현<br />황</th>
+						<th scope="col">총원</th>
+						<th colspan="3"  scope="col">중점(J)</th>
+						<th colspan="3"  scope="col">일반(I)</th>
+						<th scope="col">독거(D)</th>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>A</td>
+						<td>B</td>
+						<td>C</td>
+						<td>A</td>
+						<td>B</td>
+						<td>C</td>
+						<td>&nbsp;</td>
+					</tr>
+				</tbody>
+				</table>
+			</div>
+			<!--//기관현황-->
+			<div style="float:right">
+				<!--바로가기-->
+				<div style="float:left; width:272px; height:50px; border-left:1px solid #667c91; border-right:1px solid #667c91; margin-left:3px;">
+					<table class="t_table" border="1" cellspacing="0" >
+					<colgroup>
+						<col width="90px">
+						<col width="90px">
+						<col width="90px">
+					</colgroup>
+					<tbody class="txt_center">
+						<tr>
+							<th scope="col">응급모니터</th>
+							<th scope="col">게시판(00)</th>
+							<th scope="col">자료실</th>
+						</tr>
+						<tr>
+							<td style="background-color:#014687;"><a href="#" style="font-size:11px;">바로가기</a></td>
+							<td style="background-color:#014687;"><a href="#" style="font-size:11px;">바로가기</a></td>
+							<td style="background-color:#014687;"><a href="#" style="font-size:11px;">바로가기</a></td>
+						</tr>
+					</tbody>
+					</table>
+				</div>
+				<!--//바로가기-->
+				<!--링크-->
+				<div style="float:left; width:142px; height:50px; border-left:1px solid #667c91; border-right:1px solid #667c91; margin-left:3px;">
+					<table class="t_table" border="1" cellspacing="0" style=" height:50px; ">
+					<colgroup>
+						<col width="70px">
+						<col width="70px">
+					</colgroup>
+					<tbody class="txt_center">
+						<tr>
+							<th style="background-color:#430187; border-bottom:1px solid #430187; padding:0;"><a href="#" style="width:68px; height:48px;  line-height:1.3em;">원격<br />지원</a></th>
+							<th style="background-color:#018759; border-bottom:1px solid #018759; padding:0;"><a href="#" style="width:68px; height:48px;  line-height:1.3em;">사회보장<br />정보원</a></th>
+						</tr>
+					</tbody>
+					</table>
+				</div>
+				<!--//링크-->
+				<!--일자/시간-->
+				<div style="float:left; width:152px; height:50px; border-left:1px solid #667c91; border-right:1px solid #667c91; margin-left:3px;">
+					<table class="t_table" border="1" cellspacing="0" style=" height:50px; ">
+					<colgroup>
+						<col width="150px">
+					</colgroup>
+					<tbody class="txt_center">
+						<tr>
+							<td style="font-size:13px;">2019.09.30</td>
+						</tr>
+						<tr>
+							<td style="font-size:13px;">13:59:00</td>
+						</tr>
+					</tbody>
+					</table>
+				</div>
+				<!--//일자/시간-->
+				<!--로그아웃-->
+				<div style="float:left; width:72px; height:50px; border-left:1px solid #667c91; border-right:1px solid #667c91; margin-left:3px;">
+					<a href="#" onClick="location.href='../main/logout_ok.php';" style="display:block; width:70px; height:50px; line-height:50px;  text-align:center; color:#fff; padding:0; background:#de272c; font-weight:600; font-size:13px; letter-spacing:-1px;">로그아웃</a>
+				</div>
+				<!--//로그아웃-->
+			</div>
+
+
+
+
+			<!--div class="top_gubun" style="width:auto;">
+				<div class="top_logout"><a href="#" onClick="location.href='../main/logout_ok.php';">로그아웃</a></div>
 				<ul>
 					<li class="icon_gubun"></li>
 					<li>재가기관:<?=$_SESSION["userGubun"];?></li>
@@ -47,7 +158,10 @@
 					<li>센터명:<?=$_SESSION["top_print_name"];?></li>
 					<li class="g_margin"></li>
 				</ul>
-			</div>
+			</div-->
+
+
+
 		</div>
 	</div>
 	<!--//lnb -->
@@ -60,6 +174,7 @@
 
 <script type="text/javascript">
 	function lfCaseShow(sr){
+
 		//사례관리
 		var w = 1024;
 		var h = (screen.availHeight - 150 > 768 ? screen.availHeight - 150 : 768);
@@ -115,7 +230,8 @@
 		<div id="top_gnb">
 			<ul><?
 				if ($_SESSION['adminFlag'] == 'Y'){?>
-					<li class=""><a href="#" onClick="__go_menu('GoodEOSCenter','../_center/center.php?menu=GoodEOSCenter&menuId=CENTER_LIST');">기관관리</a></li><?
+					<li class=""><a href="#" onClick="location.href='../_center/center.php?menu=GoodEOSCenter&menuId=CENTER_LIST'; return false;">기관관리</a></li>
+					<li class=""><a href="#" onClick="location.href='../acct/acct.php?type=71&sr=S&menu=care_sr'; return false;">기초관리</a></li><?
 				}else{
 					$typeSR = $_SESSION['userTypeSR'];
 
@@ -181,20 +297,6 @@
 					}
 
 					$conn->row_free();
-
-
-					?>
-					<!--
-					<li><a href="#" onClick="__go_menu('kacold_client', '../care/care.php?sr=<?=$typeSR;?>&type=81&menu=kacold_client');">대상자관리</a></li>
-					<li><a href="#" onClick="__go_menu('kacold_iljung', '../iljung/iljung_list.php?sr=<?=$typeSR;?>&mode=6&menu=kacold_iljung');">일정관리</a></li>
-					<li><a href="#" onClick="__go_menu('kacold_result', '../care/care.php?sr=<?=$typeSR;?>&type=RESULT_REG&menu=kacold_result');">실적관리</a></li>
-					<li><a href="#" onClick="__go_menu('kacold_report', '../care/care.php?sr=<?=$typeSR;?>&type=53&menu=kacold_report');">보고서</a></li>
-					<li><a href="#" onClick="lfCaseShow('<?=$typeSR;?>');">사례관리</a></li>
-					<li><a href="#" onClick="lfStats();">통계</a></li>
-					<li><a href="#" onClick="__go_menu('kacold_center', '../center/center_reg.php?menu=kacold_center');">기관관리</a></li>
-					<li><a href="#" onClick="__go_menu('kacold_base', '../care/care.php?sr=<?=$typeSR;?>&type=1&menu=kacold_base');">기초자료</a></li>
-					-->
-					<!--li><a href="#" onClick="__go_menu('kacold_pay', '../claim/claim_list.php?sr=<?=$typeSR;?>&menu=kacold_pay');">사용요금안내</a></li--><?
 				}?>
 			</ul>
 		</div>

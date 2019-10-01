@@ -15,10 +15,10 @@
 	}
 
 	$sql = 'SELECT	yymm
-			,		monthly
-			FROM	mem_insu_monthly
+			,		pay
+			FROM	ltcf_stnd_monthly
 			WHERE	org_no	= \''.$code.'\'
-			AND		jumin	= \''.$jumin.'\'';
+			AND		ipin	= \''.$jumin.'\'';
 
 	if ($yymm){
 		$sql .= '
@@ -32,6 +32,7 @@
 		$sql .= '
 			LIMIT	1';
 	}
+	
 
 	$conn->query($sql);
 	$conn->fetch();
@@ -42,7 +43,7 @@
 		$row = $conn->select_row($i);
 
 		$data .= 'ym='.$row['yymm'];
-		$data .= '&pay='.$row['monthly'];
+		$data .= '&pay='.$row['pay'];
 
 		if (!$yymm){
 			$data .= chr(11);

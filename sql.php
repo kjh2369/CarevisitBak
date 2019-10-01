@@ -1,3 +1,10 @@
+
+<?
+	error_reporting(E_ERROR);
+	ini_set("display_errors", 1);
+
+	$sql = $_POST['sql'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,17 +15,29 @@
     <title>Document</title>
 </head>
 <style>  
-.mytable { border-collapse:collapse; }  
-.mytable th, .mytable td { border:1px solid black; }
-.mytable tr:first-child { color: red;}
+	html { font-family:tahoma; font-size:10pt;}  
+	.mytable { border-collapse:collapse;}  
+	.mytable th, .mytable td { border:1px solid black; padding: 2px 8px 2px 8px; }
+	.mytable tr:first-child { background-color: lightgray; text-align: center; }
 </style>
 <body>
-    <div id="app">
-        <form action="/sql.php" method="post">
-                <textarea v-bind:name="name" cols="30" rows="10"></textarea>
-                <button v-on:click="sqlSearch">search</button>
-        </form>
-    </div>
+	<table width="100%" cellspacing="0"><tr>
+		<td style="width:50%;">
+			<div id="app">
+				<form name="form" action="/sql.php" method="post">
+						<textarea v-bind:name="name" rows="6" style="width:80%"><?=$sql?></textarea>
+						<button v-on:click="sqlSearch">search</button>
+				</form>
+			</div>
+		</td>
+		<td style="width:50%;">
+			<ul>
+				<li>show tables</li>
+				<li>han_member</li>
+				<li>menu_top</li>
+			</ul>
+		</td>
+	</tr></table>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
@@ -37,11 +56,8 @@
 <?
 	include_once('inc/_db_open.php');
 
-	$find_center = $_POST['find_center'];
-	$find_dept   = $_POST['find_dept'];
 	$sql = $_POST['sql'];
-	echo $sql;
-	echo('<script> document.querySelector("textarea").value="'.$sql.'" </script>');
+	echo '<pre>'.$sql.'</pre>';
 	// $sql = "show tables";
 	// $sql = 'select * from han_member';
 	// $sql = 'select * from care_area';
@@ -49,10 +65,9 @@
 	$conn->fetch_type = 'assoc';
 	$conn->query($sql);
 	$conn->fetch();
-
 	$row_count = $conn->row_count();
 
-	
+
 	$i = 0;
 	while ($i < mysql_num_fields($conn->result))
 	{
@@ -60,21 +75,23 @@
 	   $tblField[] = $fld->name;
 	   $i = $i + 1;
 	}
-
-	
+		
 	echo '<table class="mytable">';
 
 	// column name header
 	echo '<tr>';
+	echo '<td nowrap>No</td>';
 	for($col = 0; $col < count($tblField); $col++) {
 		echo '<td nowrap>'.$tblField[$col].'</td>';
 	}
 	echo '</tr>';
 
+	
 	// result row
 	for($i = 0; $i < $row_count; $i++) {
 		$row = $conn->select_row($i);
 		echo '<tr>';
+		echo '<td nowrap>'.($i+1).'</td>';
 		for($col = 0; $col < count($tblField); $col++) {
 			$key = $tblField[$col];
 			echo '<td nowrap>'.$row[$key].'</td>';

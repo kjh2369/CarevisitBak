@@ -6,11 +6,11 @@
 ?>
 <table class="my_table tb_t" style="width:100%;">
 	<colgroup>
-		<col width="110px">
+		<col width="130px">
 		<col width="180px">
-		<col width="100px">
+		<col width="130px">
 		<col width="180px">
-		<col width="110px">
+		<col width="130px">
 		<col>
 	</colgroup>
 	<tbody>
@@ -44,7 +44,7 @@
 			<th>휴대폰</th>
 			<td class=""><input name="txtMobile" type="text" value="<?=$myF->phoneStyle($mobile);?>" class="phone"></td>
 			<th>홈페이지</th>
-			<td class="left last">http:// <input name="homepage" type="text" value="<?=$homepage;?>" maxlength="30" style="width:76%;"></td>
+			<td class="left last">http:// <input name="homepage" type="text" value="<?=$homepage;?>" maxlength="30" class="iw200"></td>
 		</tr>
 		<tr>
 			<th>주소</th>
@@ -63,7 +63,7 @@
 				</div>
 			</td>
 			<th>이메일</th>
-			<td class="last"><input name="email" type="text" value="<?=$email;?>" maxlength="30" style="width:100%;"></td>
+			<td class="last"><input name="email" type="text" value="<?=$email;?>" maxlength="30" class="iw200"></td>
 		</tr>
 		<tr>
 			<th>ICON</th>
@@ -85,7 +85,7 @@
 				<td class="last"><input id="centerPw" name="centerPw" type="password" value="" style="width:100%;"></td><?
 			}else{?>
 				<th>사업자등록번호</th>
-				<td class="last"><input name="cCode" type="text" value="<?=$cCode;?>" maxlength="10" class="phone" alt="biz"></td><?
+				<td class="last"><input name="cCode" type="text" value="<?=$cCode;?>" maxlength="10" class="phone iw200" alt="biz"></td><?
 			}?>
 		</tr>
 		<tr>

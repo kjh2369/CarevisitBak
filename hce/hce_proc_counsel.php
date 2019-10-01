@@ -81,6 +81,10 @@ $colgroup = '	<col width="40px">
 				<col width="400px">
 				<col width="70px">
 				<col>';?>
+
+<div class="title title_border">
+	<div style="float:left; width:auto;">과정상담</div>
+</div>
 <table class="my_table" style="width:100%;">
 	<colgroup>
 		<col>
@@ -93,7 +97,7 @@ $colgroup = '	<col width="40px">
 					<label><input id="optOrderA" name="optOrder" type="radio" class="radio" value="ASC" onclick="lfSearch();">최근일자<span style="color:BLUE;">역순</span></label>
 				</div>
 				<div style="float:right; width:auto;">
-					<span class="btn_pack m"><span class="add"></span><a href="../hce/hce_body.php?sr=<?=$sr;?>&type=82" target="frmBody">추가</a></span>
+					<span class="btn_pack m"><span class="add"></span><button onclick="location.href='../hce/hce_body.php?sr=<?=$sr;?>&type=82'" target="frmBody">추가</button></span>
 					<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>','','',$('#txtPrtFrom').val()+'/'+$('#txtPrtTo').val());">출력</button></span>
 				</div>
 				<div style="float:right; width:auto;">
@@ -103,8 +107,8 @@ $colgroup = '	<col width="40px">
 		</tr>
 	</tbody>
 </table>
-<div class="my_border_blue" style="border-bottom:none;">
-	<table class="my_table" style="width:100%;">
+<!-- <div class="my_border_blue" style="border-bottom:none;"> -->
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup><?=$colgroup;?></colgroup>
 		<thead>
 			<tr>
@@ -117,13 +121,13 @@ $colgroup = '	<col width="40px">
 			</tr>
 		</thead>
 	</table>
-</div>
-<div id="divBody" class="my_border_blue" style="height:200px; overflow-x:hidden; overflow-y:auto; border-top:none;">
-	<table class="my_table" style="width:100%;">
+<!-- </div> -->
+<!-- <div id="divBody" class="my_border_blue" style="height:200px; overflow-x:hidden; overflow-y:auto; border-top:none;"> -->
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup><?=$colgroup;?></colgroup>
 		<tbody id="tbodyList"></tbody>
 	</table>
-</div>
+<!-- </div> -->
 <?
 	include_once('../inc/_db_close.php');
 ?>

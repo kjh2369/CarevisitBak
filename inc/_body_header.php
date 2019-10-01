@@ -15,8 +15,11 @@
 		if($mainYn != 'Y'){ ?>
 				<div id="aside">
 					<div id="left"><?
-					//include_once('../inc/_menu_left.php');
-					include_once('../inc/_menuLeft.php');?>
+					if ($_SESSION['adminFlag'] == 'Y'){
+						include_once('../inc/_menu_left.php');
+					}else{
+						include_once('../inc/_menuLeft.php');
+					}?>
 					</div>
 				</div>
 			<div id="content" ><?

@@ -1,9 +1,5 @@
 <?
-	if (__SESSION_NOT__ == 'Y'){
-	}else{
-		@Header("p3p: CP=\"CAO DSP AND SO ON\" policyref=\"/w3c/p3p.xml\"");
-		@session_start();
-	}
+	@session_start();
 
 	class connection{
 		var $conn;
@@ -212,7 +208,7 @@
 			return $sql;
 		}
 
-		function get_login($userCode, $userPass){	
+		function get_login($userCode, $userPass){
 			$sql = "select *"
 				 . "  from han_member"
 				 . " where id   = '".$userCode
@@ -404,9 +400,9 @@
 		// 데이타조회
 		function get_data($sql){
 			$p_result = mysql_query($sql);
-			$p_row = mysql_fetch_array($p_result);
+			@$p_row = mysql_fetch_array($p_result);
 			$value = $p_row[0];
-			mysql_free_result($p_result);
+			@mysql_free_result($p_result);
 
 			return $value;
 		}
@@ -422,10 +418,10 @@
 			}else if ($this->fetch_type == 'object'){
 				$p_row = mysql_fetch_object($p_result);
 			}else{
-				$p_row = mysql_fetch_array($p_result);
+				@$p_row = mysql_fetch_array($p_result);
 			}
 
-			mysql_free_result($p_result);
+			@mysql_free_result($p_result);
 
 			return $p_row;
 		}
@@ -644,171 +640,12 @@
 
 		// 기관구분리스트
 		function kind_list($code, $voucher = false){
-			$sql = 'SELECT	b02_homecare AS homecare
-					,		b02_voucher AS voucher
-					,		b02_caresvc AS caresvc
-					FROM	b02center
-					WHERE	b02_center = \''.$code.'\'';
-			$loTmp = $this->get_array($sql);
-			$lsHom = $loTmp['homecare'];
-			$lsVou = $loTmp['voucher'];
-			$lsCareSvc = $loTmp['caresvc'];
 
-			$sql = "select m00_mkind
-					,      case m00_mkind when '0' then '재가요양'
-										  when '1' then '가사간병'
-										  when '2' then '노인돌봄'
-										  when '3' then '산모신생아'
-										  when '4' then '장애인활동지원'
-										  when '5' then '시설' else '--' end
-					  from m00center
-					 where m00_mcode  = '$code'
-					   and m00_del_yn = 'N'
-					 order by m00_mkind";
-			$this->query($sql);
-			$this->fetch();
-			$row_count = $this->row_count();
-
-			if (!$voucher){
-				$liIdx = 0;
-				for($i=0; $i<$row_count; $i++){
-					$row = $this->select_row($i);
-
-					$lbAdd = false;
-
-					switch($row[0]){
-						case 0:
-							if ($lsHom == 'Y'){
-								$lbAdd = true;
-							}
-							$id = 11;
-							break;
-						case 1:
-							if ($lsVou[0] == 'Y'){
-								$lbAdd = true;
-							}
-							$id = 21;
-							break;
-						case 2:
-							if ($lsVou[1] == 'Y'){
-								$lbAdd = true;
-							}
-							$id = 22;
-							break;
-						case 3:
-							if ($lsVou[2] == 'Y'){
-								$lbAdd = true;
-							}
-							$id = 23;
-							break;
-						case 4:
-							if ($lsVou[3] == 'Y'){
-								$lbAdd = true;
-							}
-							$id = 24;
-							break;
-						case 5:
-							$lbAdd = true;
-							$id = 51;
-							break;
-					}
-
-					if ($lbAdd){
-						#$list[$i]['id']   = $id;
-						#$list[$i]['code'] = $row[0];
-						#$list[$i]['name'] = $row[1];
-						$list[$liIdx]['id']   = $id;
-						$list[$liIdx]['code'] = $row[0];
-						$list[$liIdx]['name'] = $row[1];
-						$liIdx ++;
-					}
-				}
-			}else{
-				$liIdx = 0;
-				for($i=0; $i<$row_count; $i++){
-					$row = $this->select_row($i);
-
-					$lbAdd = false;
-
-					switch($row[0]){
-						case 0:
-							if ($lsHom == 'Y'){
-								$lbAdd = true;
-							}
-							$id = 11;
-							break;
-						case 1:
-							if ($lsVou[0] == 'Y'){
-								$lbAdd = true;
-							}
-							$id = 21;
-							break;
-						case 2:
-							if ($lsVou[1] == 'Y'){
-								$lbAdd = true;
-							}
-							$id = 22;
-							break;
-						case 3:
-							if ($lsVou[2] == 'Y'){
-								$lbAdd = true;
-							}
-							$id = 23;
-							break;
-						case 4:
-							if ($lsVou[3] == 'Y'){
-								$lbAdd = true;
-							}
-							$id = 24;
-							break;
-						case 5:
-							$lbAdd = true;
-							$id = 51;
-							break;
-					}
-
-					if ($lbAdd){
-						#$list[$i]['id']   = $id;
-						#$list[$i]['code'] = $row[0];
-						#$list[$i]['name'] = $row[1];
-						$list[$liIdx]['id']   = $id;
-						$list[$liIdx]['code'] = $row[0];
-						$list[$liIdx]['name'] = $row[1];
-						$liIdx ++;
-					}
-				}
-
-				$i = sizeof($list);
-				$list[$i]['id']   = 31;
-				$list[$i]['code'] = 'A';
-				$list[$i]['name'] = '산모유료';
-
-				$i = sizeof($list);
-				$list[$i]['id']   = 32;
-				$list[$i]['code'] = 'B';
-				$list[$i]['name'] = '병원간병';
-
-				$i = sizeof($list);
-				$list[$i]['id']   = 33;
-				$list[$i]['code'] = 'C';
-				$list[$i]['name'] = '기타비급여';
-			}
-
-			//재가지원
-			if ($lsCareSvc == 'Y'){
-				$i = sizeof($list);
-				$list[$i]['id']   = 34;
-				$list[$i]['code'] = 'S';
-				$list[$i]['name'] = '재가지원';
-			}
-
-			//자원연계
-			if ($lsCareSvc == 'Y'){
-				$i = sizeof($list);
-				$list[$i]['id']   = 26;
-				$list[$i]['code'] = 'R';
-				$list[$i]['name'] = '자원연계';
-			}
+			//노인맞춤돌봄서비스
+			$i = sizeof($list);
+			$list[$i]['id']   = 34;
+			$list[$i]['code'] = 'S';
+			$list[$i]['name'] = '노인맞춤돌봄서비스';
 
 			$this->row_free();
 
@@ -2850,9 +2687,9 @@
 	if ($_SESSION['userCenterCode'] == '1234' || $_SESSION['userCenterCode'] == '31138000044'){
 		$lsAnnualChange = true;
 	}
-	
+
 	$lsDisMenu = false;
-	
+
 	//if ($debug == '1' || $_SESSION['userCenterCode'] == '31121500010'){
 		$lsDisMenu = true;
 	//}

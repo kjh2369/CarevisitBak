@@ -530,6 +530,7 @@ function _memHistory(code, jumin, obj1, obj2){
 		}
 	,	success: function(html){
 			$('#tempLodingBar').remove();
+			
 			body.css('width', w)
 				.css('height', h)
 				.click(function(){
@@ -538,6 +539,7 @@ function _memHistory(code, jumin, obj1, obj2){
 					__popupHide();
 				})
 				.show();
+			
 			cont.css('width', 'auto')
 				.css('margin', 0).css('padding', 0).css('border','none')
 				.css('left', '250px').css('top', '250px')
@@ -598,7 +600,7 @@ function _memChkJoinDt(obj){
 function _memInsuHis(jumin){
 	var objModal = new Object();
 	var url = '../yoyangsa/mem_his_insu.php';
-	var style = 'dialogWidth:470px; dialogHeight:500px; dialogHide:yes; scroll:no; status:no';
+	var style = 'dialogWidth:530px; dialogHeight:500px; dialogHide:yes; scroll:no; status:no';
 	
 	if (!jumin){
 		alert('기준근로시간/시급정보는 데이타 저장 후 변경 가능합니다.');
@@ -661,7 +663,7 @@ function _memInsuFind(jumin){
 function _memInsuHisMonthly(jumin){
 	var objModal = new Object();
 	var url = '../yoyangsa/mem_his_insu_monthly.php';
-	var style = 'dialogWidth:300px; dialogHeight:400px; dialogHide:yes; scroll:no; status:no';
+	var style = 'dialogWidth:340px; dialogHeight:400px; dialogHide:yes; scroll:no; status:no';
 	
 	if (!jumin){
 		alert('기준근로시간/시급정보는 데이타 저장 후 변경 가능합니다.');
@@ -711,3 +713,5 @@ function _memInsuMonthlyFind(jumin){
 		}
 	}).responseXML;
 }
+
+

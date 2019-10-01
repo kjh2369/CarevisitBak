@@ -35,6 +35,6 @@
 
 	if ($left_menu != ''){
 		//try{}catch(Exception $e){}
-		@include_once('../inc/menu_left_'.$left_menu.'.php');
+		include_once('../inc/menu_left_'.$left_menu.'.php');
 	}
 ?>

@@ -10,25 +10,25 @@
 	$pay	= $_POST['pay'];
 
 	$sql = 'SELECT	COUNT(*)
-			FROM	mem_insu_monthly
+			FROM	ltcf_stnd_monthly
 			WHERE	org_no	= \''.$code.'\'
-			AND		jumin	= \''.$jumin.'\'
+			AND		ipin	= \''.$jumin.'\'
 			AND		yymm	= \''.$yymm.'\'';
 
 	$cnt = $conn->get_data($sql);
 
 	if ($cnt > 0){
-		$sql = 'UPDATE	mem_insu_monthly
-				SET		monthly	= \''.$pay.'\'
+		$sql = 'UPDATE	ltcf_stnd_monthly
+				SET		pay	= \''.$pay.'\'
 				WHERE	org_no	= \''.$code.'\'
-				AND		jumin	= \''.$jumin.'\'
+				AND		ipin	= \''.$jumin.'\'
 				AND		yymm	= \''.$yymm.'\'';
 	}else{
-		$sql = 'INSERT INTO mem_insu_monthly (
+		$sql = 'INSERT INTO ltcf_stnd_monthly (
 				 org_no
-				,jumin
+				,ipin
 				,yymm
-				,monthly) VALUES (
+				,pay) VALUES (
 				 \''.$code.'\'
 				,\''.$jumin.'\'
 				,\''.$yymm.'\'

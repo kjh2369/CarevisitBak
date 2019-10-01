@@ -298,48 +298,26 @@
 		$sr = $_POST['sr'];
 
 		$sql = 'SELECT	DISTINCT
-						CONCAT(care.care_svc,care.care_sub) AS svc_cd
-				,		suga.suga_nm AS svc_nm
+						care.care_svc AS svc_cd
 				,		care.care_cust AS cust_cd
 				,		cust.cust_nm
 				,		cust.cust_gbn
 				,		care.care_cd
-				,		care.care_cost
 				,		cust.per_nm
 				,		cust.per_phone
 				,		care.from_dt
 				,		care.to_dt
+				,		a.nm1, a.nm2, a.nm3 AS svc_nm
 				FROM	care_resource AS care';
 
-		if ($IsCareYoyAddon){
-			//공통수가
-			$sql .= '
-				INNER	JOIN (
-							SELECT	org_no, suga_sr, suga_cd, suga_sub, suga_nm, from_dt
-							FROM	care_suga
-							WHERE	org_no	= \''.$code.'\'
-							AND		suga_sr	= \''.$sr.'\'
-							UNION	ALL
-							SELECT	\''.$code.'\' AS org_no, \''.$sr.'\' AS suga_sr, LEFT(code,5) AS suga_cd, MID(code,6) AS suga_sub, name, \'20100101\' as from_dt
-							FROM	care_suga_comm
-						) AS suga
-						ON		suga.org_no	= care.org_no
-						AND		suga.suga_sr	= care.care_sr
-						AND		suga.suga_cd	= care.care_svc
-						AND		suga.suga_sub	= care.care_sub';
-
-			if($_SESSION['userArea'] == '05'){
-				$sql .= '	AND CASE when DATE_FORMAT(care.from_dt,\'%Y%m%d\') < \'20180101\' then DATE_FORMAT(suga.from_dt,\'%Y%m%d\') < \'20180101\' else DATE_FORMAT(suga.from_dt,\'%Y%m%d\') >= \'20180101\' end';
-			}
-
-		}else{
-			$sql .= '
+		$sql .= '
 				INNER	JOIN	care_suga AS suga
-						ON		suga.org_no		= care.org_no
-						AND		suga.suga_sr	= care.care_sr
-						AND		suga.suga_cd	= care.care_svc
-						AND		suga.suga_sub	= care.care_sub';
-		}
+						ON		suga.org_no	= care.org_no
+						AND		suga.suga_sr= care.care_sr
+						AND		suga.suga_cd= care.care_svc
+				INNER	JOIN	suga_care AS a
+						ON		CONCAT(a.cd1, a.cd2, a.cd3) = care.care_svc
+				';
 
 		$sql .= '
 				INNER	JOIN	care_cust AS cust
@@ -348,7 +326,8 @@
 				WHERE	care.org_no	  = \''.$code.'\'
 				AND		care.care_sr  = \''.$sr.'\'
 				AND		care.del_flag = \'N\'
-				ORDER	BY svc_nm,cust_nm,per_nm';
+				ORDER	BY svc_nm,cust_nm,per_nm
+				';
 
 		$conn->query($sql);
 		$conn->fetch();
@@ -364,7 +343,6 @@
 			$data .= '&custNm='.$row['cust_nm'];
 			$data .= '&gbn='.$row['cust_gbn'];
 			$data .= '&cd='.$row['care_cd'];
-			$data .= '&cost='.$row['care_cost'];
 			$data .= '&pernm='.$row['per_nm'];
 			$data .= '&pertel='.$row['per_phone'];
 			$data .= '&from='.Str_Replace('-','',$row['from_dt']);
@@ -676,12 +654,12 @@
 		$conn->row_free();
 
 		Unset($plan);
-		
+
 		if (!is_array($row)) continue;
-	
+
 
 		if ($IsExcelClass){
-		
+
 			if (Is_Array($arr)){
 				foreach($arr as $cd1 => $mst){
 					$mstCnt = $mst['cnt'];
@@ -693,24 +671,24 @@
 							if (Is_Array($pro)){
 								foreach($pro as $cd3 => $svc){
 									if (Is_Array($svc)){
-										
+
 										$rowNo ++;
 										$sheet->getRowDimension($rowNo)->setRowHeight(-1);
 										$mstCd = ($mstCnt > 0 ? $mst['cd'] : '');
 										$proCd = ($proCnt > 0 ? $pro['cd'] : '');
 										$mstNm = ($mstCnt > 0 ? $mst['nm'] : '');
 										$proNm = ($proCnt > 0 ? $pro['nm'] : '');
-										
+
 										if ($svc['target'] > 0){
 											$targetGbn = $svc['target'].($svc['gbn'] == '1' ? '명' : '회');
 										}
-										
+
 										$budget = $svc['target'];
-										
-										if($mstCd) $sheet->SetData( Array('F'=>'A'.$rowNo, 'T'=>'A'.($rowNo+$mstCnt-1), 'val'=>$mstNm, 'H'=>'L','backcolor'=>$bgcolor) );	
+
+										if($mstCd) $sheet->SetData( Array('F'=>'A'.$rowNo, 'T'=>'A'.($rowNo+$mstCnt-1), 'val'=>$mstNm, 'H'=>'L','backcolor'=>$bgcolor) );
 										if($proCd) $sheet->SetData( Array('F'=>'B'.$rowNo, 'T'=>'B'.($rowNo+$proCnt-1), 'val'=>$proNm, 'H'=>'L','backcolor'=>$bgcolor) );
-										
-									
+
+
 										$sheet->SetData( Array('F'=>'C'.$rowNo, 'val'=>$svc['nm'], 'H'=>'L','backcolor'=>$bgcolor) );
 										$sheet->SetData( Array('F'=>'D'.$rowNo, 'val'=>($svc['target'] > 0 ? $svc['target'].($svc['gbn'] == '1' ? '명' : '회') : ''), 'H'=>'L','backcolor'=>$bgcolor) );
 										$sheet->SetData( Array('F'=>'E'.$rowNo, 'val'=>$budget, 'H'=>'L','backcolor'=>$bgcolor) );
@@ -729,7 +707,7 @@
 				}
 			}
 
-		
+
 		}else {
 			if (Is_Array($arr)){
 				foreach($arr as $cd1 => $mst){
@@ -1860,8 +1838,8 @@
 		$sql = 'SELECT	SUBSTR(plan_cd,1,3) AS cd
 				,		SUM(plan_target) AS cnt
 				FROM	care_year_plan AS a ';
-				
-		if($_SESSION['userArea'] != '13'){		
+
+		if($_SESSION['userArea'] != '13'){
 			$sql .='INNER   JOIN care_suga AS b
 					ON		a.org_no = b.org_no
 					AND		a.plan_sr = b.suga_sr
@@ -1869,7 +1847,7 @@
 					AND		left(b.from_dt, 4) <= \''.$year.'\'
 					AND		left(b.to_dt,4) >= \''.$year.'\'';
 		}
-		
+
 		$sql .=	$areaSQL3;
 
 

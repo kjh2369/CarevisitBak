@@ -6,7 +6,6 @@
 
 	$code	= $_SESSION['userCenterCode'];
 	$jumin	= $ed->de($_POST['jumin']);
-	$seq	= $_POST['seq'];
 
 	$annuityYn	= $_POST['a'];
 	$healthYn	= $_POST['h'];
@@ -17,141 +16,97 @@
 	$fromDt = $_POST['from'];
 	$toDt	= $_POST['to'];
 	$reReg	= $_POST['reReg'];
-
-	if ($reReg == 'Y'){
-		$sql = 'SELECT	COUNT(*)
-				FROM	mem_insu
-				WHERE	org_no	 = \''.$code.'\'
-				AND		jumin	 = \''.$jumin.'\'
-				AND		CASE WHEN from_dt >= \''.$fromDt.'\' AND from_dt <= \''.$toDt.'\' THEN 1 ELSE 0 END +
-						CASE WHEN to_dt >= \''.$fromDt.'\' AND to_dt <= \''.$toDt.'\' THEN 1 ELSE 0 END > 1';
-
-		$cnt = $conn->get_data($sql);
-
-		if ($cnt > 0){
-			echo '적용일 이전의 등록일이 존재합니다.';
-			exit;
-		}
-	}
-
-	/*
+	
 	$sql = 'SELECT	COUNT(*)
-			FROM	mem_insu
+			FROM	ltcf_insu_hist
 			WHERE	org_no	 = \''.$code.'\'
-			AND		jumin	 = \''.$jumin.'\'
-			AND		to_dt	 > \''.$toDt.'\'
-			AND		seq		!= \''.$seq.'\'';
-
-	$cnt = $conn->get_data($sql);
-
-	if ($cnt > 0){
-		echo '종료일 이전의 등록일이 존재합니다.';
+			AND		ipin	 = \''.$jumin.'\'
+			AND		from_dt != \''.$orgDt.'\'
+			AND		del_flag = \'N\'
+			AND		CASE WHEN from_dt BETWEEN \''.$fromDt.'\' AND \''.$toDt.'\' THEN 1
+						 WHEN to_dt BETWEEN \''.$fromDt.'\' AND \''.$toDt.'\' THEN 1
+						 WHEN \''.$fromDt.'\' BETWEEN from_dt AND to_dt THEN 1
+						 WHEN \''.$toDt.'\' BETWEEN from_dt AND to_dt THEN 1 ELSE 0 END = 1';
+	
+	
+	if ($conn->get_data($sql) > 0){
+		$conn->close();
+		echo '입력하신 적용기간이 기존의 적용기간과 중복됩니다.\n확인하여 주십시오.';
 		exit;
 	}
-
-	$sql = 'SELECT	COUNT(*)
-			FROM	mem_insu
-			WHERE	org_no	 = \''.$code.'\'
-			AND		jumin	 = \''.$jumin.'\'
-			AND		from_dt	<= \''.$fromDt.'\'
-			AND		to_dt	>= \''.$fromDt.'\'
-			AND		seq		!= \''.$seq.'\'';
-
-	$cnt = $conn->get_data($sql);
-
-	if ($cnt > 0){
-		echo '적용일 이전의 등록일이 존재합니다.';
-		exit;
-	}
-
-	$sql = 'SELECT	COUNT(*)
-			FROM	mem_insu
-			WHERE	org_no	 = \''.$code.'\'
-			AND		jumin	 = \''.$jumin.'\'
-			AND		from_dt	<= \''.$toDt.'\'
-			AND		to_dt	>= \''.$toDt.'\'
-			AND		seq		!= \''.$seq.'\'';
-
-	$cnt = $conn->get_data($sql);
-
-	if ($cnt > 0){
-		echo '종료일 이전의 등록일이 존재합니다.';
-		exit;
-	}
-	*/
 
 	$conn->begin();
-
-	if ($reReg == 'Y'){
-		$seq ++;
-	}else{
+	
+	if (!$orgDt){
 		$sql = 'SELECT	COUNT(*)
-				FROM	mem_insu
+				FROM	ltcf_insu_hist
 				WHERE	org_no	= \''.$code.'\'
-				AND		jumin	= \''.$jumin.'\'
-				AND		seq		= \''.$seq.'\'';
+				AND		ipin	= \''.$jumin.'\'
+				AND     from_dt = \''.$fromDt.'\'';
 
-		$cnt = $conn->get_data($sql);
-
-		if ($cnt > 0){
-			$sql = 'UPDATE	mem_insu
-					SET		from_dt		= \''.$fromDt.'\'
-					,		to_dt		= \''.$toDt.'\'
-					,		annuity_yn	= \''.$annuityYn.'\'
-					,		health_yn	= \''.$healthYn.'\'
-					,		employ_yn	= \''.$employYn.'\'
-					,		sanje_yn	= \''.$sanjeYn.'\'
-					,		paye_yn		= \''.$PAYEYn.'\'
-					WHERE	org_no	= \''.$code.'\'
-					AND		jumin	= \''.$jumin.'\'
-					AND		seq		= \''.$seq.'\'';
-
-			if (!$conn->execute($sql)){
-				 $conn->rollback();
-				 $conn->close();
-				 echo '9';
-				 exit;
-			}
-
-			$conn->commit();
-			$conn->close();
-			exit;
+		if ($conn->get_data($sql) > 0){
+			$orgDt = $fromDt;
 		}
 	}
 
-	if ($seq < 1) $seq = 1;
+	if ($orgDt){
+		$sql = 'UPDATE	ltcf_insu_hist
+				SET		from_dt		= \''.$fromDt.'\'
+				,		to_dt		= \''.$toDt.'\'
+				,		nps_flag	= \''.$annuityYn.'\'
+				,		nhic_flag	= \''.$healthYn.'\'
+				,		ei_flag		= \''.$employYn.'\'
+				,		lai_flag	= \''.$sanjeYn.'\'
+				,		income_tax_off_flag		= \''.$PAYEYn.'\'
+				WHERE	org_no	= \''.$code.'\'
+				AND		ipin	= \''.$jumin.'\'
+				AND     from_dt = \''.$fromDt.'\'';
 
-	$sql = 'INSERT INTO mem_insu (
-			 org_no
-			,jumin
-			,seq
-			,from_dt
-			,to_dt
-			,annuity_yn
-			,health_yn
-			,employ_yn
-			,sanje_yn
-			,paye_yn) VALUES (
-			 \''.$code.'\'
-			,\''.$jumin.'\'
-			,\''.$seq.'\'
-			,\''.$fromDt.'\'
-			,\''.$toDt.'\'
-			,\''.$annuityYn.'\'
-			,\''.$healthYn.'\'
-			,\''.$employYn.'\'
-			,\''.$sanjeYn.'\'
-			,\''.$PAYEYn.'\'
-			)';
+		if (!$conn->execute($sql)){
+			 $conn->rollback();
+			 $conn->close();
+			 echo '9';
+			 exit;
+		}
 
-	if (!$conn->execute($sql)){
-		 $conn->rollback();
-		 $conn->close();
-		 echo '9';
-		 exit;
+		$conn->commit();
+		$conn->close();
+		exit;
+	}else {
+		$sql = 'INSERT INTO ltcf_insu_hist (
+				 org_no
+				,ipin
+				,from_dt
+				,to_dt
+				,nps_flag
+				,nhic_flag
+				,ei_flag
+				,lai_flag
+				,income_tax_off_flag) VALUES (
+				 \''.$code.'\'
+				,\''.$jumin.'\'
+				,\''.$fromDt.'\'
+				,\''.$toDt.'\'
+				,\''.$annuityYn.'\'
+				,\''.$healthYn.'\'
+				,\''.$employYn.'\'
+				,\''.$sanjeYn.'\'
+				,\''.$PAYEYn.'\'
+				)';
+		
+		if (!$conn->execute($sql)){
+			 $conn->rollback();
+			 $conn->close();
+			 echo '9';
+			 exit;
+		}
+
+		$conn->commit();
 	}
 
-	$conn->commit();
+
+
+	
 
 	include_once('../inc/_db_close.php');
 ?>

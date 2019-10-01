@@ -230,6 +230,7 @@
 	}
 
 </script>
+
 <table class="my_table" style="width:100%;">
 	<colgroup>
 		<col>

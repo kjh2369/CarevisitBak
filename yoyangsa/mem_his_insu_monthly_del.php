@@ -9,9 +9,9 @@
 	$yymm	= $_POST['ym'];
 
 	$sql = 'DELETE
-			FROM	mem_insu_monthly
+			FROM	ltcf_stnd_monthly
 			WHERE	org_no	= \''.$code.'\'
-			AND		jumin	= \''.$jumin.'\'
+			AND		ipin	= \''.$jumin.'\'
 			AND		yymm	= \''.$yymm.'\'';
 
 	$conn->begin();

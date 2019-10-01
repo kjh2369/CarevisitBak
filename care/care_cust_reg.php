@@ -122,8 +122,8 @@
 			,	'nm':$('#txtCustNm').val()
 			,	'gbn':$('input:radio[name="optGbn"]:checked').val()
 			,	'date':$('#txtDate').val()
-			,	'kindS':$('#chkKindS').attr('checked') ? 'Y' : 'N'
-			,	'kindW':$('#chkKindW').attr('checked') ? 'Y' : 'N'
+			,	'kindS':$('#chkKindS').prop('checked') ? 'Y' : 'N'
+			,	'kindW':$('#chkKindW').prop('checked') ? 'Y' : 'N'
 			,	'bizno':$('#txtBizno').val()
 			,	'manager':$('#txtManager').val()
 			,	'stat':$('#txtStat').val()
@@ -200,10 +200,12 @@
 </script>
 
 <form id="f" name="f" method="post">
-<div class="title title_border">자원 등록 및 변경</div>
-<table class="my_table" style="width:100%;">
+<div class="title">
+	<div>자원 등록 및 변경</div>
+</div>
+<table class="my_table my_border" style="width:100%;">
 	<colgroup>
-		<col width="70px">
+		<col width="90px">
 		<col width="150px">
 		<col width="70px">
 		<col>
@@ -280,7 +282,7 @@
 			<th>연락처</th>
 			<td><input id="txtPertel" name="txt" type="text" value="" class="phone"></td>
 		</tr>
-		<tr>
+		<!--tr>
 			<th>재가지원</th>
 			<td>
 				<input id="optSupportY" name="optSupport" type="radio" class="radio" value="Y"><label for="optSupportY">예</label>
@@ -291,9 +293,9 @@
 				<input id="optResourceY" name="optResource" type="radio" class="radio" value="Y"><label for="optResourceY">예</label>
 				<input id="optResourceN" name="optResource" type="radio" class="radio" value="N"><label for="optResourceN">아니오</label>
 			</td>
-		</tr>
+		</tr-->
 		<tr>
-			<td class="center bottom last" style="padding-top:10px;" colspan="10">
+			<td class="center bottom last" style="padding-top:10px;" colspan="4">
 				<span class="btn_pack m"><button type="button" onclick="lfNew();">신규</button></span>
 				<span class="btn_pack m"><button type="button" onclick="lfApply();">적용</button></span>
 				<span class="btn_pack m"><button type="button" onclick="self.close();">닫기</button></span><?

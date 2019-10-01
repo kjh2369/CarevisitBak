@@ -34,46 +34,41 @@
 		}).responseXML;
 	}
 </script>
-<table class="my_table" style="width:100%;">
+
+<div class="title title_border">
+	<div style="float:left; width:auto;">연계 및 의뢰서</div>
+	<div style="float:right; width:auto; padding-top:10px;">
+		<span class="btn_pack m"><button type="button" class="bold" onclick="location.href='../hce/hce_body.php?sr=<?=$sr;?>&type=92'">추가</button></span>
+		<span class="btn_pack m"><button type="button" class="bold" onclick="lfPDF('<?=$type;?>');">전체출력</button></span>
+	</div>
+</div>
+
+<table class="my_table my_border_blue" style="width:100%;">
 	<colgroup>
+		<col width="40px">
+		<col width="90px">
+		<col width="70px">
+		<col width="70px">
+		<col width="200px">
 		<col>
 	</colgroup>
-	<tbody>
+	<thead>
 		<tr>
-			<td class="right bottom last">
-				<span class="btn_pack m"><span class="add"></span><a href="../hce/hce_body.php?sr=<?=$sr;?>&type=92" target="frmBody">추가</a></span>
-				<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>');">전체출력</button></span>
-			</td>
+			<th class="head">No</th>
+			<th class="head">의뢰일자</th>
+			<th class="head">의뢰인</th>
+			<th class="head">관계</th>
+			<th class="head">의뢰기관</th>
+			<th class="head last">의뢰사유</th>
 		</tr>
-	</tbody>
-</table><?
-$colgroup = '	<col width="40px">
-				<col width="90px">
-				<col width="70px">
-				<col width="70px">
-				<col width="200px">
-				<col>';?>
-<div class="my_border_blue" style="border-bottom:none;">
-	<table class="my_table" style="width:100%;">
-		<colgroup><?=$colgroup;?></colgroup>
-		<thead>
-			<tr>
-				<th class="head">No</th>
-				<th class="head">의뢰일자</th>
-				<th class="head">의뢰인</th>
-				<th class="head">관계</th>
-				<th class="head">의뢰기관</th>
-				<th class="head last">의뢰사유</th>
-			</tr>
-		</thead>
-	</table>
-</div>
-<div id="divBody" class="my_border_blue" style="height:200px; overflow-x:hidden; overflow-y:auto; border-top:none;">
-	<table class="my_table" style="width:100%;">
-		<colgroup><?=$colgroup;?></colgroup>
-		<tbody id="tbodyList"></tbody>
-	</table>
-</div>
+	</thead>
+</table>
+
+<table class="my_table" style="width:100%;">
+	<colgroup><?=$colgroup;?></colgroup>
+	<tbody id="tbodyList"></tbody>
+</table>
+
 <?
 	include_once('../inc/_db_close.php');
 ?>

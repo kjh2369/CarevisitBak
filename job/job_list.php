@@ -43,7 +43,7 @@
 		var row_td_5  = document.createElement("td");
 
 		row_td_1.innerHTML  = '<input name="check[]" type="checkbox" class="checkbox" value="'+row_count+'">';
-		row_td_3.innerHTML  = '<input name="job_nm[]" type="text" style="width:92%;" onchange="__checkRow('+row_count+',\'check[]\');" maxlength="30">';
+		row_td_3.innerHTML  = '<input name="job_nm[]" type="text" style="width:100%;" onchange="__checkRow('+row_count+',\'check[]\');" maxlength="30">';
 		row_td_4.innerHTML  = '<input name="job_seq[]" type="text" class="number" onkeydown="__onlyNumber(this);" style="width:100%" value="'+max_seq+'" tag="'+max_seq+'" onchange="setSeq(this); __checkRow('+row_count+',\'check[]\');" maxlength="30">';
 
 

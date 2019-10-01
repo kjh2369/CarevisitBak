@@ -328,41 +328,35 @@
 		});
 	}
 </script>
-<table class="my_table" style="width:100%;">
-	<colgroup>
-		<col>
-	</colgroup>
-	<tbody>
-		<tr>
-			<td class="right bottom last">
-				<span class="btn_pack m"><span class="add"></span><a href="../hce/hce_body.php?sr=<?=$sr;?>&type=12" target="frmBody">신규</a></span>
-				<span class="btn_pack m"><span class="save"></span><a href="javascript:lfSave();">저장</a></span>
-				<span class="btn_pack m"><span class="list"></span><a href="javascript:lfList();">리스트</a></span>
-			</td>
-		</tr>
-	</tbody>
-</table>
-<div id="divBody" class="my_border_blue" style="height:100px; overflow-x:hidden; overflow-y:auto;">
-	<table class="my_table" style="width:100%;">
+<div class="title title_border">
+	<div style="float:left; width:auto;">신규 사례대상자 등록</div>
+	<div style="float:right; width:auto; padding-top:10px;">
+		<span class="btn_pack m"><button type="button" class="bold" onclick="location.href='../hce/hce_body.php?sr=<?=$sr;?>&type=12'">신규</button></span>
+		<span class="btn_pack m"><button type="button" class="bold" onclick="lfSave();">저장</button></span>
+		<span class="btn_pack m"><button type="button" class="bold" onclick="lfList();">리스트</button></span>
+	</div>
+</div>
+<!-- <div id="divBody" class="my_border_blue" style="height:100px; overflow-x:hidden; overflow-y:auto;"> -->
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup>
-			<col width="60px">
+			<col width="150px">
+			<col width="100px">
+			<col width="80px">
 			<col width="70px">
-			<col width="50px">
+			<col width="80px">
 			<col width="70px">
-			<col width="20px">
-			<col width="70px">
-			<col width="340px">
-			<col width="40px">
+			<col width="300px">
+			<col width="80px">
 			<col>
 		</colgroup>
 		<tbody>
 			<tr>
-				<th class="bold last" colspan="10">1. 접수정보</th>
+				<th class="bold last" colspan="9">1. 접수정보</th>
 			</tr>
 			<tr>
 				<th class="center">접수일자</th>
-				<td class="center">
-					<input id="txtRctDt" name="txtRctDt" type="text" value="<?=$myF->dateStyle($rctDt);?>" class="date">
+				<td class="">
+					<input id="txtRctDt" name="txtRctDt" type="text" value="<?=$myF->dateStyle($rctDt);?>" class="date" style="margin-right:0;">
 				</td>
 				<th class="center">접수자</th>
 				<td class="center last">
@@ -396,11 +390,11 @@
 		</tbody>
 	</table>
 
-	<table class="my_table" style="width:100%;">
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup>
-			<col width="40px">
+			<col width="50px">
 			<col width="90px">
-			<col width="60px">
+			<col width="80px">
 			<col width="140px">
 			<col width="50px">
 			<col width="40px">
@@ -412,7 +406,7 @@
 		</colgroup>
 		<tbody>
 			<tr>
-				<th class="bold last" colspan="20">2. 대상자정보(고유번호 : <?=$IPIN;?>)</th>
+				<th class="bold last" colspan="11">2. 대상자정보(고유번호 : <?=$IPIN;?>)</th>
 			</tr>
 			<tr>
 				<th class="center">성명</th>
@@ -553,12 +547,12 @@
 		</tbody>
 	</table>
 
-	<table class="my_table" style="width:100%;">
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup>
 			<col width="40px">
 			<col width="90px">
 			<col width="40px">
-			<col width="50px">
+			<col width="110px">
 			<col width="60px">
 			<col width="90px">
 			<col width="40px">
@@ -566,7 +560,7 @@
 		</colgroup>
 		<tbody>
 			<tr>
-				<th class="bold last" colspan="10">3. 보호자정보</th>
+				<th class="bold last" colspan="8">3. 보호자정보</th>
 			</tr>
 			<tr>
 				<th class="center">성명</th>
@@ -600,18 +594,18 @@
 		</tbody>
 	</table>
 
-	<table class="my_table" style="width:100%;">
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup>
 			<col width="40px">
 			<col width="90px">
 			<col width="40px">
-			<col width="50px">
+			<col width="110px">
 			<col width="60px">
 			<col>
 		</colgroup>
 		<tbody>
 			<tr>
-				<th class="bold last" colspan="10">4. 의뢰인정보</th>
+				<th class="bold last" colspan="6">4. 의뢰인정보</th>
 			</tr>
 			<tr>
 				<th class="center">성명</th>
@@ -647,14 +641,14 @@
 		</tbody>
 	</table>
 
-	<table class="my_table" style="width:100%;">
+	<table class="my_table my_border_blue" style="width:100%;">
 		<colgroup>
 			<col width="60px">
 			<col>
 		</colgroup>
 		<tbody>
 			<tr>
-				<th class="bold last" colspan="10">5. 상담내용</th>
+				<th class="bold last" colspan="2">5. 상담내용</th>
 			</tr>
 			<tr>
 				<th class="center bottom">상담내용</th>
@@ -667,7 +661,7 @@
 	<input id="txtNewYn" name="txtNewYn" type="hidden" value="<?=$isNew;?>">
 	<input id="txtRctJumin" name="txtRctJumin" type="hidden" value="<?=$rctJumin;?>">
 	<input id="txtRctSeq" name="txtRctSeq" type="hidden" value="<?=$rctSeq;?>">
-</div>
+<!-- </div> -->
 <?
 	include_once('../inc/_db_close.php');
 ?>

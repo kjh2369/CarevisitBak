@@ -252,6 +252,7 @@
 <table class="my_table" style="width:100%;">
 	<colgroup>
 		<col width="70px" span="2">
+		<col width="1100px">
 		<col>
 	</colgroup>
 	<tbody>

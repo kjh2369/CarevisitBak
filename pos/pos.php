@@ -32,8 +32,8 @@
 
 						html	+= '<tr class="clsRemove">';
 						html	+= '<th class="center">'+idx+'</th>';
-						html	+= '<td class="center"><input id="txtPos_'+idx+'" name="txt" type="text" style="width:100%;" value="'+col[1]+'"></td>';
-						html	+= '<td class="center"><input id="txtSeq_'+idx+'" name="txt" type="text" style="width:100%;" value="'+col[2]+'"></td>';
+						html	+= '<td class="center"><input id="txtPos_'+idx+'" name="txt" type="text" style="width:92%;" value="'+col[1]+'"></td>';
+						html	+= '<td class="center"><input id="txtSeq_'+idx+'" name="txt" type="text" style="width:92%;" value="'+col[2]+'"></td>';
 						html	+= '<td class="center"><span class="btn_pack small"><a href="#" onclick="lfAdd(\''+idx+'\'); return false;">수정</a></span></td>';
 						html	+= '<td class="center"><span class="btn_pack small"><a href="#" onclick="lfDelete(\''+idx+'\'); return false;">삭제</a></span></td>';
 						html	+= '<td class="center last">';
@@ -132,7 +132,7 @@
 </div>
 <table class="my_table my_border" width="100%">
 	<colgroup>
-		<col width="40px">
+		<col width="50px">
 		<col width="150px">
 		<col width="50px">
 		<col width="70px" span="2">
@@ -150,8 +150,8 @@
 		</tr>
 		<tr>
 			<th class="center">추가</th>
-			<td class="center"><input id="txtPos" name="txt" type="text" style="width:100%;" value=""></td>
-			<td class="center"><input id="txtSeq" name="txt" type="text" style="width:100%;" value="1"></td>
+			<td class="center"><input id="txtPos" name="txt" type="text" style="width:92%;" value=""></td>
+			<td class="center"><input id="txtSeq" name="txt" type="text" style="width:92%;" value="1"></td>
 			<td class="center"><span class="btn_pack small"><a href="#" onclick="lfAdd(); return false;">추가</a></span></td>
 			<td class="center last" colspan="2"></td>
 		</tr>

@@ -63,7 +63,7 @@
 		
 
 		row_td_1.innerHTML  = '<input name="checkDept[]" type="checkbox" class="checkbox" value="'+row_count+'">';
-		row_td_3.innerHTML  = '<input name="dept_nm[]" type="text" style="width:92%;" onchange="__checkRow('+row_count+',\'checkDept[]\');" value="" maxlength="30">';
+		row_td_3.innerHTML  = '<input name="dept_nm[]" type="text" style="width:100%;" onchange="__checkRow('+row_count+',\'checkDept[]\');" value="" maxlength="30">';
 		row_td_4.innerHTML  = '<input name="order_seq[]" type="text" class="number" onkeydown="__onlyNumber(this);" style="width:100%" value="'+max_seq+'" tag="'+max_seq+'" onchange="setSeq(this); __checkRow('+row_count+',\'checkDept[]\');" maxlength="30">';
 
 		row_td_1.className = 'center';
@@ -196,7 +196,7 @@
 <form name="f" method="post">
 <div class="title">
 	<div style="width:auto; float:left;">부서관리</div>
-	<div style="width:100%; padding-top:8px; text-align:right;">
+	<div style="width:100%; padding-top:7px; text-align:right;">
 		<span class="btn_pack m"><button type="button" onClick="new_row();">추가</button></span>
 		<span class="btn_pack m"><button type="button" onClick="del();">삭제</button></span>
 		<span class="btn_pack m"><button type="button" onClick="save();">저장</button></span>

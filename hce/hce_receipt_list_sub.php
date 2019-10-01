@@ -1,7 +1,9 @@
 <?
-	include_once('../inc/_header.php');
-	include_once("../inc/_page_list.php");
+	include_once('../inc/_db_open.php');
+	include_once('../inc/_http_uri.php');
+	include_once('../inc/_myFun.php');
 	include_once('../inc/_ed.php');
+
 
 	/*********************************************************
 	 *	사례접수일지
@@ -16,7 +18,7 @@
 	if (!$strTo) $strTo = $strFrom;
 
 	$orgNo = $_SESSION['userCenterCode'];
-	$sr = $_GET['sr'];
+	$sr = $_POST['sr'];
 
 	//접수방법
 	$sql = 'SELECT	code,name
@@ -25,147 +27,7 @@
 
 	$rctGbn = $conn->_fetch_array($sql,'code');
 
-	$itemCnt = 20;
-	$pageCnt = 10;
-	$page = $_REQUEST['page'];
-
-	if (Empty($page)){
-		$page = 1;
-	}
-
-	$sql = 'SELECT	COUNT(DISTINCT IPIN)
-			FROM	hce_receipt
-			INNER	JOIN	m03sugupja
-					ON		m03_ccode	= org_no
-					AND		m03_mkind	= \'6\'
-					AND		m03_key		= IPIN';
-
-	if ($strName){
-		$sql .= '	AND		m03_name >= \''.$strName.'\'';
-	}
-
-	$sql .= '
-			WHERE	org_no	= \''.$orgNo.'\'
-			AND		org_type= \''.$sr.'\'
-			AND		del_flag= \'N\'';
-
-	if ($strFrom && $strTo){
-		$sql .= '
-			AND		rcpt_dt >= \''.$strFrom.'\'
-			AND		rcpt_dt <= \''.$strTo.'\'';
-	}
-
-	if ($strEndYn){
-		$sql .= '
-			AND		end_flag = \''.$strEndYn.'\'';
-	}
-
-	$totCnt = $conn->get_data($sql);
-
-	// 전체 갯수가 현재페이지 리스트 갯수보다 작으면
-	if ($totCnt < (IntVal($page) - 1) * $itemCnt){
-		$page = 1;
-	}
-
-	$params = array(
-		'curMethod'		=> 'post',
-		'curPage'		=> 'javascript:lfSearch',
-		'curPageNum'	=> $page,
-		'pageVar'		=> 'page',
-		'extraVar'		=> '',
-		'totalItem'		=> $totCnt,
-		'perPage'		=> $pageCnt,
-		'perItem'		=> $itemCnt,
-		'prevPage'		=> '[이전]',
-		'nextPage'		=> '[다음]',
-		'prevPerPage'	=> '[이전'.$pageCnt.'페이지]',
-		'nextPerPage'	=> '[다음'.$pageCnt.'페이지]',
-		'firstPage'		=> '[처음]',
-		'lastPage'		=> '[끝]',
-		'pageCss'		=> 'page_list_1',
-		'curPageCss'	=> 'page_list_2'
-	);
-
-	$pageCount = (intVal($page) - 1) * $itemCnt;
 ?>
-<script type="text/javascript">
-	function lfSeqList(obj,IPIN){
-		/*
-		$.ajax({
-			type:'POST'
-		,	url:'./hce_receipt_list_sub_seqlist.php'
-		,	data:{
-				'SR'	:'<?=$sr;?>'
-			,	'IPIN'	:IPIN
-			}
-		,	beforeSend:function(){
-			}
-		,	success:function(data){
-				var row = data.split(String.fromCharCode(11));
-				var html = '';
-
-				for(var i=0; i<row.length; i++){
-					if (row[i]){
-						var col = __parseVal(row[i]);
-
-						html += '<tr style="cursor:pointer;" onmouseover="this.style.backgroundColor=\'#B2CCFF\';" onmouseout="this.style.backgroundColor=\'#D9E5FF\';" onclick="top.frames[\'frmTop\'].lfTarget(\''+IPIN+'\',\''+col['seq']+'\'); $(\'#divSeqList\').hide();">';
-						html += '<td class="center">'+col['no']+'</td>';
-						html += '<td class="center">'+col['type']+'</td>';
-						html += '<td class="center">'+__getDate(col['date'],'.')+'</td>';
-						html += '<td class="center">'+col['reqorNm']+'</td>';
-						html += '<td class="center">'+col['reqorTel']+'</td>';
-						html += '<td class="center">'+col['rcverNm']+'</td>';
-						html += '<td class="center last">'+(col['endYn'] == 'Y' ? '<span style="color:red;">종결</span>' : '미결')+'</td>';
-						html += '</tr>';
-					}
-				}
-
-				$('#tbodySeqList').html(html);
-				$('#divSeqList').css('left',$(obj).offset().left).css('top',$(obj).offset().top+$(obj).height()).show();
-			}
-		,	complite:function(result){
-			}
-		,	error:function(){
-			}
-		}).responseXML;
-		*/
-
-		$('tr[id^="row_"]').hide();
-		$('tr[id="row_'+IPIN+'"]').show();
-	}
-
-	function lfDelete(IPIN,seq){
-		if (!confirm('삭제 후 복구가 불가능합니다.\n정말로 삭제하시겠습니까?')) return;
-
-		$.ajax({
-			type:'POST'
-		,	url:'./hce_receipt_list_sub_delete.php'
-		,	data:{
-				'SR'	:'<?=$sr;?>'
-			,	'IPIN'	:IPIN
-			,	'seq'	:seq
-			}
-		,	beforeSend:function(){
-			}
-		,	success:function(result){
-				if (result == 1){
-					alert('정상적으로 처리되었습니다.');
-					top.frames['frmTop'].lfTarget('','');
-					top.frames['frmLeft'].lfHideMenu();
-					parent.lfPage('<?=$page;?>');
-				}else if (result == 9){
-					alert('처리중 오류가 발생하였습니다. 잠시 후 다시 시도하여 주십시오.');
-				}else{
-					alert(result);
-				}
-			}
-		,	complite:function(result){
-			}
-		,	error:function(){
-			}
-		}).responseXML;
-	}
-</script>
 <table class="my_table" style="width:100%;">
 	<colgroup>
 		<col width="40px">
@@ -226,8 +88,7 @@
 		}
 
 		$sql .= '
-				ORDER	BY name
-				LIMIT	'.$pageCount.','.$itemCnt;
+				ORDER	BY name';
 
 		$r = $conn->_fetch_array($sql);
 		$rCnt = SizeOf($r);
@@ -318,31 +179,12 @@
 
 		if ($rCnt == 0){?>
 			<tr>
-				<td class="center last" colspan="20">::검색된 데이타가 없습니다.::</td>
+				<td class="center last" colspan="11">::검색된 데이타가 없습니다.::</td>
 			</tr><?
-		}else{
-			$paging = new YsPaging($params);
-			$pageList = $paging->returnPaging();?>
-			<script type="text/javascript">
-				$('#pageList',parent.document).html('<?=$pageList;?>');
-			</script><?
 		}?>
 	</tbody>
 </table>
-<div id="divSeqList" style="position:absolute; width:auto; background-color:#D9E5FF; border:1px solid #cccccc; border-bottom:none; display:none;">
-	<table class="my_table" style="width:auto;">
-		<colgroup>
-			<col width="40px">
-			<col width="50px">
-			<col width="70px">
-			<col width="130px">
-			<col width="90px">
-			<col width="60px">
-			<col width="40px">
-		</colgroup>
-		<tbody id="tbodySeqList"></tbody>
-	</table>
-</div>
+
 <?
-	include_once('../inc/_footer.php');
+	include_once('../inc/_db_close.php');
 ?>

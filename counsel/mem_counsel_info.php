@@ -6,7 +6,7 @@
 <table class="my_table" style="width:100%;">
 	<colgroup>
 		<col width="105px">
-		<col width="70px">
+		<col width="80px">
 		<col width="80px">
 		<col width="200px">
 		<col width="70px">
@@ -46,7 +46,7 @@
 				if ($view_type == 'read'){
 					echo '<div class=\'left\'>'.$myF->phoneStyle($mem['mem_phone']).'</div>';
 				}else{?>
-					<input name="counsel_phone" type="text" tabindex="11" value="<?=$myF->phoneStyle($mem['mem_phone']);?>" maxlength="11" class="phone" onkeydown="__onlyNumber(this);"><?
+					<input name="counsel_phone" type="text" tabindex="11" value="<?=$myF->phoneStyle($mem['mem_phone']);?>" maxlength="11"class="iw200" onkeydown="__onlyNumber(this);"><?
 				}
 			?>
 			</td>
@@ -68,8 +68,8 @@
 				if ($view_type == 'read'){
 					echo '<div class=\'left\'>'.$myF->phoneStyle($mem['mem_mobile']).'</div>';
 				}else{?>
-					<input name="counsel_mobile" type="text" tabindex="11" value="<?=$myF->phoneStyle($mem['mem_mobile']);?>" maxlength="11" class="phone" onkeydown="__onlyNumber(this);" style="margin-right:0;">
-					<input name="counsel_mobile_modelno" type="text" tabindex="11" value="<?=$myF->phoneStyle($mem['mem_mobile_modelno']);?>" style="margin-left:0;"><?
+					<input name="counsel_mobile" type="text" tabindex="11" value="<?=$myF->phoneStyle($mem['mem_mobile']);?>" maxlength="11"class="iw200" onkeydown="__onlyNumber(this);" style="margin-right:0;">
+					<!--input name="counsel_mobile_modelno" type="text" tabindex="11" value="<?=$myF->phoneStyle($mem['mem_mobile_modelno']);?>" style="margin-left:0;"--><?
 				}
 			?>
 			</td>
@@ -103,7 +103,7 @@
 				if ($view_type == 'read'){
 					echo '<div class=\'left\'>'.$mem['mem_email'].'</div>';
 				}else{?>
-					<input name="counsel_email" type="text" tabindex="11" value="<?=$mem['mem_email'];?>" style="width:100%;"><?
+					<input name="counsel_email" type="text" tabindex="11" value="<?=$mem['mem_email'];?>"class="iw200"><?
 				}
 			?>
 			</td>

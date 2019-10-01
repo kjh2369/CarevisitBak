@@ -135,10 +135,12 @@
 	}
 </script>
 <form id="f" name="f" method="post">
-<div class="title title_border">급여보수신고급여변경</div>
-<table class="my_table" style="width:100%;">
+<div class="title">
+<div>급여보수신고급여변경</div>
+</div>
+<table class="my_table my_border" style="width:100%;">
 	<colgroup>
-		<col width="60px">
+		<col width="80px">
 		<col width="130px">
 		<col>
 	</colgroup>
@@ -146,7 +148,7 @@
 		<tr>
 			<th>금액</th>
 			<td>
-				<input id="txtMonthly" name="txt" type="text" value="0" class="number" style="width:70px;">
+				<input id="txtMonthly" name="txt" type="text" value="0" class="number" >
 			</td>
 			<td class="left" rowspan="2">
 				<span class="btn_pack m"><button type="button" onclick="lfApply();">적용</button></span><br>
@@ -161,8 +163,8 @@
 		</tr>
 	</tbody>
 </table>
-<div class="title title_border">변경이력</div>
-<table class="my_table" style="width:100%;">
+<div class="title"><div>변경이력</div></div>
+<table class="my_table my_border" style="width:100%;">
 	<colgroup>
 		<col width="30px">
 		<col width="70px" span="2">
@@ -178,12 +180,13 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td class="top" colspan="20">
+			<td class="top" colspan="4" style="margin:0; padding:0;">
 				<div style="overflow-x:hidden; overflow-y:scroll; height:286px;">
 					<table class="my_table" style="width:100%;">
 						<colgroup>
 							<col width="30px">
-							<col width="70px" span="2">
+							<col width="70px">
+							<col width="70px">
 							<col>
 						</colgroup>
 						<tbody id="tbodyList"></tbody>

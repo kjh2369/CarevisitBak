@@ -16,8 +16,8 @@
 
 		//setTimeout('lfLoad()',150);
 		//setTimeout('lfLoadResource()',200);
-		setTimeout('lfInit()',150);
-		setTimeout('lfGetCust(\''+opener.cust+'\')',250);
+		lfInit();
+		lfGetCust(opener.cust);
 	});
 
 	//서비스 로드
@@ -38,7 +38,7 @@
 
 				var col = __parseVal(data);
 
-				lfCareSvcFindResult(col['cd'],'','','',col['nm']);
+				lfCareSvcFindResult(col['cd'],col['nm1'],col['nm2'],col['nm3']);
 
 				$('#txtCost').val(__num2str(col['cost']));
 				$('#txtFromDt').val(col['from']);
@@ -336,16 +336,18 @@
 		form.submit();
 	}
 
-	function lfCareSvcFindResult(cd,mstNm,proNm,svcNm,subNm){
-		$('#lblSvcCd').attr('code',cd).text(subNm);
+	function lfCareSvcFindResult(cd,mstNm,proNm,svcNm){
+		$('#lblSvcCd').attr('code',cd).text(mstNm+'/'+proNm+'/'+svcNm);
 	}
 </script>
 
 <form id="f" name="f" method="post">
-<div class="title title_border">서비스</div>
-<table class="my_table" style="width:100%;">
+<div class="title">
+	<div>서비스</div>
+</div>
+<table class="my_table my_border" style="width:100%;">
 	<colgroup>
-		<col width="50px">
+		<col width="70px">
 		<col>
 	</colgroup>
 	<tbody>
@@ -353,7 +355,7 @@
 			<th>서비스</th>
 			<td>
 				<!--select id="cboSvc" name="cboSvc" style="width:auto;"></select-->
-				<span id="btnSvcCd" class="btn_pack find" style="margin-left:2px; margin-top:1px;" onclick="lfCareSvcFind();"></span>
+				<button onclick="lfCareSvcFind();">찾기</button>
 				<span id="lblSvcCd" code="" style="height:25px; line-height:25px; margin-left:5px;"></span>
 			</td>
 		</tr>
@@ -372,10 +374,10 @@
 		</tr>
 	</tbody>
 </table>
-<div id="lsTitle" class="title title_border">자원연결</div>
-<table class="my_table" style="width:100%;">
+<div id="lsTitle" class="title"><div>자원연결</div></div>
+<table class="my_table my_border" style="width:100%;">
 	<colgroup>
-		<col width="70px">
+		<col width="90px">
 		<col width="150px">
 		<col width="70px">
 		<col>
@@ -384,8 +386,8 @@
 		<tr>
 			<th>거래처코드</th>
 			<td>
-				<div style="float:left; width:auto; height:25px; padding-left:2px; padding-top:1px;"><span class="btn_pack find" onclick="lfFindCust();"></span></div>
-				<div style="float:left; width:auto;"><span id="lblCustCd" class="bold"></span></div>
+				<button onclick="lfFindCust();">찾기</button>
+				<span id="lblCustCd" class="bold"></span>
 			</td>
 			<th>구분</th>
 			<td class="left" id="lblGbn"></td>

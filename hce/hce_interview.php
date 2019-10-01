@@ -802,22 +802,16 @@
 </script><?
 
 if ($IsHCE){?>
-	<table class="my_table" style="width:100%;">
-		<colgroup>
-			<col>
-		</colgroup>
-		<tbody>
-			<tr>
-				<td class="right bottom last">
-					<span class="btn_pack m"><span class="save"></span><button type="button" class="bold" onclick="lfSave(); return false;">저장</button></span>
-					<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>');">출력</button></span>
-				</td>
-			</tr>
-		</tbody>
-	</table><?
+	<div class="title title_border">
+		<div style="float:left; width:auto;">초기면접기록지출력(빈양식)</div>
+		<div style="float:right; width:auto; padding-top:10px;">
+			<span class="btn_pack m"><span class="save"></span><button type="button" class="bold" onclick="lfSave(); return false;">저장</button></span>
+			<span class="btn_pack m"><span class="pdf"></span><button type="button" onclick="lfPDF('<?=$type;?>');">출력</button></span>
+		</div>
+	</div><?
 }else{?>
 	<div class="title title_border">
-		<div style="float:left; width:auto;">초기상담기록지</div>
+		<div style="float:left; width:auto;">초기면접기록</div>
 		<div style="float:right; width:auto; padding-top:10px;"><?
 			if($hceReceipt > 0){ 
 				if($hceInterviewCnt == 0){?>
@@ -833,27 +827,28 @@ if ($IsHCE){?>
 }
 
 if ($IsHCE){?>
-	<div class="my_border_blue" style="border-bottom:none;"><?
+	<!-- <div class="my_border_blue" style="border-bottom:none;"> -->
+	<?
 }?>
 
-<table class="my_table" style="width:100%;">
+<table class="my_table my_border_blue" style="width:100%;">
 	<colgroup>
-		<col width="50px">
-		<col width="50px"><?
+		<col width="60px">
+		<col width="100px"><?
 		if (!$IsHCE){?>
 			<col width="50px">
 			<col width="70px">
 			<col width="20px"><?
 		}?>
-		<col width="50px">
+		<col width="60px">
 		<col width="70px">
 		<col width="20px">
 		<col>
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="center">면접일</th>
-			<td class="center">
+			<th class="head"">면접일</th>
+			<td class="left">
 				<input id="txtIVDt" name="txt" type="text" value="<?=$ivDt;?>" class="date">
 			</td><?
 
@@ -867,14 +862,14 @@ if ($IsHCE){?>
 				</td><?
 			}?>
 
-			<th class="center">담당자</th>
-			<td class="center last">
+			<th class="head">담당자</th>
+			<td class="left">
 				<input id="txtIVer" name="txt" type="text" value="" jumin="" style="width:100%; border:none;" alt="not" readonly>
 			</td>
-			<td class="center">
+			<td class="left">
 				<span class="btn_pack find" onclick="lfMemFind();"></span>
 			</td>
-			<td class="center last"><?
+			<td class="left last"><?
 				if ($IsHCE){
 					if ($basicInterviewCnt > 0){?>
 						<div class="right">
@@ -895,7 +890,7 @@ if ($IsHCE){?>
 	</tbody>
 </table>
 
-<table class="my_table" style="width:100%;">
+<table class="my_table my_border_blue" style="width:100%;">
 	<colgroup>
 		<col width="40px">
 		<col width="80px">
@@ -912,7 +907,7 @@ if ($IsHCE){?>
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="left bold last" colspan="20">1. 기본사항</th>
+			<th class="left bold last" colspan="12">1. 기본사항</th>
 		</tr>
 	</tbody>
 	<tbody>
@@ -941,10 +936,11 @@ if ($IsHCE){?>
 
 if ($IsHCE){?>
 	</div>
-	<div id="divBody" class="my_border_blue" style="border-top:none; height:200px; overflow-x:hidden; overflow-y:scroll;"><?
+	<!-- <div id="divBody" class="my_border_blue" style="border-top:none; height:200px; overflow-x:hidden; overflow-y:scroll;"> -->
+	<?
 }?>
 
-<table class="my_table" style="width:100%;">
+<table class="my_table my_border_blue" style="width:100%;">
 	<colgroup>
 		<col width="71px">
 		<col width="80px">
@@ -958,7 +954,7 @@ if ($IsHCE){?>
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">2. 가족사항</th>
+			<th class="bold last" colspan="9">2. 가족사항</th>
 		</tr>
 		<tr>
 			<th class="head">관계</th>
@@ -976,19 +972,19 @@ if ($IsHCE){?>
 	</tbody>
 	<tbody id="tbodyFamily">
 		<tr class="removeRow">
-			<td class="right last" colspan="10">※추가버튼을 클릭하여 가족구성원을 추가하여 주십시오.</td>
+			<td class="right last" colspan="9">※추가버튼을 클릭하여 가족구성원을 추가하여 주십시오.</td>
 		</tr>
 	</tbody>
 </table>
 
-<table class="my_table" style="width:100%;">
+<table class="my_table my_border_blue" style="width:100%;">
 	<colgroup>
 		<col width="80px">
 		<col>
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">3. 생활상태</th>
+			<th class="bold last" colspan="2">3. 생활상태</th>
 		</tr>
 	</tbody>
 	<tbody>
@@ -1019,7 +1015,7 @@ if ($IsHCE){?>
 		</tr>
 		<tr>
 			<td class="last">
-				<table class="my_table" style="width:100%;">
+				<table class="my_table my_border_blue" style="width:100%;">
 					<colgroup>
 						<col width="50px">
 						<col width="70px">
@@ -1028,7 +1024,7 @@ if ($IsHCE){?>
 					</colgroup>
 					<tbody>
 						<tr>
-							<th class="center bottom">월소득</th>
+							<th class="center bottom" colspan="4">월소득</th>
 							<td class="bottom">
 								<input id="txtMonthly" name="txt" type="text" value="0" style="width:70px;" class="number">
 							</td>
@@ -1117,7 +1113,7 @@ if ($IsHCE){?>
 		</tr>
 		<tr>
 			<td class="last">
-				<table class="my_table" style="width:auto;">
+				<table class="my_table my_border_blue" style="width:auto;">
 					<colgroup>
 						<col width="50px">
 						<col width="120px">
@@ -1126,7 +1122,7 @@ if ($IsHCE){?>
 					</colgroup>
 					<tbody>
 						<tr>
-							<th class="center bottom">보증금</th>
+							<th class="center bottom" colspan="4">보증금</th>
 							<td class="bottom">
 								<input id="txtDepositAmt" name="txt" type="text" value="0" style="width:70px; background-color:#efefef;" class="number" disabled="true">만원
 							</td>
@@ -1142,14 +1138,14 @@ if ($IsHCE){?>
 	</tbody>
 </table>
 
-<table class="my_table" style="width:100%;">
+<table class="my_table my_border_blue" style="width:100%;">
 	<colgroup>
 		<col width="80px">
 		<col>
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">4. 신체상태</th>
+			<th class="bold last" colspan="2">4. 신체상태</th>
 		</tr>
 	</tbody>
 	<tbody>
@@ -1212,7 +1208,7 @@ if ($IsHCE){?>
 		</tr>
 		<tr>
 			<td class="last">
-				<table class="my_table" style="width:100%;">
+				<table class="my_table my_border_blue" style="width:100%;">
 					<colgroup>
 						<col width="70px">
 						<col>
@@ -1281,14 +1277,14 @@ if ($IsHCE){?>
 	</tbody>
 </table>
 
-<table class="my_table" style="width:100%;">
+<table class="my_table my_border_blue" style="width:100%;">
 	<colgroup>
 		<col width="80px">
 		<col>
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">5. 타 서비스 이용 현황(생태도 생성시 사용됩니다. ","로 구분하여 서비스명을 입력하여 주십시오.)</th>
+			<th class="bold last" colspan="2">5. 타 서비스 이용 현황(생태도 생성시 사용됩니다. ","로 구분하여 서비스명을 입력하여 주십시오.)</th>
 		</tr>
 	</tbody>
 	<tbody>
@@ -1307,13 +1303,13 @@ if ($IsHCE){?>
 	</tbody>
 </table>
 
-<table class="my_table" style="width:100%;">
+<table class="my_table my_border_blue" style="width:100%;">
 	<colgroup>
 		<col>
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">6. 신청서비스(영역별 구분까지)</th>
+			<th class="bold last" colspan="1">6. 신청서비스(영역별 구분까지)</th>
 		</tr>
 	</tbody>
 	<tbody>
@@ -1386,19 +1382,19 @@ if ($IsHCE){?>
 	</tbody>
 </table>
 
-<table class="my_table" style="width:100%;">
+<table class="my_table my_border_blue" style="width:100%;">
 	<colgroup>
 		<col width="80px">
 		<col>
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">7. 서비스제공여부</th>
+			<th class="bold last" colspan="2">7. 서비스제공여부</th>
 		</tr>
 	</tbody>
 	<tbody>
 		<tr>
-			<th class="center">서비스제공<br>여부</th>
+			<th class="center" >서비스제공<br>여부</th>
 			<td class="last">
 				<table class="my_table" style="width:100%;">
 					<colgroup>
@@ -1520,12 +1516,12 @@ if ($IsHCE){?>
 	</tbody>
 </table>
 
-<table class="my_table" style="width:100%;">
+<table class="my_table my_border_blue" style="width:100%;">
 	<colgroup>
 		<col width="80px">
 		<col width="70px">
 		<col width="30px">
-		<col width="50px">
+		<col width="110px">
 		<col width="60px">
 		<col width="90px">
 		<col width="70px">
@@ -1533,7 +1529,7 @@ if ($IsHCE){?>
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">8. 의뢰인</th>
+			<th class="bold last" colspan="8">8. 의뢰인</th>
 		</tr>
 	</tbody>
 	<tbody>
@@ -1594,13 +1590,13 @@ if ($IsHCE){?>
 	</tbody>
 </table>
 
-<table class="my_table" style="width:100%;">
+<table class="my_table my_border_blue" style="width:100%;">
 	<colgroup>
 		<col>
 	</colgroup>
 	<tbody>
 		<tr>
-			<th class="bold last" colspan="20">9. 비고</th>
+			<th class="bold last" colspan="1">9. 비고</th>
 		</tr>
 	</tbody>
 	<tbody>
